@@ -1,4 +1,4 @@
-package be.uhasselt.databasesproject;
+package be.uhasselt.databasesproject.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

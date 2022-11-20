@@ -37,6 +37,13 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    //implementation 'org.jdbi:jdbi3-core:3.34.0'
+    //implementation 'org.jdbi:jdbi3-sqlobject:3.34.0'
+    implementation 'org.jdbi:jdbi3-sqlite:3.34.0'
+
+    implementation 'org.xerial:sqlite-jdbc:3.39.4.1'
+
 }
 
 test {

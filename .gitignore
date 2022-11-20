@@ -1,3 +1,6 @@
+### database ###
+src/main/resources/be/uhasselt/databasesproject/project.sqlite3
+
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
