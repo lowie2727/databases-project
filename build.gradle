@@ -44,6 +44,8 @@ dependencies {
 
     implementation 'org.xerial:sqlite-jdbc:3.39.4.1'
 
+    implementation('org.slf4j:slf4j-nop:2.0.3')
+
 }
 
 test {
