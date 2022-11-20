@@ -1,8 +1,8 @@
 package be.uhasselt.databasesproject;
 
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
-import be.uhasselt.databasesproject.jdbi.LoperJdbi;
-import be.uhasselt.databasesproject.model.Loper;
+import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
+import be.uhasselt.databasesproject.model.Runner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,30 +25,27 @@ public class Main extends Application {
 
         ConnectionManager.initTables();
 
-        LoperJdbi loperJdbi = new LoperJdbi(ConnectionManager.ConnectionString);
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.ConnectionString);
 
-        // loper tabel ophalen
-        List<Loper> lopers = loperJdbi.getLopers();
-        System.out.println("-------Lijst1-------");
-        for (Loper loper : lopers) {
-            System.out.println(loper);
+        List<Runner> runnersBeforeInsert = runnerJdbi.getRunners();
+        System.out.println("initial list");
+        for (Runner r : runnersBeforeInsert) {
+            System.out.println(r);
         }
 
-        // loper inserten in loper tabel
-        Loper loper = new Loper(6, "Joe", "Biden", 100, 60.0F, 160.0F, "Pennsylvania Avenue NW", "1600", null, "DC 20500", "Washington", "Verenigde Staten");
-        loperJdbi.insertLoper(loper);
+        Runner runner = new Runner(6, "Joe", "Biden", 100, 60.0F, 160.0F, "Pennsylvania Avenue NW", "1600", null, "DC 20500", "Washington", "Verenigde Staten");
+        runnerJdbi.insertRunner(runner);
 
-        lopers = loperJdbi.getLopers();
-        System.out.println("\n-------Lijst2-------");
-        for (Loper l : lopers) {
-            System.out.println(l);
+        List<Runner> runnersAfterInsert = runnerJdbi.getRunners();
+        System.out.println("\nafter insert");
+        for (Runner r : runnersAfterInsert) {
+            System.out.println(r);
         }
 
-        // loper zoeken op naam
-        List<Loper> lopers2 = loperJdbi.getLoperByName("Joe");
-        System.out.println("\n-------Lijst3-------");
-        for (Loper l : lopers2) {
-            System.out.println(l);
+        List<Runner> runnersAfterFilter = runnerJdbi.getRunnerByFirstName("Joe");
+        System.out.println("\nfilter Joe");
+        for (Runner r : runnersAfterFilter) {
+            System.out.println(r);
         }
 
         launch();

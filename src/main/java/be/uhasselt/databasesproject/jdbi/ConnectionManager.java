@@ -16,8 +16,9 @@ public class ConnectionManager {
             var sql = new String(Files.readAllBytes(Paths.get(uri)));
 
             jdbi.useHandle(handle -> handle.createScript(sql).execute());
+            System.out.println("file loaded");
         } catch (Exception e) {
-            System.out.println("kan bestand niet inladen");
+            System.out.println("cannot load file");
         }
     }
 }

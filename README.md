@@ -1,16 +1,16 @@
 # databases-project
 
-Loopwedstrijd
+Running Race
 
 ## JavaFX setup
 
-eerst [JavaFX SDK 19 downloaden](https://gluonhq.com/products/javafx/)
+first [download JavaFX SDK 19](https://gluonhq.com/products/javafx/)
 
-daarna bij run configuratie "Edit Configurations..." -> "Modify options" -> "Add VM options"
+then under run configuration "Edit Configurations..." -> "Modify options" -> "Add VM options"
 ```bash
---module-path uw\eigen\locatie\javafx-sdk-19\lib --add-modules=javafx.controls,javafx.fxml
+--module-path your\own\path\javafx-sdk-19\lib --add-modules=javafx.controls,javafx.fxml
 ```
 
-## schema
+## diagram
 
-![schema](/schema/schema.svg)
+![diagram](/diagram/diagram.svg)
