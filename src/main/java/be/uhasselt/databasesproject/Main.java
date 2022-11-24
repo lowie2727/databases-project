@@ -12,11 +12,19 @@ import java.io.IOException;
 import java.util.List;
 
 public class Main extends Application {
+
+    private static Stage rootStage;
+
+    public static Stage getRootStage(){
+        return rootStage;
+    }
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        rootStage = stage;
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainMenu.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        stage.setTitle("Main Menu");
         stage.setScene(scene);
         stage.show();
     }
