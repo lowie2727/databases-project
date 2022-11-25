@@ -16,7 +16,6 @@ public class Runner {
     private String country;
 
     public Runner() {
-
     }
 
     public Runner(int id, String firstName, String familyName, int age, double weight, double length, String streetName, String houseNumber, String boxNumber, String postalCode, String city, String country) {
@@ -37,6 +36,10 @@ public class Runner {
     @Override
     public String toString() {
         return id + " " + firstName + " " + familyName;
+    }
+
+    public String[] getStringList() {
+        return new String[]{Integer.toString(id), firstName, familyName, Integer.toString(age), Double.toString(weight), Double.toString(length), streetName, houseNumber, boxNumber, postalCode, city, country};
     }
 
     public int getId() {

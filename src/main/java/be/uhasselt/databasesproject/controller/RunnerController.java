@@ -1,9 +1,14 @@
 package be.uhasselt.databasesproject.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import be.uhasselt.databasesproject.jdbi.ConnectionManager;
+import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
+import be.uhasselt.databasesproject.model.Runner;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -52,6 +57,17 @@ public class RunnerController {
         runnerTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         runnerTableView.getColumns().clear();
 
+        setColumnNames();
+
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.ConnectionString);
+        List<Runner> runners = runnerJdbi.getRunners();
+
+        for (Runner r : runners) {
+            runnerTableView.getItems().add(FXCollections.observableArrayList(r.getStringList()));
+        }
+    }
+
+    private void setColumnNames() {
         int columnIndex = 0;
         for (var columnName : new String[]{"id", "firstName", "familyName", "age", "weight", "length", "streetName", "houseNumber", "boxNumber", "postalCode", "city", "country"}) {
             TableColumn<ObservableList<String>, String> column = new TableColumn<>(columnName);
@@ -60,7 +76,6 @@ public class RunnerController {
             runnerTableView.getColumns().add(column);
             columnIndex++;
         }
-        //TODO data van database inladen
     }
 
     private void addNewRow() {

@@ -1,5 +1,5 @@
 ### database ###
-src/main/resources/be/uhasselt/databasesproject/project.sqlite3
+src/main/resources/database/project.sqlite3
 
 ### diagram ###
 /diagram/.$diagram.xml.bkp

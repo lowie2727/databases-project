@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="980.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="be.uhasselt.databasesproject.controller.RunnerController">
-   <children>
-      <Text fx:id="runnerText" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Runner Table" />
-      <TableView fx:id="runnerTableView" layoutX="14.0" layoutY="31.0" prefHeight="310.0" prefWidth="950.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
-      <Button fx:id="runnerAddButton" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" text="Add" />
-      <Button fx:id="runnerEditButton" layoutX="65.0" layoutY="349.0" mnemonicParsing="false" text="Edit" />
-      <Button fx:id="runnerCloseButton" layoutX="919.0" layoutY="349.0" mnemonicParsing="false" text="Close" />
-      <Button fx:id="runnerDeleteButton" layoutX="115.0" layoutY="349.0" mnemonicParsing="false" text="Delete" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0"
+            prefWidth="980.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="be.uhasselt.databasesproject.controller.RunnerController">
+    <children>
+        <Text fx:id="runnerText" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Runner Table"/>
+        <TableView fx:id="runnerTableView" layoutX="14.0" layoutY="31.0" prefHeight="310.0" prefWidth="950.0"/>
+        <Button fx:id="runnerAddButton" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" text="Add"/>
+        <Button fx:id="runnerEditButton" layoutX="65.0" layoutY="349.0" mnemonicParsing="false" text="Edit"/>
+        <Button fx:id="runnerCloseButton" layoutX="919.0" layoutY="349.0" mnemonicParsing="false" text="Close"/>
+        <Button fx:id="runnerDeleteButton" layoutX="115.0" layoutY="349.0" mnemonicParsing="false" text="Delete"/>
+    </children>
 </AnchorPane>

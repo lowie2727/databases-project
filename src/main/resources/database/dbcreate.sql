@@ -80,9 +80,9 @@ INSERT INTO "race" ("id","date","name","distance","price") VALUES (1,'2022-11-14
 INSERT INTO "race" ("id","date","name","distance","price") VALUES (2,'2022-11-14','Dwars door Brussel',15,6.0);
 INSERT INTO "race" ("id","date","name","distance","price") VALUES (3,'2022-11-14','Dwars door Leuven',5,4.0);
 
-INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (1,'Barack','Obama',41,121.0,'2m23','Wetstraat','16',NULL,'1000','Brussel','Belgie');
-INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (2,'Linus','Sebastian',43,126.0,'1m40','Pariser Platz','1',NULL,'10117','Berlijn','Duitsland');
-INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (3,'Kris','Aerts',50,160.0,'1m60','Nazim St','29',NULL,'3500','Abbottabad','Pakistan');
+INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (1,'Barack','Obama',41,121.0,2.23,'Wetstraat','16',NULL,'1000','Brussel','Belgie');
+INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (2,'Linus','Sebastian',43,126.0,1.40,'Pariser Platz','1',NULL,'10117','Berlijn','Duitsland');
+INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (3,'Kris','Aerts',50,160.0,1.60,'Nazim St','29',NULL,'3500','Abbottabad','Pakistan');
 
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (1,1,'bos',2.3);
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (2,1,'langs het kanaal',3);
