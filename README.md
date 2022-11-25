@@ -2,14 +2,9 @@
 
 Running Race
 
-## JavaFX setup
+## running program
 
-first [download JavaFX SDK 19](https://gluonhq.com/products/javafx/)
-
-then under run configuration "Edit Configurations..." -> "Modify options" -> "Add VM options"
-```bash
---module-path your\own\path\javafx-sdk-19\lib --add-modules=javafx.controls,javafx.fxml
-```
+execute gradle task named run
 
 ## diagram
 

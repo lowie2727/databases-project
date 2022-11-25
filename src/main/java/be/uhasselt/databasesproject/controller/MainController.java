@@ -20,11 +20,10 @@ public class MainController {
     }
 
     private void showAdminPanel(String string) {
-        String resourceName = "be/uhasselt/databasesproject/" + string + ".fxml";
+        String resourceName = "/fxml/" + string + ".fxml";
         try {
             var stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(resourceName));
-            AnchorPane root = (AnchorPane) FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(resourceName)));
+            AnchorPane root = (AnchorPane) FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(string);
