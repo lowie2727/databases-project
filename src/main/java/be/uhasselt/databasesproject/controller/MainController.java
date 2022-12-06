@@ -23,7 +23,7 @@ public class MainController {
         String resourceName = "/fxml/" + string + ".fxml";
         try {
             var stage = new Stage();
-            AnchorPane root = (AnchorPane) FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
+            AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(string);

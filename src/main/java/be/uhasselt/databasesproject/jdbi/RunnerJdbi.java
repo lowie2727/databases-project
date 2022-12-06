@@ -31,4 +31,8 @@ public class RunnerJdbi {
                 .bindBean(runner)
                 .execute());
     }
+
+    public void updateRunner(Runner runner) {
+        jdbi.withHandle(handle -> handle.execute("UPDATE runner SET firstName = \"" + runner.getFirstName() + "\" WHERE id = " + runner.getId()));
+    }
 }

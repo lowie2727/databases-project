@@ -1,27 +1,23 @@
 package be.uhasselt.databasesproject.controller;
 
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
+import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.model.Runner;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.List;
+import java.util.Objects;
+
 public class RunnerController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button runnerAddButton;
@@ -36,10 +32,49 @@ public class RunnerController {
     private Button runnerEditButton;
 
     @FXML
-    private TableView<ObservableList<String>> runnerTableView;
+    private TableView<Runner> runnerTableView;
 
     @FXML
     private Text runnerText;
+
+    @FXML
+    private Button runnerUpdateButton;
+
+    @FXML
+    private TableColumn<Runner, Integer> tableColumnAge;
+
+    @FXML
+    private TableColumn<Runner, String> tableColumnBoxNumber;
+
+    @FXML
+    private TableColumn<Runner, String> tableColumnCity;
+
+    @FXML
+    private TableColumn<Runner, String> tableColumnCountry;
+
+    @FXML
+    private TableColumn<Runner, String> tableColumnFamilyName;
+
+    @FXML
+    private TableColumn<Runner, String> tableColumnFirstName;
+
+    @FXML
+    private TableColumn<Runner, String> tableColumnHouseNumber;
+
+    @FXML
+    private TableColumn<Runner, Integer> tableColumnId;
+
+    @FXML
+    private TableColumn<Runner, Double> tableColumnLength;
+
+    @FXML
+    private TableColumn<Runner, String> tableColumnPostalCode;
+
+    @FXML
+    private TableColumn<Runner, String> tableColumnStreetName;
+
+    @FXML
+    private TableColumn<Runner, Double> tableColumnWeight;
 
     @FXML
     void initialize() {
@@ -47,54 +82,86 @@ public class RunnerController {
 
         runnerAddButton.setOnAction(event -> addNewRow());
         runnerEditButton.setOnAction(event -> {
-            verifyRowSelected();
             editRow();
         });
         runnerCloseButton.setOnAction(event -> close());
+        runnerUpdateButton.setOnAction(event -> update());
     }
 
     private void initTable() {
         runnerTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        runnerTableView.getColumns().clear();
+        runnerTableView.setEditable(true);
 
-        setColumnNames();
-
-        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.ConnectionString);
-        List<Runner> runners = runnerJdbi.getRunners();
-
-        for (Runner r : runners) {
-            runnerTableView.getItems().add(FXCollections.observableArrayList(r.getStringList()));
-        }
+        initColumns();
+        loadRunnersFromDatabase();
     }
 
-    private void setColumnNames() {
-        int columnIndex = 0;
-        for (var columnName : new String[]{"id", "firstName", "familyName", "age", "weight", "length", "streetName", "houseNumber", "boxNumber", "postalCode", "city", "country"}) {
-            TableColumn<ObservableList<String>, String> column = new TableColumn<>(columnName);
-            final int finalColumnIndex = columnIndex;
-            column.setCellValueFactory(f -> new ReadOnlyObjectWrapper<>(f.getValue().get(finalColumnIndex)));
-            runnerTableView.getColumns().add(column);
-            columnIndex++;
-        }
+    private void initColumns() {
+        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        tableColumnFamilyName.setCellValueFactory(new PropertyValueFactory<>("familyName"));
+        tableColumnAge.setCellValueFactory(new PropertyValueFactory<>("age"));
+        tableColumnWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableColumnLength.setCellValueFactory(new PropertyValueFactory<>("length"));
+        tableColumnStreetName.setCellValueFactory(new PropertyValueFactory<>("streetName"));
+        tableColumnHouseNumber.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
+        tableColumnBoxNumber.setCellValueFactory(new PropertyValueFactory<>("boxNumber"));
+        tableColumnPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        tableColumnCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        tableColumnCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
+    }
+
+    public void loadRunnersFromDatabase() {
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.ConnectionString);
+        List<Runner> runners = runnerJdbi.getRunners();
+        runnerTableView.getItems().setAll(runners);
+    }
+
+    private void update() {
+        loadRunnersFromDatabase();
     }
 
     private void addNewRow() {
         //TODO
     }
 
-    private void verifyRowSelected() {
+    private boolean verifyRowSelected() {
         if (runnerTableView.getSelectionModel().getSelectedCells().size() == 0) {
             showAlert("Warning", "Please select a row");
+            return false;
         }
+        return true;
+    }
+
+    private Runner getSelectedRunner() {
+        return runnerTableView.getSelectionModel().getSelectedItem();
     }
 
     private void editRow() {
-        //TODO
+        if (verifyRowSelected()) {
+            String resourceName = "/fxml/editRunner.fxml";
+            try {
+                var stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
+                AnchorPane root = loader.load();
+
+                EditRunnerController controller = loader.getController();
+                controller.inflateUI(getSelectedRunner());
+
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("edit runner");
+                stage.initOwner(Main.getRootStage());
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.show();
+            } catch (Exception e) {
+                throw new RuntimeException("Cannot find " + resourceName, e);
+            }
+        }
     }
 
     private void close() {
-        Stage stage = (Stage) runnerCloseButton.getScene().getWindow();
-        stage.close();
+        runnerCloseButton.getScene().getWindow().hide();
     }
 
     public void showAlert(String title, String content) {

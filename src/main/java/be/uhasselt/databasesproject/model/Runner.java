@@ -122,6 +122,10 @@ public class Runner {
         this.houseNumber = houseNumber;
     }
 
+    public void setBoxNumber(String boxNumber) {
+        this.boxNumber = boxNumber;
+    }
+
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
