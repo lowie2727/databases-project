@@ -6,35 +6,42 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0"
-            prefWidth="980.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="1100.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="be.uhasselt.databasesproject.controller.RunnerController">
     <children>
         <Text fx:id="runnerText" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              text="Runner Table"/>
-        <TableView fx:id="runnerTableView" layoutX="14.0" layoutY="31.0" prefHeight="310.0" prefWidth="950.0">
+              text="Runner Table" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0"/>
+        <TableView fx:id="runnerTableView" layoutX="15.0" layoutY="30.0" prefHeight="310.0" prefWidth="950.0"
+                   AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                   AnchorPane.topAnchor="30.0">
+            <columns>
+                <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="id"/>
+                <TableColumn fx:id="firstNameTableColumn" prefWidth="75.0" text="first name"/>
+                <TableColumn fx:id="familyNameTableColumn" prefWidth="75.0" text="family name"/>
+                <TableColumn fx:id="ageTableColumn" prefWidth="75.0" text="age"/>
+                <TableColumn fx:id="weightTableColumn" prefWidth="75.0" text="weight"/>
+                <TableColumn fx:id="lengthTableColumn" prefWidth="75.0" text="length"/>
+                <TableColumn fx:id="streetNameTableColumn" prefWidth="75.0" text="street name"/>
+                <TableColumn fx:id="houseNumberTableColumn" prefWidth="96.0" text="house number"/>
+                <TableColumn fx:id="boxNumberTableColumn" prefWidth="64.0" text="box number"/>
+                <TableColumn fx:id="postalCodeTableColumn" prefWidth="75.0" text="postal code"/>
+                <TableColumn fx:id="cityTableColumn" prefWidth="75.0" text="city"/>
+                <TableColumn fx:id="countryTableColumn" prefWidth="75.0" text="country"/>
+            </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
-            <columns>
-                <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="id"/>
-                <TableColumn fx:id="tableColumnFirstName" prefWidth="75.0" text="first name"/>
-                <TableColumn fx:id="tableColumnFamilyName" prefWidth="75.0" text="family name"/>
-                <TableColumn fx:id="tableColumnAge" prefWidth="75.0" text="age"/>
-                <TableColumn fx:id="tableColumnWeight" prefWidth="75.0" text="weight"/>
-                <TableColumn fx:id="tableColumnLength" prefWidth="75.0" text="length"/>
-                <TableColumn fx:id="tableColumnStreetName" prefWidth="75.0" text="street name"/>
-                <TableColumn fx:id="tableColumnHouseNumber" prefWidth="75.0" text="house number"/>
-                <TableColumn fx:id="tableColumnBoxNumber" prefWidth="75.0" text="box number"/>
-                <TableColumn fx:id="tableColumnPostalCode" prefWidth="75.0" text="postal code"/>
-                <TableColumn fx:id="tableColumnCity" prefWidth="75.0" text="city"/>
-                <TableColumn fx:id="tableColumnCountry" prefWidth="75.0" text="country"/>
-            </columns>
         </TableView>
-        <Button fx:id="runnerAddButton" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" text="Add"/>
-        <Button fx:id="runnerEditButton" layoutX="65.0" layoutY="349.0" mnemonicParsing="false" text="Edit"/>
-        <Button fx:id="runnerCloseButton" layoutX="919.0" layoutY="349.0" mnemonicParsing="false" text="Close"/>
-        <Button fx:id="runnerDeleteButton" layoutX="115.0" layoutY="349.0" mnemonicParsing="false" text="Delete"/>
-        <Button fx:id="runnerUpdateButton" layoutX="178.0" layoutY="349.0" mnemonicParsing="false" text="Update"/>
+        <Button fx:id="runnerAddButton" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0"
+                prefWidth="40.0" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
+        <Button fx:id="runnerEditButton" layoutX="65.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0"
+                prefWidth="40.0" text="Edit" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0"/>
+        <Button fx:id="runnerCloseButton" layoutX="919.0" layoutY="349.0" mnemonicParsing="false" text="Close"
+                AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0"/>
+        <Button fx:id="runnerDeleteButton" layoutX="115.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0"
+                prefWidth="50.0" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="160.0"/>
+        <Button fx:id="runnerUpdateButton" layoutX="178.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0"
+                prefWidth="55.0" text="Update" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0"/>
     </children>
 </AnchorPane>

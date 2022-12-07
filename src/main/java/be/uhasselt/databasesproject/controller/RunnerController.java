@@ -41,40 +41,40 @@ public class RunnerController {
     private Button runnerUpdateButton;
 
     @FXML
-    private TableColumn<Runner, Integer> tableColumnAge;
+    private TableColumn<Runner, Integer> ageTableColumn;
 
     @FXML
-    private TableColumn<Runner, String> tableColumnBoxNumber;
+    private TableColumn<Runner, String> boxNumberTableColumn;
 
     @FXML
-    private TableColumn<Runner, String> tableColumnCity;
+    private TableColumn<Runner, String> cityTableColumn;
 
     @FXML
-    private TableColumn<Runner, String> tableColumnCountry;
+    private TableColumn<Runner, String> countryTableColumn;
 
     @FXML
-    private TableColumn<Runner, String> tableColumnFamilyName;
+    private TableColumn<Runner, String> familyNameTableColumn;
 
     @FXML
-    private TableColumn<Runner, String> tableColumnFirstName;
+    private TableColumn<Runner, String> firstNameTableColumn;
 
     @FXML
-    private TableColumn<Runner, String> tableColumnHouseNumber;
+    private TableColumn<Runner, String> houseNumberTableColumn;
 
     @FXML
-    private TableColumn<Runner, Integer> tableColumnId;
+    private TableColumn<Runner, Integer> idTableColumn;
 
     @FXML
-    private TableColumn<Runner, Double> tableColumnLength;
+    private TableColumn<Runner, Double> lengthTableColumn;
 
     @FXML
-    private TableColumn<Runner, String> tableColumnPostalCode;
+    private TableColumn<Runner, String> postalCodeTableColumn;
 
     @FXML
-    private TableColumn<Runner, String> tableColumnStreetName;
+    private TableColumn<Runner, String> streetNameTableColumn;
 
     @FXML
-    private TableColumn<Runner, Double> tableColumnWeight;
+    private TableColumn<Runner, Double> weightTableColumn;
 
     @FXML
     void initialize() {
@@ -97,18 +97,18 @@ public class RunnerController {
     }
 
     private void initColumns() {
-        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        tableColumnFamilyName.setCellValueFactory(new PropertyValueFactory<>("familyName"));
-        tableColumnAge.setCellValueFactory(new PropertyValueFactory<>("age"));
-        tableColumnWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
-        tableColumnLength.setCellValueFactory(new PropertyValueFactory<>("length"));
-        tableColumnStreetName.setCellValueFactory(new PropertyValueFactory<>("streetName"));
-        tableColumnHouseNumber.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
-        tableColumnBoxNumber.setCellValueFactory(new PropertyValueFactory<>("boxNumber"));
-        tableColumnPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        tableColumnCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        tableColumnCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        familyNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("familyName"));
+        ageTableColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+        weightTableColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        lengthTableColumn.setCellValueFactory(new PropertyValueFactory<>("length"));
+        streetNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("streetName"));
+        houseNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
+        boxNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("boxNumber"));
+        postalCodeTableColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        cityTableColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
+        countryTableColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
     }
 
     public void loadRunnersFromDatabase() {

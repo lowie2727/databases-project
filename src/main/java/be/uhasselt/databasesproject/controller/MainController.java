@@ -13,10 +13,10 @@ import java.util.Objects;
 
 public class MainController {
     @FXML
-    private Button buttonTest;
+    private Button runnersButton;
 
     public void initialize() {
-        buttonTest.setOnAction(event -> showAdminPanel("runners"));
+        runnersButton.setOnAction(event -> showAdminPanel("runners"));
     }
 
     private void showAdminPanel(String string) {
