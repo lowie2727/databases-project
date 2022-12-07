@@ -2,6 +2,7 @@ package be.uhasselt.databasesproject.jdbi;
 
 import org.jdbi.v3.core.Jdbi;
 
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -12,8 +13,8 @@ public class ConnectionManager {
     public static void initTables() {
         Jdbi jdbi = Jdbi.create(ConnectionString);
         try {
-            var uri = Objects.requireNonNull(ConnectionManager.class.getResource("/database/dbcreate.sql")).toURI();
-            var sql = new String(Files.readAllBytes(Paths.get(uri)));
+            URI uri = Objects.requireNonNull(ConnectionManager.class.getResource("/database/dbcreate.sql")).toURI();
+            String sql = new String(Files.readAllBytes(Paths.get(uri)));
 
             jdbi.useHandle(handle -> handle.createScript(sql).execute());
             System.out.println("file loaded\n");

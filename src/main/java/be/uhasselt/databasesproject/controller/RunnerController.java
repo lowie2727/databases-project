@@ -141,7 +141,7 @@ public class RunnerController {
         if (verifyRowSelected()) {
             String resourceName = "/fxml/editRunner.fxml";
             try {
-                var stage = new Stage();
+                Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
                 AnchorPane root = loader.load();
 
@@ -165,7 +165,7 @@ public class RunnerController {
     }
 
     public void showAlert(String title, String content) {
-        var alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(title);
         alert.setContentText(content);

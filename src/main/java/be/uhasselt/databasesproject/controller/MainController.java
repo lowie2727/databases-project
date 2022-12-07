@@ -22,7 +22,7 @@ public class MainController {
     private void showAdminPanel(String string) {
         String resourceName = "/fxml/" + string + ".fxml";
         try {
-            var stage = new Stage();
+            Stage stage = new Stage();
             AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
             Scene scene = new Scene(root);
             stage.setScene(scene);

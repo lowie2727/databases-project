@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'pmd'
 }
 
 group 'be.uhasselt'
@@ -39,6 +40,11 @@ dependencies {
     implementation 'org.jdbi:jdbi3-sqlite:3.34.0'
     implementation 'org.xerial:sqlite-jdbc:3.39.4.1'
     implementation('org.slf4j:slf4j-nop:2.0.3')
+}
+
+pmd {
+    toolVersion = "6.52.0"
+    ruleSets = ['category/java/bestpractices.xml', 'category/java/codestyle.xml', 'category/java/performance.xml']
 }
 
 test {
