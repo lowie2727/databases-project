@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -33,12 +32,6 @@ public class RunnerController {
 
     @FXML
     private TableView<Runner> runnerTableView;
-
-    @FXML
-    private Text runnerText;
-
-    @FXML
-    private Button runnerUpdateButton;
 
     @FXML
     private TableColumn<Runner, Integer> ageTableColumn;
@@ -80,12 +73,10 @@ public class RunnerController {
     void initialize() {
         initTable();
 
-        runnerAddButton.setOnAction(event -> addNewRow());
-        runnerEditButton.setOnAction(event -> {
-            editRow();
-        });
+        runnerAddButton.setOnAction(event -> addRunner());
+        runnerEditButton.setOnAction(event -> editRunner());
+        runnerDeleteButton.setOnAction(event -> deleteRunner());
         runnerCloseButton.setOnAction(event -> close());
-        runnerUpdateButton.setOnAction(event -> update());
     }
 
     private void initTable() {
@@ -117,14 +108,6 @@ public class RunnerController {
         runnerTableView.getItems().setAll(runners);
     }
 
-    private void update() {
-        loadRunnersFromDatabase();
-    }
-
-    private void addNewRow() {
-        //TODO
-    }
-
     private boolean verifyRowSelected() {
         if (runnerTableView.getSelectionModel().getSelectedCells().size() == 0) {
             showAlert("Warning", "Please select a row");
@@ -137,7 +120,11 @@ public class RunnerController {
         return runnerTableView.getSelectionModel().getSelectedItem();
     }
 
-    private void editRow() {
+    private void addRunner() {
+        //TODO
+    }
+
+    private void editRunner() {
         if (verifyRowSelected()) {
             final String resourceName = "/fxml/editRunner.fxml";
             try {
@@ -154,17 +141,24 @@ public class RunnerController {
                 stage.initOwner(Main.getRootStage());
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.show();
+                stage.setOnCloseRequest(event -> {
+                    loadRunnersFromDatabase();
+                });
             } catch (Exception e) {
                 throw new RuntimeException("Cannot find " + resourceName, e);
             }
         }
     }
 
+    private void deleteRunner() {
+        //TODO
+    }
+
     private void close() {
         runnerCloseButton.getScene().getWindow().hide();
     }
 
-    public void showAlert(final String title, final String content) {
+    private void showAlert(final String title, final String content) {
         final Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(title);

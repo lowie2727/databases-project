@@ -10,17 +10,19 @@ import java.util.logging.Logger;
 
 public class ConnectionManager {
     public static final String CONNECTION_STRING = "jdbc:sqlite:src/main/resources/database/project.sqlite3";
-    private static final Logger LOG = Logger.getLogger(ConnectionManager.class.getName());
+
     public static void initTables() {
         final Jdbi jdbi = Jdbi.create(CONNECTION_STRING);
+        final Logger log = Logger.getLogger(ConnectionManager.class.getName());
         try {
             final URI uri = Objects.requireNonNull(ConnectionManager.class.getResource("/database/dbcreate.sql")).toURI();
             final String sql = new String(Files.readAllBytes(Paths.get(uri)));
 
             jdbi.useHandle(handle -> handle.createScript(sql).execute());
-            LOG.info("file loaded");
+
+            log.info("file loaded");
         } catch (Exception e) {
-            LOG.severe("cannot load file");
+            log.severe("cannot load file");
         }
     }
 }

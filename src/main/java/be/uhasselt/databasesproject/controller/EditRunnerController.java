@@ -3,10 +3,16 @@ package be.uhasselt.databasesproject.controller;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.model.Runner;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class EditRunnerController {
 
@@ -20,10 +26,13 @@ public class EditRunnerController {
     private TextField boxNumberTextField;
 
     @FXML
+    private Button cancelButton;
+
+    @FXML
     private TextField cityTextField;
 
     @FXML
-    private Button closeButton;
+    private Button saveButton;
 
     @FXML
     private TextField countryTextField;
@@ -50,17 +59,21 @@ public class EditRunnerController {
     private TextField weightTextField;
 
     private Runner runner;
+    private Boolean confirmation = false;
 
     @FXML
     void initialize() {
-        closeButton.setOnAction(event -> close());
+        saveButton.setOnAction(this::databaseUpdate);
+        cancelButton.setOnAction(this::close);
     }
 
-    private void close() {
-        runnerUpdate();
-        final RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-        runnerJdbi.updateRunner(runner);
-        closeButton.getScene().getWindow().hide();
+    private void close(final ActionEvent event) {
+        final Node node = (Node) event.getSource();
+        final Stage stage = (Stage) node.getScene().getWindow();
+        final WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
+
+        stage.getOnCloseRequest().handle(windowEvent);
+        stage.close();
     }
 
     public void inflateUI(final Runner runner) {
@@ -91,5 +104,22 @@ public class EditRunnerController {
         runner.setPostalCode(postalCodeTextField.getText());
         runner.setCity(cityTextField.getText());
         runner.setCountry(countryTextField.getText());
+    }
+
+    private void databaseUpdate(final ActionEvent event) {
+        showAlert("Warning", "Are you sure?");
+        if (confirmation) {
+            runnerUpdate();
+            final RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+            runnerJdbi.updateRunner(runner);
+            close(event);
+        }
+    }
+
+    private void showAlert(final String title, final String content) {
+        final Alert alert = new Alert(Alert.AlertType.WARNING, content, ButtonType.CANCEL, ButtonType.OK);
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.showAndWait().filter(ButtonType.OK::equals).ifPresent(buttonType -> confirmation = true);
     }
 }
