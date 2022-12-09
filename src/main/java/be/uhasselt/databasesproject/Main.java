@@ -21,20 +21,20 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         rootStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/mainMenu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        final FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/mainMenu.fxml"));
+        final Scene scene = new Scene(fxmlLoader.load());
 
         stage.setTitle("Main Menu");
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
         ConnectionManager.initTables();
 
-        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.ConnectionString);
-        Runner runner = new Runner(6, "Joe", "Biden", 100, 60.0, 1.6, "Pennsylvania Avenue NW", "1600", null, "DC 20500", "Washington", "Verenigde Staten");
+        final RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+        final Runner runner = new Runner(6, "Joe", "Biden", 100, 60.0, 1.6, "Pennsylvania Avenue NW", "1600", null, "DC 20500", "Washington", "Verenigde Staten");
         runnerJdbi.insertRunner(runner);
 
         launch();

@@ -56,15 +56,14 @@ public class EditRunnerController {
         closeButton.setOnAction(event -> close());
     }
 
-
     private void close() {
         runnerUpdate();
-        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.ConnectionString);
+        final RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
         runnerJdbi.updateRunner(runner);
         closeButton.getScene().getWindow().hide();
     }
 
-    public void inflateUI(Runner runner) {
+    public void inflateUI(final Runner runner) {
         this.runner = runner;
         idText.setText(Integer.toString(runner.getId()));
         firstNameTextField.setText(runner.getFirstName());

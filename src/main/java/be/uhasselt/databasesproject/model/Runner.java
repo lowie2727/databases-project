@@ -18,7 +18,7 @@ public class Runner {
     public Runner() {
     }
 
-    public Runner(int id, String firstName, String familyName, int age, double weight, double length, String streetName, String houseNumber, String boxNumber, String postalCode, String city, String country) {
+    public Runner(final int id, final String firstName, final String familyName, final int age, final double weight, final double length, final String streetName, final String houseNumber, final String boxNumber, final String postalCode, final String city, final String country) {
         this.id = id;
         this.firstName = firstName;
         this.familyName = familyName;
@@ -36,10 +36,6 @@ public class Runner {
     @Override
     public String toString() {
         return id + " " + firstName + " " + familyName;
-    }
-
-    public String[] getStringList() {
-        return new String[]{Integer.toString(id), firstName, familyName, Integer.toString(age), Double.toString(weight), Double.toString(length), streetName, houseNumber, boxNumber, postalCode, city, country};
     }
 
     public int getId() {
