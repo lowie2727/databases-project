@@ -1,5 +1,6 @@
 ### database ###
 src/main/resources/database/project.sqlite3
+src/main/resources/database/project.sqlite3-journal
 
 ### diagram ###
 /diagram/.$diagram.xml.bkp

@@ -39,12 +39,14 @@ dependencies {
 
     implementation 'org.jdbi:jdbi3-sqlite:3.34.0'
     implementation 'org.xerial:sqlite-jdbc:3.39.4.1'
-    implementation('org.slf4j:slf4j-nop:2.0.3')
+    implementation 'org.slf4j:slf4j-nop:2.0.3'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
 pmd {
     toolVersion = "6.52.0"
-    ruleSets = ['category/java/bestpractices.xml', 'category/java/codestyle.xml', 'category/java/performance.xml']
+    //ruleSetFiles("path:\\to\\project\\top\\directory\\databases-project\\src\\main\\resources\\pmd\\pmdRules.xml")
+    ignoreFailures = true
 }
 
 test {

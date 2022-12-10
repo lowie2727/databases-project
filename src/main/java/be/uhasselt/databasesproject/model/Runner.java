@@ -1,6 +1,9 @@
 package be.uhasselt.databasesproject.model;
 
-public class Runner {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Runner implements Serializable {
 
     private int id;
     private String firstName;
@@ -18,7 +21,7 @@ public class Runner {
     public Runner() {
     }
 
-    public Runner(final int id, final String firstName, final String familyName, final int age, final double weight, final double length, final String streetName, final String houseNumber, final String boxNumber, final String postalCode, final String city, final String country) {
+    public Runner(int id, String firstName, String familyName, int age, double weight, double length, String streetName, String houseNumber, String boxNumber, String postalCode, String city, String country) {
         this.id = id;
         this.firstName = firstName;
         this.familyName = familyName;
@@ -37,6 +40,14 @@ public class Runner {
     public String toString() {
         return id + " " + firstName + " " + familyName;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object.getClass() != Runner.class) return false;
+        Runner runner = (Runner) object;
+        return runner.id == this.id && runner.firstName.equals(this.firstName) && runner.familyName.equals(this.familyName) && runner.age == this.age && runner.weight == weight && runner.length == length && runner.streetName.equals(streetName) && runner.houseNumber.equals(houseNumber) && Objects.equals(runner.boxNumber, boxNumber) && runner.postalCode.equals(postalCode) && runner.city.equals(city) && runner.country.equals(country);
+    }
+
 
     public int getId() {
         return id;

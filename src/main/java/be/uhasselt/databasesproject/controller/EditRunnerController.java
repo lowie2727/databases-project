@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.apache.commons.lang3.SerializationUtils;
 
 public class EditRunnerController {
 
@@ -59,25 +60,28 @@ public class EditRunnerController {
     private TextField weightTextField;
 
     private Runner runner;
+    private Runner originalRunner;
     private Boolean confirmation = false;
 
     @FXML
     void initialize() {
         saveButton.setOnAction(this::databaseUpdate);
-        cancelButton.setOnAction(this::close);
+        cancelButton.setOnAction(this::cancel);
     }
 
-    private void close(final ActionEvent event) {
-        final Node node = (Node) event.getSource();
-        final Stage stage = (Stage) node.getScene().getWindow();
-        final WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
+    private void close(ActionEvent event) {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
 
         stage.getOnCloseRequest().handle(windowEvent);
         stage.close();
     }
 
-    public void inflateUI(final Runner runner) {
+    public void inflateUI(Runner runner) {
         this.runner = runner;
+        originalRunner = SerializationUtils.clone(runner);
+
         idText.setText(Integer.toString(runner.getId()));
         firstNameTextField.setText(runner.getFirstName());
         familyNameTextField.setText(runner.getFamilyName());
@@ -106,18 +110,44 @@ public class EditRunnerController {
         runner.setCountry(countryTextField.getText());
     }
 
-    private void databaseUpdate(final ActionEvent event) {
-        showAlert("Warning", "Are you sure?");
+    private boolean isNotChanged() {
+        runnerUpdate();
+        return originalRunner.equals(runner);
+    }
+
+    private void databaseUpdate(ActionEvent event) {
+        if (isNotChanged()) {
+            closeOnNoChanges(event);
+        } else {
+            showAlert("Warning", "Are you sure you want to save your changes?");
+            if (confirmation) {
+                RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+                runnerJdbi.updateRunner(runner);
+                close(event);
+            }
+        }
+    }
+
+    private void cancel(ActionEvent event) {
+        if (isNotChanged()) {
+            closeOnNoChanges(event);
+        } else {
+            showAlert("Warning", "Are you sure you want to delete your changes?");
+            if (confirmation) {
+                close(event);
+            }
+        }
+    }
+
+    private void closeOnNoChanges(ActionEvent event) {
+        showAlert("Waring", "No changes were made!");
         if (confirmation) {
-            runnerUpdate();
-            final RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-            runnerJdbi.updateRunner(runner);
             close(event);
         }
     }
 
-    private void showAlert(final String title, final String content) {
-        final Alert alert = new Alert(Alert.AlertType.WARNING, content, ButtonType.CANCEL, ButtonType.OK);
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, content, ButtonType.CANCEL, ButtonType.OK);
         alert.setTitle(title);
         alert.setHeaderText(title);
         alert.showAndWait().filter(ButtonType.OK::equals).ifPresent(buttonType -> confirmation = true);

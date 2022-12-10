@@ -20,12 +20,12 @@ public class MainController {
         runnersButton.setOnAction(event -> showAdminPanel("runners"));
     }
 
-    private void showAdminPanel(final String string) {
-        final String resourceName = "/fxml/" + string + ".fxml";
+    private void showAdminPanel(String string) {
+        String resourceName = "/fxml/" + string + ".fxml";
         try {
-            final Stage stage = new Stage();
-            final AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
-            final Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(string);
             stage.initOwner(Main.getRootStage());

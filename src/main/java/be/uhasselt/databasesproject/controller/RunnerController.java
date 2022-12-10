@@ -103,8 +103,8 @@ public class RunnerController {
     }
 
     public void loadRunnersFromDatabase() {
-        final RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-        final List<Runner> runners = runnerJdbi.getRunners();
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Runner> runners = runnerJdbi.getRunners();
         runnerTableView.getItems().setAll(runners);
     }
 
@@ -126,16 +126,16 @@ public class RunnerController {
 
     private void editRunner() {
         if (verifyRowSelected()) {
-            final String resourceName = "/fxml/editRunner.fxml";
+            String resourceName = "/fxml/editRunner.fxml";
             try {
-                final Stage stage = new Stage();
-                final FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
-                final AnchorPane root = loader.load();
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
+                AnchorPane root = loader.load();
 
-                final EditRunnerController controller = loader.getController();
+                EditRunnerController controller = loader.getController();
                 controller.inflateUI(getSelectedRunner());
 
-                final Scene scene = new Scene(root);
+                Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.setTitle("edit runner");
                 stage.initOwner(Main.getRootStage());
@@ -158,8 +158,8 @@ public class RunnerController {
         runnerCloseButton.getScene().getWindow().hide();
     }
 
-    private void showAlert(final String title, final String content) {
-        final Alert alert = new Alert(Alert.AlertType.WARNING);
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(title);
         alert.setContentText(content);

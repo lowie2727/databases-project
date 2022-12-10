@@ -7,6 +7,7 @@ module be.uhasselt.databasesproject {
     requires java.sql;
     requires org.slf4j;
     requires com.github.benmanes.caffeine;
+    requires org.apache.commons.lang3;
 
     opens be.uhasselt.databasesproject to javafx.fxml;
     opens be.uhasselt.databasesproject.controller to javafx.fxml;

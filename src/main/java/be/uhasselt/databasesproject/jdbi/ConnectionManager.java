@@ -12,11 +12,11 @@ public class ConnectionManager {
     public static final String CONNECTION_STRING = "jdbc:sqlite:src/main/resources/database/project.sqlite3";
 
     public static void initTables() {
-        final Jdbi jdbi = Jdbi.create(CONNECTION_STRING);
-        final Logger log = Logger.getLogger(ConnectionManager.class.getName());
+        Jdbi jdbi = Jdbi.create(CONNECTION_STRING);
+        Logger log = Logger.getLogger(ConnectionManager.class.getName());
         try {
-            final URI uri = Objects.requireNonNull(ConnectionManager.class.getResource("/database/dbcreate.sql")).toURI();
-            final String sql = new String(Files.readAllBytes(Paths.get(uri)));
+            URI uri = Objects.requireNonNull(ConnectionManager.class.getResource("/database/dbcreate.sql")).toURI();
+            String sql = new String(Files.readAllBytes(Paths.get(uri)));
 
             jdbi.useHandle(handle -> handle.createScript(sql).execute());
 
