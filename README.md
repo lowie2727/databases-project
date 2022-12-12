@@ -7,7 +7,19 @@ running race
 execute gradle task named run
 
 ## TODO
-- [ ] add, delete runners from database
+- [x] add runners
+- [x] edit runners
+- [ ] add runner should get its own controller class
+- adding tables database
+  - [ ] global_ranking
+  - [ ] race
+  - [x] runner
+  - [ ] runner_race
+  - [ ] segment
+  - [ ] segment_times
+  - [ ] volunteer
+  - [ ] volunteer_race
+- [ ] delete runners across the database
 - [ ] improving UI
 
 ## analyse code with PMD

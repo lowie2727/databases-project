@@ -27,13 +27,19 @@ public class RunnerJdbi {
     }
 
     public void insertRunner(Runner runner) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner (id, firstName, familyName, age, weight, length, streetName, houseNumber, boxNumber, postalCode, city, country) VALUES (:id, :firstName, :familyName, :age, :weight, :length, :streetName, :houseNumber, :boxNumber, :postalCode, :city, :country)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner (firstName, familyName, age, weight, length, streetName, houseNumber, boxNumber, postalCode, city, country) VALUES (:firstName, :familyName, :age, :weight, :length, :streetName, :houseNumber, :boxNumber, :postalCode, :city, :country)")
                 .bindBean(runner)
                 .execute());
     }
 
     public void updateRunner(Runner runner) {
         jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner SET firstName = :firstName, familyName = :familyName, age = :age, weight = :weight, length = :length, streetName = :streetName, houseNumber = :houseNumber, boxNumber = :boxNumber, postalCode = :postalCode, city = :city, country = :country WHERE id = :id")
+                .bindBean(runner)
+                .execute());
+    }
+
+    public void deleteRunner(Runner runner) {
+        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM runner WHERE id = :id")
                 .bindBean(runner)
                 .execute());
     }

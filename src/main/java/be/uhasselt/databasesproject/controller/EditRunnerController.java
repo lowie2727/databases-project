@@ -10,15 +10,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
 
-public class EditRunnerController {
+import java.util.Objects;
 
-    @FXML
-    private Text idText;
+public class EditRunnerController {
 
     @FXML
     private TextField ageTextField;
@@ -33,10 +34,10 @@ public class EditRunnerController {
     private TextField cityTextField;
 
     @FXML
-    private Button saveButton;
+    private TextField countryTextField;
 
     @FXML
-    private TextField countryTextField;
+    private Text errorMessageText;
 
     @FXML
     private TextField familyNameTextField;
@@ -48,10 +49,16 @@ public class EditRunnerController {
     private TextField houseNumberTextField;
 
     @FXML
+    private Text idText;
+
+    @FXML
     private TextField lengthTextField;
 
     @FXML
     private TextField postalCodeTextField;
+
+    @FXML
+    private Button saveButton;
 
     @FXML
     private TextField streetNameTextField;
@@ -67,6 +74,7 @@ public class EditRunnerController {
     void initialize() {
         saveButton.setOnAction(this::databaseUpdate);
         cancelButton.setOnAction(this::cancel);
+        errorMessageText.setText("");
     }
 
     private void close(ActionEvent event) {
@@ -81,13 +89,32 @@ public class EditRunnerController {
     public void inflateUI(Runner runner) {
         this.runner = runner;
         originalRunner = SerializationUtils.clone(runner);
+        if (runner.getId() == 0) {
+            idText.setText("tbd");
+        } else {
+            idText.setText(Integer.toString(runner.getId()));
+        }
 
-        idText.setText(Integer.toString(runner.getId()));
         firstNameTextField.setText(runner.getFirstName());
         familyNameTextField.setText(runner.getFamilyName());
-        ageTextField.setText(Integer.toString(runner.getAge()));
-        weightTextField.setText(Double.toString(runner.getWeight()));
-        lengthTextField.setText(Double.toString(runner.getLength()));
+        if (runner.getAge() == 0) {
+            ageTextField.setText("");
+        } else {
+            ageTextField.setText(Integer.toString(runner.getAge()));
+        }
+
+        if (runner.getWeight() == 0) {
+            weightTextField.setText("");
+        } else {
+            weightTextField.setText(Double.toString(runner.getWeight()));
+        }
+
+        if (runner.getLength() == 0) {
+            lengthTextField.setText("");
+        } else {
+            lengthTextField.setText(Double.toString(runner.getLength()));
+        }
+
         streetNameTextField.setText(runner.getStreetName());
         houseNumberTextField.setText(runner.getHouseNumber());
         boxNumberTextField.setText(runner.getBoxNumber());
@@ -99,15 +126,34 @@ public class EditRunnerController {
     private void runnerUpdate() {
         runner.setFirstName(firstNameTextField.getText());
         runner.setFamilyName(familyNameTextField.getText());
-        runner.setAge(Integer.parseInt(ageTextField.getText()));
-        runner.setWeight(Double.parseDouble(weightTextField.getText()));
-        runner.setLength(Double.parseDouble(lengthTextField.getText()));
         runner.setStreetName(streetNameTextField.getText());
         runner.setHouseNumber(houseNumberTextField.getText());
         runner.setBoxNumber(boxNumberTextField.getText());
         runner.setPostalCode(postalCodeTextField.getText());
         runner.setCity(cityTextField.getText());
         runner.setCountry(countryTextField.getText());
+
+        if (Objects.equals(idText.getText(), "tbd")) {
+            try {
+                runner.setAge(Integer.parseInt(ageTextField.getText()));
+            } catch (NumberFormatException exception) {
+                runner.setAge(0);
+            }
+            try {
+                runner.setWeight(Double.parseDouble(weightTextField.getText()));
+            } catch (NumberFormatException exception) {
+                runner.setWeight(0);
+            }
+            try {
+                runner.setLength(Double.parseDouble(lengthTextField.getText()));
+            } catch (NumberFormatException exception) {
+                runner.setLength(0);
+            }
+        } else {
+            runner.setAge(Integer.parseInt(ageTextField.getText()));
+            runner.setWeight(Double.parseDouble(weightTextField.getText()));
+            runner.setLength(Double.parseDouble(lengthTextField.getText()));
+        }
     }
 
     private boolean isNotChanged() {
@@ -116,37 +162,135 @@ public class EditRunnerController {
     }
 
     private void databaseUpdate(ActionEvent event) {
-        if (isNotChanged()) {
-            closeOnNoChanges(event);
-        } else {
-            showAlert("Warning", "Are you sure you want to save your changes?");
-            if (confirmation) {
+        if (areMandatoryFieldsFilledIn()) {
+            if (isNotChanged()) {
+                closeOnNoChanges(event);
+            } else {
                 RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-                runnerJdbi.updateRunner(runner);
+                if (runner.getId() == 0) {
+                    runnerJdbi.insertRunner(runner);
+                } else {
+                    runnerJdbi.updateRunner(runner);
+                }
                 close(event);
             }
+        } else {
+            showAlert("Warning", "Please fill in the mandatory fields.");
         }
+
+    }
+
+    private boolean areMandatoryFieldsFilledIn() {
+        boolean status = true;
+        String color = "red";
+        if (firstNameTextField.getText().isBlank() || familyNameTextField.getText().isBlank() || ageTextField.getText().isBlank() || weightTextField.getText().isBlank() || lengthTextField.getText().isBlank() || streetNameTextField.getText().isBlank() || houseNumberTextField.getText().isBlank() || postalCodeTextField.getText().isBlank() || cityTextField.getText().isBlank() || countryTextField.getText().isBlank()) {
+            errorMessageText.setText("Please fill in all mandatory fields.");
+            showMandatoryFields();
+            status = false;
+        }
+
+        showMandatoryFields();
+        try {
+            Integer.parseInt(ageTextField.getText());
+        } catch (NumberFormatException exception) {
+            ageTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
+        try {
+            Double.parseDouble(weightTextField.getText());
+        } catch (NumberFormatException exception) {
+            weightTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
+        try {
+            Double.parseDouble(lengthTextField.getText());
+        } catch (NumberFormatException exception) {
+            lengthTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (status) {
+            errorMessageText.setText("");
+        }
+        return status;
     }
 
     private void cancel(ActionEvent event) {
         if (isNotChanged()) {
-            closeOnNoChanges(event);
+            close(event);
         } else {
-            showAlert("Warning", "Are you sure you want to delete your changes?");
+            showAlertWithConfirmation("Warning", "Are you sure you want to discard your changes?");
             if (confirmation) {
                 close(event);
             }
         }
     }
 
+    private void showMandatoryFields() {
+        String color = "red";
+        resetTextFieldBorder();
+        if (firstNameTextField.getText().isBlank()) {
+            firstNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (familyNameTextField.getText().isBlank()) {
+            familyNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (ageTextField.getText().isBlank()) {
+            ageTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (weightTextField.getText().isBlank()) {
+            weightTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (lengthTextField.getText().isBlank()) {
+            lengthTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (streetNameTextField.getText().isBlank()) {
+            streetNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (houseNumberTextField.getText().isBlank()) {
+            houseNumberTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (postalCodeTextField.getText().isBlank()) {
+            postalCodeTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (cityTextField.getText().isBlank()) {
+            cityTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+        if (countryTextField.getText().isBlank()) {
+            countryTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+        }
+    }
+
+    private void resetTextFieldBorder() {
+        firstNameTextField.setBorder(Border.EMPTY);
+        familyNameTextField.setBorder(Border.EMPTY);
+        ageTextField.setBorder(Border.EMPTY);
+        weightTextField.setBorder(Border.EMPTY);
+        lengthTextField.setBorder(Border.EMPTY);
+        streetNameTextField.setBorder(Border.EMPTY);
+        houseNumberTextField.setBorder(Border.EMPTY);
+        postalCodeTextField.setBorder(Border.EMPTY);
+        cityTextField.setBorder(Border.EMPTY);
+        countryTextField.setBorder(Border.EMPTY);
+    }
+
     private void closeOnNoChanges(ActionEvent event) {
-        showAlert("Waring", "No changes were made!");
+        showAlertWithConfirmation("Waring", "No changes were made!");
         if (confirmation) {
             close(event);
         }
     }
 
     private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void showAlertWithConfirmation(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING, content, ButtonType.CANCEL, ButtonType.OK);
         alert.setTitle(title);
         alert.setHeaderText(title);
