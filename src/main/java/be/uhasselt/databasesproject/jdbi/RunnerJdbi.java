@@ -39,8 +39,19 @@ public class RunnerJdbi {
     }
 
     public void deleteRunner(Runner runner) {
-        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM runner WHERE id = :id")
-                .bindBean(runner)
-                .execute());
+        jdbi.withHandle(handle -> {
+            handle.createUpdate("DELETE FROM runner WHERE id = :id")
+                    .bindBean(runner)
+                    .execute();
+            handle.createUpdate("DELETE FROM global_ranking WHERE runnerID = :id")
+                    .bindBean(runner)
+                    .execute();
+            handle.createUpdate("DELETE FROM runner_race WHERE runnerID = :id")
+                    .bindBean(runner)
+                    .execute();
+            return handle.createUpdate("DELETE FROM segment_times WHERE runnerID = :id")
+                    .bindBean(runner)
+                    .execute();
+        });
     }
 }

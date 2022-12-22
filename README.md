@@ -9,7 +9,9 @@ execute gradle task named run
 ## TODO
 - [x] add runners
 - [x] edit runners
+- [x] delete runners across the database
 - [ ] add runner should get its own controller class
+
 - adding tables database
   - [ ] global_ranking
   - [ ] race
@@ -19,7 +21,6 @@ execute gradle task named run
   - [ ] segment_times
   - [ ] volunteer
   - [ ] volunteer_race
-- [ ] delete runners across the database
 - [ ] improving UI
 
 ## analyse code with PMD
