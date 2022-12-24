@@ -1,4 +1,4 @@
-[![Gradle build](https://github.com/lowie2727/databases-project/actions/workflows/gradle.yml/badge.svg)](https://github.com/lowie2727/databases-project/actions/workflows/gradle.yml)
+[![Java CI with Gradle](https://github.com/lowie2727/databases-project/actions/workflows/gradle.yml/badge.svg)](https://github.com/lowie2727/databases-project/actions/workflows/gradle.yml)
 
 # databases-project
 
@@ -12,18 +12,17 @@ execute gradle task named run
 - [x] add runners
 - [x] edit runners
 - [x] delete runners across the database
-- [ ] add runner should get its own controller class
-
-- adding tables database
-  - [ ] global_ranking
-  - [ ] race
-  - [x] runner
-  - [ ] runner_race
-  - [ ] segment
-  - [ ] segment_times
-  - [ ] volunteer
-  - [ ] volunteer_race
 - [ ] improving UI
+
+implementing Jdbi and model
+- [ ] global_ranking
+- [ ] race
+- [x] runner
+- [ ] runner_race
+- [ ] segment
+- [ ] segment_times
+- [ ] volunteer
+- [ ] volunteer_race
 
 ## analyse code with PMD
 
