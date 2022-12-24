@@ -1,3 +1,5 @@
+[![Gradle build](https://github.com/lowie2727/databases-project/actions/workflows/gradle.yml/badge.svg)](https://github.com/lowie2727/databases-project/actions/workflows/gradle.yml)
+
 # databases-project
 
 running race
