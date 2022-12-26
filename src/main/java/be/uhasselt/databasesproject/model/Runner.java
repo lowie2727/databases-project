@@ -38,107 +38,113 @@ public class Runner implements Serializable {
 
     @Override
     public String toString() {
-        return id + " " + firstName + " " + familyName;
+        return String.format("Runner{id: %d, firstName: '%s', familyName: '%s'}", id, firstName, familyName);
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object.getClass() != Runner.class) return false;
-        Runner runner = (Runner) object;
-        return runner.id == this.id && runner.firstName.equals(this.firstName) && runner.familyName.equals(this.familyName) && runner.age == this.age && runner.weight == weight && runner.length == length && runner.streetName.equals(streetName) && runner.houseNumber.equals(houseNumber) && Objects.equals(runner.boxNumber, boxNumber) && runner.postalCode.equals(postalCode) && runner.city.equals(city) && runner.country.equals(country);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Runner runner = (Runner) o;
+        return id == runner.id && age == runner.age && Double.compare(runner.weight, weight) == 0 && Double.compare(runner.length, length) == 0 && firstName.equals(runner.firstName) && familyName.equals(runner.familyName) && streetName.equals(runner.streetName) && houseNumber.equals(runner.houseNumber) && Objects.equals(boxNumber, runner.boxNumber) && postalCode.equals(runner.postalCode) && city.equals(runner.city) && country.equals(runner.country);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, familyName, age, weight, length, streetName, houseNumber, boxNumber, postalCode, city, country);
+    }
 
     public int getId() {
         return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public double getLength() {
-        return length;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public String getBoxNumber() {
-        return boxNumber;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getCountry() {
-        return country;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
     }
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
 
+    public int getAge() {
+        return age;
+    }
+
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 
     public void setWeight(double weight) {
         this.weight = weight;
     }
 
+    public double getLength() {
+        return length;
+    }
+
     public void setLength(double length) {
         this.length = length;
+    }
+
+    public String getStreetName() {
+        return streetName;
     }
 
     public void setStreetName(String streetName) {
         this.streetName = streetName;
     }
 
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
+    }
+
+    public String getBoxNumber() {
+        return boxNumber;
     }
 
     public void setBoxNumber(String boxNumber) {
         this.boxNumber = boxNumber;
     }
 
+    public String getPostalCode() {
+        return postalCode;
+    }
+
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
+    public String getCity() {
+        return city;
+    }
+
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     public void setCountry(String country) {
