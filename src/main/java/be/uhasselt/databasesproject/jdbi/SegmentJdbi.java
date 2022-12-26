@@ -6,7 +6,7 @@ import org.jdbi.v3.core.Jdbi;
 import java.util.Collections;
 import java.util.List;
 
-public class SegmentJdbi {
+public class SegmentJdbi implements JdbiInterface<Segment> {
 
     private final Jdbi jdbi;
 
@@ -14,20 +14,24 @@ public class SegmentJdbi {
         jdbi = Jdbi.create(connectionString);
     }
 
-    public List<Segment> getSegments() {
+    @Override
+    public List<Segment> getAll() {
         //TODO
         return Collections.emptyList();
     }
 
-    public void insertSegment(Segment segment) {
+    @Override
+    public void insert(Segment segment) {
         //TODO
     }
 
-    public void updateSegment(Segment segment) {
+    @Override
+    public void update(Segment segment) {
         //TODO
     }
 
-    public void deleteSegment(Segment segment) {
+    @Override
+    public void delete(Segment segment) {
         //TODO
     }
 }

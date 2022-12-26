@@ -106,7 +106,7 @@ public class RunnerController {
 
     public void loadRunnersFromDatabase() {
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-        List<Runner> runners = runnerJdbi.getRunners();
+        List<Runner> runners = runnerJdbi.getAll();
         runnerTableView.getItems().setAll(runners);
     }
 
@@ -132,7 +132,7 @@ public class RunnerController {
                 return;
             }
         } else {
-            runner = new Runner(0, "", "", 0, 0.0, 0.0, "","","","","","");
+            runner = new Runner(0, "", "", 0, 0.0, 0.0, "", "", "", "", "", "");
             title = "add runner";
         }
 
@@ -164,7 +164,7 @@ public class RunnerController {
             showAlertDelete("Warning", "Are you sure you want to delete this runner? This action cannot be undone.");
             if (confirmationDelete) {
                 RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-                runnerJdbi.deleteRunner(getSelectedRunner());
+                runnerJdbi.delete(getSelectedRunner());
                 loadRunnersFromDatabase();
             }
         }

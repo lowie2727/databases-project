@@ -35,7 +35,7 @@ public class Main extends Application {
 
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
         Runner runner = new Runner(6, "Joe", "Biden", 100, 60.0, 1.6, "Pennsylvania Avenue NW", "1600", null, "DC 20500", "Washington", "Verenigde Staten");
-        runnerJdbi.insertRunner(runner);
+        runnerJdbi.insert(runner);
 
         launch();
     }

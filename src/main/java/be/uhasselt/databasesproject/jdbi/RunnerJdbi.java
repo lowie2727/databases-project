@@ -5,7 +5,7 @@ import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
-public class RunnerJdbi {
+public class RunnerJdbi implements JdbiInterface<Runner> {
 
     private final Jdbi jdbi;
 
@@ -13,32 +13,29 @@ public class RunnerJdbi {
         jdbi = Jdbi.create(connectionString);
     }
 
-    public List<Runner> getRunnerByFirstName(String firstName) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM runner WHERE firstName = :firstName")
-                .bind("firstName", firstName)
-                .mapToBean(Runner.class)
-                .list());
-    }
-
-    public List<Runner> getRunners() {
+    @Override
+    public List<Runner> getAll() {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM runner")
                 .mapToBean(Runner.class)
                 .list());
     }
 
-    public void insertRunner(Runner runner) {
+    @Override
+    public void insert(Runner runner) {
         jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner (firstName, familyName, age, weight, length, streetName, houseNumber, boxNumber, postalCode, city, country) VALUES (:firstName, :familyName, :age, :weight, :length, :streetName, :houseNumber, :boxNumber, :postalCode, :city, :country)")
                 .bindBean(runner)
                 .execute());
     }
 
-    public void updateRunner(Runner runner) {
+    @Override
+    public void update(Runner runner) {
         jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner SET firstName = :firstName, familyName = :familyName, age = :age, weight = :weight, length = :length, streetName = :streetName, houseNumber = :houseNumber, boxNumber = :boxNumber, postalCode = :postalCode, city = :city, country = :country WHERE id = :id")
                 .bindBean(runner)
                 .execute());
     }
 
-    public void deleteRunner(Runner runner) {
+    @Override
+    public void delete(Runner runner) {
         jdbi.withHandle(handle -> {
             handle.createUpdate("DELETE FROM runner WHERE id = :id").bindBean(runner).execute();
             handle.createUpdate("DELETE FROM global_ranking WHERE runnerID = :id").bindBean(runner).execute();

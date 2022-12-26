@@ -6,7 +6,7 @@ import org.jdbi.v3.core.Jdbi;
 import java.util.Collections;
 import java.util.List;
 
-public class VolunteerJdbi {
+public class VolunteerJdbi implements JdbiInterface<Volunteer> {
 
     private final Jdbi jdbi;
 
@@ -14,20 +14,24 @@ public class VolunteerJdbi {
         jdbi = Jdbi.create(connectionString);
     }
 
-    public List<Volunteer> getVolunteers() {
+    @Override
+    public List<Volunteer> getAll() {
         //TODO
         return Collections.emptyList();
     }
 
-    public void insertVolunteer(Volunteer volunteer) {
+    @Override
+    public void insert(Volunteer volunteer) {
         //TODO
     }
 
-    public void updateVolunteer(Volunteer volunteer) {
+    @Override
+    public void update(Volunteer volunteer) {
         //TODO
     }
 
-    public void deleteVolunteer(Volunteer volunteer) {
+    @Override
+    public void delete(Volunteer volunteer) {
         //TODO
     }
 }

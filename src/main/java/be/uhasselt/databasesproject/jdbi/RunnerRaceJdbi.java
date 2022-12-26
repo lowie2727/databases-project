@@ -6,7 +6,7 @@ import org.jdbi.v3.core.Jdbi;
 import java.util.Collections;
 import java.util.List;
 
-public class RunnerRaceJdbi {
+public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
 
     private final Jdbi jdbi;
 
@@ -14,20 +14,24 @@ public class RunnerRaceJdbi {
         jdbi = Jdbi.create(connectionString);
     }
 
-    public List<RunnerRace> getRunnerRaces() {
+    @Override
+    public List<RunnerRace> getAll() {
         //TODO
         return Collections.emptyList();
     }
 
-    public void insertRunnerRace(RunnerRace runnerRace) {
+    @Override
+    public void insert(RunnerRace runnerRace) {
         //TODO
     }
 
-    public void updateRunnerRace(RunnerRace runnerRace) {
+    @Override
+    public void update(RunnerRace runnerRace) {
         //TODO
     }
 
-    public void deleteRunnerRace(RunnerRace runnerRace) {
+    @Override
+    public void delete(RunnerRace runnerRace) {
         //TODO
     }
 }

@@ -6,7 +6,7 @@ import org.jdbi.v3.core.Jdbi;
 import java.util.Collections;
 import java.util.List;
 
-public class GlobalRankingJdbi {
+public class GlobalRankingJdbi implements JdbiInterface<GlobalRanking> {
 
     private final Jdbi jdbi;
 
@@ -14,20 +14,24 @@ public class GlobalRankingJdbi {
         jdbi = Jdbi.create(connectionString);
     }
 
-    public List<GlobalRanking> getGlobalRanking() {
+    @Override
+    public List<GlobalRanking> getAll() {
         //TODO
         return Collections.emptyList();
     }
 
-    public void insertGlobalRanking(GlobalRanking globalRanking) {
+    @Override
+    public void insert(GlobalRanking globalRanking) {
         //TODO
     }
 
-    public void updateGlobalRanking(GlobalRanking globalRanking) {
+    @Override
+    public void update(GlobalRanking globalRanking) {
         //TODO
     }
 
-    public void deleteGlobalRanking(GlobalRanking globalRanking) {
+    @Override
+    public void delete(GlobalRanking globalRanking) {
         //TODO
     }
 }

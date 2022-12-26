@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 public class ConnectionManager {
+
     public static final String CONNECTION_STRING = "jdbc:sqlite:src/main/resources/database/project.sqlite3";
 
     public static void initTables() {

@@ -168,9 +168,9 @@ public class EditRunnerController {
             } else {
                 RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
                 if (runner.getId() == 0) {
-                    runnerJdbi.insertRunner(runner);
+                    runnerJdbi.insert(runner);
                 } else {
-                    runnerJdbi.updateRunner(runner);
+                    runnerJdbi.update(runner);
                 }
                 close(event);
             }

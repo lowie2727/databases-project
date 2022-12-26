@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class MainController {
+
     @FXML
     private Button runnersButton;
 
