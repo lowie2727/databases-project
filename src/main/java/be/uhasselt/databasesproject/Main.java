@@ -1,8 +1,10 @@
 package be.uhasselt.databasesproject;
 
-import be.uhasselt.databasesproject.jdbi.ConnectionManager;
-import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
+import be.uhasselt.databasesproject.jdbi.*;
+import be.uhasselt.databasesproject.model.Race;
 import be.uhasselt.databasesproject.model.Runner;
+import be.uhasselt.databasesproject.model.Segment;
+import be.uhasselt.databasesproject.model.Volunteer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,8 +36,19 @@ public class Main extends Application {
         ConnectionManager.initTables();
 
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+        RaceJdbi raceJdbi = new RaceJdbi(ConnectionManager.CONNECTION_STRING);
+        VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
+        SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
+
         Runner runner = new Runner(6, "Joe", "Biden", 100, 60.0, 1.6, "Pennsylvania Avenue NW", "1600", null, "DC 20500", "Washington", "Verenigde Staten");
+        Race race = new Race(1, "2022", "dwars door genk", 5000, 50);
+        Volunteer volunteer = new Volunteer(1, "Bob", "Dylan", "richting aangever");
+        Segment segment = new Segment(1, 1, "door het bos", 2313);
+
         runnerJdbi.insert(runner);
+        raceJdbi.insert(race);
+        volunteerJdbi.insert(volunteer);
+        segmentJdbi.insert(segment);
 
         launch();
     }

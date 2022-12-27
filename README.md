@@ -26,12 +26,12 @@ to run the program, execute the following command
 
 implementing Jdbi and model
 - [ ] global_ranking
-- [ ] race
+- [x] race
 - [x] runner
 - [ ] runner_race
-- [ ] segment
+- [x] segment
 - [ ] segment_times
-- [ ] volunteer
+- [x] volunteer
 - [ ] volunteer_race
 
 ## analyse code with PMD

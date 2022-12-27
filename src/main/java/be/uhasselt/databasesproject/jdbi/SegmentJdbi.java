@@ -3,7 +3,6 @@ package be.uhasselt.databasesproject.jdbi;
 import be.uhasselt.databasesproject.model.Segment;
 import org.jdbi.v3.core.Jdbi;
 
-import java.util.Collections;
 import java.util.List;
 
 public class SegmentJdbi implements JdbiInterface<Segment> {
@@ -16,22 +15,30 @@ public class SegmentJdbi implements JdbiInterface<Segment> {
 
     @Override
     public List<Segment> getAll() {
-        //TODO
-        return Collections.emptyList();
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM segment")
+                .mapToBean(Segment.class)
+                .list());
     }
 
     @Override
     public void insert(Segment segment) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment (raceID, location, distance) VALUES (:raceId, :location, :distance)")
+                .bindBean(segment)
+                .execute());
     }
 
     @Override
     public void update(Segment segment) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment SET raceID = :raceId, location = :location, distance = :distance WHERE id = :id")
+                .bindBean(segment)
+                .execute());
     }
 
     @Override
     public void delete(Segment segment) {
-        //TODO
+        jdbi.withHandle(handle -> {
+            handle.createUpdate("DELETE FROM segment WHERE id = :id").bindBean(segment).execute();
+            return handle.createUpdate("DELETE FROM segment_times WHERE segmentID = :id").bindBean(segment).execute();
+        });
     }
 }

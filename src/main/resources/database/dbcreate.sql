@@ -76,27 +76,27 @@ CREATE TABLE IF NOT EXISTS "global_ranking" (
 	FOREIGN KEY("runnerID") REFERENCES "runner"("id")
 );
 
-INSERT INTO "race" ("id","date","name","distance","price") VALUES (1,'2022-11-14','Dwars door Gent',10,5.0);
-INSERT INTO "race" ("id","date","name","distance","price") VALUES (2,'2022-11-14','Dwars door Brussel',15,6.0);
-INSERT INTO "race" ("id","date","name","distance","price") VALUES (3,'2022-11-14','Dwars door Leuven',5,4.0);
+INSERT INTO "race" ("id","date","name","distance","price") VALUES (1,'2022-11-14','Dwars door Gent',10000,5.0);
+INSERT INTO "race" ("id","date","name","distance","price") VALUES (2,'2022-11-14','Dwars door Brussel',15000,6.0);
+INSERT INTO "race" ("id","date","name","distance","price") VALUES (3,'2022-11-14','Dwars door Leuven',5000,4.0);
 
 INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (1,'Barack','Obama',41,121.0,2.23,'Wetstraat','16',NULL,'1000','Brussel','Belgie');
 INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (2,'Linus','Sebastian',43,126.0,1.40,'Pariser Platz','1',NULL,'10117','Berlijn','Duitsland');
 INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (3,'Kris','Aerts',50,160.0,1.60,'Nazim St','29',NULL,'3500','Abbottabad','Pakistan');
 
-INSERT INTO "segment" ("id","raceID","location","distance") VALUES (1,1,'bos',2.3);
-INSERT INTO "segment" ("id","raceID","location","distance") VALUES (2,1,'langs het kanaal',3);
-INSERT INTO "segment" ("id","raceID","location","distance") VALUES (3,1,'laatste rechte lijn',0.5);
+INSERT INTO "segment" ("id","raceID","location","distance") VALUES (1,1,'bos',2300);
+INSERT INTO "segment" ("id","raceID","location","distance") VALUES (2,1,'langs het kanaal',3000);
+INSERT INTO "segment" ("id","raceID","location","distance") VALUES (3,1,'laatste rechte lijn',500);
 
 INSERT INTO "volunteer" ("id","firstName","familyName","job") VALUES (1,'Jef','Bezos','runners in de juiste richting sturen');
 INSERT INTO "volunteer" ("id","firstName","familyName","job") VALUES (2,'Steve','Jobs','bevoorrading');
 INSERT INTO "volunteer" ("id","firstName","familyName","job") VALUES (3,'Bill','Gates','bevoorrading');
 
-INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,1,1,6300.0);
-INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (2,1,2,9000.0);
-INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (3,1,3,7600.0);
-INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,2,1,5000.0);
-INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,3,1,21600.0);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,1,1,6300);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (2,1,2,9000);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (3,1,3,7600);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,2,1,5000);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,3,1,21600);
 
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,1,480);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,2,500);
