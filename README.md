@@ -4,9 +4,19 @@
 
 running race
 
-## execute program
+## run program
 
-execute gradle task named run
+JDK 11 or higher required
+
+to build the program, execute the following command
+```bash
+./gradlew build --build-cache --parallel --no-watch-fs
+```
+
+to run the program, execute the following command
+```bash
+./gradlew run --build-cache --parallel --no-watch-fs
+```
 
 ## TODO
 - [x] add runners
@@ -28,7 +38,17 @@ implementing Jdbi and model
 
 edit the build.gradle file in the pmd section to the correct file location (and uncomment line)
 
-execute gradle task named check (generates html file)
+if you want your build to fail, set ignoreFailures to false
+
+```groovy
+pmd {
+    toolVersion = "6.52.0"
+    //ruleSetFiles("path:\\to\\project\\top\\directory\\databases-project\\src\\main\\resources\\pmd\\pmdRules.xml")
+    ignoreFailures = true
+}
+```
+
+to test the program, execute the gradlew build command (generates html file)
 
 ## diagram
 
