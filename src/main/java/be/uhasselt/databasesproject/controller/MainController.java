@@ -14,10 +14,14 @@ import java.util.Objects;
 public class MainController {
 
     @FXML
+    private Button racesButton;
+
+    @FXML
     private Button runnersButton;
 
     @FXML
     void initialize() {
+        racesButton.setOnAction(event -> showAdminPanel("races"));
         runnersButton.setOnAction(event -> showAdminPanel("runners"));
     }
 

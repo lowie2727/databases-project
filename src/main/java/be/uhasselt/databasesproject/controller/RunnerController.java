@@ -19,19 +19,19 @@ import java.util.Objects;
 public class RunnerController {
 
     @FXML
-    private Button runnerAddButton;
+    private Button addButton;
 
     @FXML
-    private Button runnerCloseButton;
+    private Button closeButton;
 
     @FXML
-    private Button runnerDeleteButton;
+    private Button deleteButton;
 
     @FXML
-    private Button runnerEditButton;
+    private Button editButton;
 
     @FXML
-    private TableView<Runner> runnerTableView;
+    private TableView<Runner> tableView;
 
     @FXML
     private TableColumn<Runner, Integer> ageTableColumn;
@@ -75,18 +75,18 @@ public class RunnerController {
     void initialize() {
         initTable();
 
-        runnerAddButton.setOnAction(event -> editRunner(false));
-        runnerEditButton.setOnAction(event -> editRunner(true));
-        runnerDeleteButton.setOnAction(event -> deleteRunner());
-        runnerCloseButton.setOnAction(event -> close());
+        addButton.setOnAction(event -> editRunner(false));
+        editButton.setOnAction(event -> editRunner(true));
+        deleteButton.setOnAction(event -> deleteRunner());
+        closeButton.setOnAction(event -> close());
     }
 
     private void initTable() {
-        runnerTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        runnerTableView.setEditable(true);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.setEditable(true);
 
         initColumns();
-        loadRunnersFromDatabase();
+        loadRunners();
     }
 
     private void initColumns() {
@@ -104,14 +104,14 @@ public class RunnerController {
         countryTableColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
     }
 
-    public void loadRunnersFromDatabase() {
+    private void loadRunners() {
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
         List<Runner> runners = runnerJdbi.getAll();
-        runnerTableView.getItems().setAll(runners);
+        tableView.getItems().setAll(runners);
     }
 
     private boolean verifyRowSelected() {
-        if (runnerTableView.getSelectionModel().getSelectedCells().size() == 0) {
+        if (tableView.getSelectionModel().getSelectedCells().size() == 0) {
             showAlert("Warning", "Please select a row");
             return false;
         }
@@ -119,24 +119,25 @@ public class RunnerController {
     }
 
     private Runner getSelectedRunner() {
-        return runnerTableView.getSelectionModel().getSelectedItem();
+        return tableView.getSelectionModel().getSelectedItem();
     }
 
     private void editRunner(boolean isEdit) {
         Runner runner;
         String title;
         if (isEdit) {
-            runner = getSelectedRunner();
-            title = "edit runner";
             if (!verifyRowSelected()) {
                 return;
             }
+            runner = getSelectedRunner();
+            title = "edit runner";
         } else {
-            runner = new Runner(0, "", "", 0, 0.0, 0.0, "", "", "", "", "", "");
+            runner = new Runner(-1, "", "", -1, -1.0, -1.0, "", "", "", "", "", "");
             title = "add runner";
         }
 
         String resourceName = "/fxml/editRunner.fxml";
+
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
@@ -152,7 +153,7 @@ public class RunnerController {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
             stage.setOnCloseRequest(event -> {
-                loadRunnersFromDatabase();
+                loadRunners();
             });
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resourceName, e);
@@ -165,13 +166,13 @@ public class RunnerController {
             if (confirmationDelete) {
                 RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
                 runnerJdbi.delete(getSelectedRunner());
-                loadRunnersFromDatabase();
+                loadRunners();
             }
         }
     }
 
     private void close() {
-        runnerCloseButton.getScene().getWindow().hide();
+        closeButton.getScene().getWindow().hide();
     }
 
     private void showAlert(String title, String content) {

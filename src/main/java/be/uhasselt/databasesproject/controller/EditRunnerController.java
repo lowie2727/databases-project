@@ -89,7 +89,7 @@ public class EditRunnerController {
     public void inflateUI(Runner runner) {
         this.runner = runner;
         originalRunner = SerializationUtils.clone(runner);
-        if (runner.getId() == 0) {
+        if (runner.getId() == -1) {
             idText.setText("tbd");
         } else {
             idText.setText(Integer.toString(runner.getId()));
@@ -97,19 +97,19 @@ public class EditRunnerController {
 
         firstNameTextField.setText(runner.getFirstName());
         familyNameTextField.setText(runner.getFamilyName());
-        if (runner.getAge() == 0) {
+        if (runner.getAge() == -1) {
             ageTextField.setText("");
         } else {
             ageTextField.setText(Integer.toString(runner.getAge()));
         }
 
-        if (runner.getWeight() == 0) {
+        if (runner.getWeight() == -1.0) {
             weightTextField.setText("");
         } else {
             weightTextField.setText(Double.toString(runner.getWeight()));
         }
 
-        if (runner.getLength() == 0) {
+        if (runner.getLength() == -1.0) {
             lengthTextField.setText("");
         } else {
             lengthTextField.setText(Double.toString(runner.getLength()));
@@ -137,17 +137,17 @@ public class EditRunnerController {
             try {
                 runner.setAge(Integer.parseInt(ageTextField.getText()));
             } catch (NumberFormatException exception) {
-                runner.setAge(0);
+                runner.setAge(-1);
             }
             try {
                 runner.setWeight(Double.parseDouble(weightTextField.getText()));
             } catch (NumberFormatException exception) {
-                runner.setWeight(0);
+                runner.setWeight(-1.0);
             }
             try {
                 runner.setLength(Double.parseDouble(lengthTextField.getText()));
             } catch (NumberFormatException exception) {
-                runner.setLength(0);
+                runner.setLength(-1.0);
             }
         } else {
             runner.setAge(Integer.parseInt(ageTextField.getText()));
@@ -167,7 +167,7 @@ public class EditRunnerController {
                 closeOnNoChanges(event);
             } else {
                 RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-                if (runner.getId() == 0) {
+                if (runner.getId() == -1) {
                     runnerJdbi.insert(runner);
                 } else {
                     runnerJdbi.update(runner);
@@ -177,7 +177,6 @@ public class EditRunnerController {
         } else {
             showAlert("Warning", "Please fill in the mandatory fields.");
         }
-
     }
 
     private boolean areMandatoryFieldsFilledIn() {
