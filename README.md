@@ -22,8 +22,10 @@ to run the program, execute the following command
 - [x] add runners
 - [x] edit runners
 - [x] delete runners across the database
+- [ ] use SQLite CHECK constraints on columns (e.g. check names for special characters)
 - [ ] add login screen for admins (no plaintext password)
 - [ ] add screen for registration of runners (no login required)
+- [ ] add screen for registration of volunteers (no login required)
 - [ ] date should be saved in ISO 8601 format (no open text entry)
 - [ ] improving UI
 
