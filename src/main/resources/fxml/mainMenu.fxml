@@ -7,12 +7,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.MainController">
     <children>
-        <Button fx:id="runnersButton" layoutX="260.0" layoutY="187.0" mnemonicParsing="false" text="Edit runners" />
         <Text layoutX="224.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
             <font>
                 <Font size="30.0" />
             </font>
         </Text>
-      <Button fx:id="racesButton" layoutX="267.0" layoutY="230.0" mnemonicParsing="false" text="Edit races" />
+      <Button fx:id="runnerRegistrationButton" layoutX="242.0" layoutY="148.0" mnemonicParsing="false" text="runner registration" />
+      <Button fx:id="volunteerRegistrationButton" layoutX="235.0" layoutY="188.0" mnemonicParsing="false" text="volunteer registration" />
+      <Button fx:id="adminButton" layoutX="275.0" layoutY="226.0" mnemonicParsing="false" text="admin" />
     </children>
 </AnchorPane>

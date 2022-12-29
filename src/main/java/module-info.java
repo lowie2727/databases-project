@@ -11,8 +11,12 @@ module be.uhasselt.databasesproject {
 
     opens be.uhasselt.databasesproject to javafx.fxml;
     opens be.uhasselt.databasesproject.controller to javafx.fxml;
+    opens be.uhasselt.databasesproject.controller.admin to javafx.fxml;
+    opens be.uhasselt.databasesproject.controller.user to javafx.fxml;
     exports be.uhasselt.databasesproject;
     exports be.uhasselt.databasesproject.controller;
     exports be.uhasselt.databasesproject.jdbi;
     exports be.uhasselt.databasesproject.model;
+    exports be.uhasselt.databasesproject.controller.admin;
+    exports be.uhasselt.databasesproject.controller.user;
 }

@@ -1,4 +1,4 @@
-package be.uhasselt.databasesproject.controller;
+package be.uhasselt.databasesproject.controller.admin;
 
 import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
@@ -136,7 +136,7 @@ public class RunnerController {
             title = "add runner";
         }
 
-        String resourceName = "/fxml/editRunner.fxml";
+        String resourceName = "/fxml/admin/editRunner.fxml";
 
         try {
             Stage stage = new Stage();

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.user.RegisterRunnerController">
+   <children>
+      <Text layoutX="258.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="43.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="first name" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="130.0" />
+      <Text layoutX="47.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="family name" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="160.0" />
+      <Text layoutX="58.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="age" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="190.0" />
+      <Text layoutX="47.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="weight (in kg)" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="220.0" />
+      <Text layoutX="58.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="length (in meters)" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="250.0" />
+      <Text layoutX="412.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="100.0" />
+      <Text layoutX="358.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="street name" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="130.0" />
+      <Text layoutX="378.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="house number" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="160.0" />
+      <Text layoutX="410.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="box number" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="190.0" />
+      <Text layoutX="422.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="postal code" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="220.0" />
+      <Text layoutX="422.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="city" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="250.0" />
+      <Text layoutX="420.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="country" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="280.0" />
+      <TextField fx:id="firstNameTextField" layoutX="98.0" layoutY="126.0" promptText="first name" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="124.0" />
+      <TextField fx:id="familyNameTextField" layoutX="98.0" layoutY="156.0" promptText="family name" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="154.0" />
+      <TextField fx:id="ageTextField" layoutX="98.0" layoutY="195.0" promptText="age" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="184.0" />
+      <TextField fx:id="weightTextField" layoutX="98.0" layoutY="238.0" promptText="weight in kilograms" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="214.0" />
+      <TextField fx:id="lengthTextField" layoutX="98.0" layoutY="268.0" promptText="length in meters" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="244.0" />
+      <TextField fx:id="streetTextField" layoutX="394.0" layoutY="126.0" promptText="street name" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="124.0" />
+      <TextField fx:id="houseNumberTextField" layoutX="394.0" layoutY="156.0" promptText="house number" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="154.0" />
+      <TextField fx:id="boxNumberTextField" layoutX="394.0" layoutY="195.0" promptText="box number" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="184.0" />
+      <TextField fx:id="postalCodeTextField" layoutX="387.0" layoutY="226.0" promptText="postal code" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="214.0" />
+      <TextField fx:id="cityTextField" layoutX="394.0" layoutY="256.0" promptText="city" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="244.0" />
+      <TextField fx:id="countryTextField" layoutX="400.0" layoutY="285.0" promptText="country" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="274.0" />
+      <Text layoutX="20.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="please select the race you wish to register for" />
+      <ChoiceBox fx:id="raceChoiceBox" layoutX="20.0" layoutY="378.0" prefWidth="150.0" />
+      <Text layoutX="215.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="price (€):" />
+      <Text fx:id="priceText" layoutX="269.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Button fx:id="registerButton" layoutX="518.0" layoutY="378.0" mnemonicParsing="false" text="register" />
+   </children>
+</AnchorPane>

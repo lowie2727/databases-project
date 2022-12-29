@@ -1,4 +1,4 @@
-package be.uhasselt.databasesproject.controller;
+package be.uhasselt.databasesproject.controller.admin;
 
 import be.uhasselt.databasesproject.Main;
 import javafx.fxml.FXML;
@@ -11,31 +11,22 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class MainController {
+public class AdminController {
 
     @FXML
-    private Button adminButton;
+    private Button editRunnersButton;
 
     @FXML
-    private Button runnerRegistrationButton;
-
-    @FXML
-    private Button volunteerRegistrationButton;
+    private Button editVolunteersButton;
 
     @FXML
     void initialize() {
-        adminButton.setOnAction(event -> showPanel("admin", true));
-        runnerRegistrationButton.setOnAction(event -> showPanel("registerRunner", false));
+        editRunnersButton.setOnAction(event -> showPanel("runner"));
+        editVolunteersButton.setOnAction(event -> showPanel("race"));
     }
 
-    private void showPanel(String string, boolean isAdmin) {
-        String resourceName;
-        if (isAdmin) {
-            resourceName = "/fxml/admin/" + string + ".fxml";
-        } else {
-            resourceName = "/fxml/user/" + string + ".fxml";
-        }
-
+    private void showPanel(String string) {
+        String resourceName = "/fxml/admin/" + string + ".fxml";
         try {
             Stage stage = new Stage();
             AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
