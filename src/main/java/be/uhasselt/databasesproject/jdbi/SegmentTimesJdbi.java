@@ -16,22 +16,29 @@ public class SegmentTimesJdbi implements JdbiInterface<SegmentTimes> {
 
     @Override
     public List<SegmentTimes> getAll() {
-        //TODO
-        return Collections.emptyList();
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM segment_times")
+                .mapToBean(SegmentTimes.class)
+                .list());
     }
 
     @Override
     public void insert(SegmentTimes segmentTimes) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times(segmentID, runnerID, time) VALUES (:segmentId, :runnerId, :time)")
+                .bindBean(segmentTimes)
+                .execute());
     }
 
     @Override
     public void update(SegmentTimes segmentTimes) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segmentTimes SET segmentID = :segmentId, runnerID = :runnerId, time = :time")
+                .bindBean(segmentTimes)
+                .execute());
     }
 
     @Override
     public void delete(SegmentTimes segmentTimes) {
-        //TODO
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate("DELETE FROM segmentTimes").bindBean(segmentTimes).execute();
+        });
     }
 }
