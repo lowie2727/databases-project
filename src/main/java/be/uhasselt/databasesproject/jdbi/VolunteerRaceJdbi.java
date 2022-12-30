@@ -16,22 +16,29 @@ public class VolunteerRaceJdbi implements JdbiInterface<VolunteerRace> {
 
     @Override
     public List<VolunteerRace> getAll() {
-        //TODO
-        return Collections.emptyList();
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM volunteer_race")
+                .mapToBean(VolunteerRace.class)
+                .list());
     }
 
     @Override
     public void insert(VolunteerRace volunteerRace) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer_race(volunteerID, raceID) VALUES (:volunteerId, :raceId)")
+                .bindBean(volunteerRace)
+                .execute());
     }
 
     @Override
     public void update(VolunteerRace volunteerRace) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE volunteerRace SET volunteerID = :volunteerId, raceID = :raceId")
+                .bindBean(volunteerRace)
+                .execute());
     }
 
     @Override
     public void delete(VolunteerRace volunteerRace) {
-        //TODO
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate("DELETE FROM volunteerRace").bindBean(volunteerRace).execute();
+        });
     }
 }
