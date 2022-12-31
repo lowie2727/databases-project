@@ -1,6 +1,5 @@
 package be.uhasselt.databasesproject.controller.admin;
 
-import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.model.Runner;
@@ -70,6 +69,7 @@ public class RunnerController {
     private TableColumn<Runner, Double> weightTableColumn;
 
     private boolean confirmationDelete = false;
+    private Stage stage;
 
     @FXML
     void initialize() {
@@ -125,6 +125,7 @@ public class RunnerController {
     private void editRunner(boolean isEdit) {
         Runner runner;
         String title;
+
         if (isEdit) {
             if (!verifyRowSelected()) {
                 return;
@@ -149,7 +150,7 @@ public class RunnerController {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(title);
-            stage.initOwner(Main.getRootStage());
+            stage.initOwner(this.stage);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
             stage.setOnCloseRequest(event -> {
@@ -158,6 +159,10 @@ public class RunnerController {
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resourceName, e);
         }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private void deleteRunner() {

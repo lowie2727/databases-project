@@ -19,6 +19,8 @@ public class AdminController {
     @FXML
     private Button editVolunteersButton;
 
+    private Stage stage;
+
     @FXML
     void initialize() {
         editRunnersButton.setOnAction(event -> showPanel("runner"));
@@ -27,17 +29,35 @@ public class AdminController {
 
     private void showPanel(String string) {
         String resourceName = "/fxml/admin/" + string + ".fxml";
+
+        RunnerController runnerController;
+        RaceController raceController;
+
         try {
             Stage stage = new Stage();
-            AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
+            AnchorPane root = loader.load();
+
+            if (Objects.equals(string, "runner")) {
+                runnerController = loader.getController();
+                runnerController.setStage(stage);
+            } else if (Objects.equals(string, "race")) {
+                raceController = loader.getController();
+                raceController.setStage(stage);
+            }
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(string);
-            stage.initOwner(Main.getRootStage());
+            stage.initOwner(this.stage);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resourceName, e);
         }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

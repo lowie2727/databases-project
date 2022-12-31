@@ -1,9 +1,12 @@
 package be.uhasselt.databasesproject.controller;
 
 import be.uhasselt.databasesproject.Main;
+import be.uhasselt.databasesproject.controller.admin.AdminController;
+import be.uhasselt.databasesproject.controller.admin.RunnerController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -30,6 +33,7 @@ public class MainController {
 
     private void showPanel(String string, boolean isAdmin) {
         String resourceName;
+
         if (isAdmin) {
             resourceName = "/fxml/admin/" + string + ".fxml";
         } else {
@@ -38,7 +42,14 @@ public class MainController {
 
         try {
             Stage stage = new Stage();
-            AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
+            AnchorPane root = loader.load();
+
+            if (Objects.equals(string, "admin")) {
+                AdminController adminController = loader.getController();
+                adminController.setStage(stage);
+            }
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(string);
