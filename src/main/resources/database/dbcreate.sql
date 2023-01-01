@@ -76,9 +76,9 @@ CREATE TABLE IF NOT EXISTS "global_ranking" (
 	FOREIGN KEY("runnerID") REFERENCES "runner"("id")
 );
 
-INSERT INTO "race" ("id","date","name","distance","price") VALUES (1,'2022-11-14','Dwars door Gent',10000,5.0);
-INSERT INTO "race" ("id","date","name","distance","price") VALUES (2,'2022-11-14','Dwars door Brussel',15000,6.0);
-INSERT INTO "race" ("id","date","name","distance","price") VALUES (3,'2022-11-14','Dwars door Leuven',5000,4.0);
+INSERT INTO "race" ("id","date","name","distance","price") VALUES (1,'2023-11-14','Dwars door Gent',10000,5.0);
+INSERT INTO "race" ("id","date","name","distance","price") VALUES (2,'2023-11-14','Dwars door Brussel',15000,6.0);
+INSERT INTO "race" ("id","date","name","distance","price") VALUES (3,'2023-11-14','Dwars door Leuven',5000,4.0);
 
 INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (1,'Barack','Obama',41,121.0,2.23,'Wetstraat','16',NULL,'1000','Brussel','Belgie');
 INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (2,'Linus','Sebastian',43,126.0,1.40,'Pariser Platz','1',NULL,'10117','Berlijn','Duitsland');
