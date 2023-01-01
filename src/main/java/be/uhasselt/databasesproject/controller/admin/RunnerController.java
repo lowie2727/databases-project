@@ -33,40 +33,43 @@ public class RunnerController {
     private TableView<Runner> tableView;
 
     @FXML
+    private TableColumn<Runner, Integer> idTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> firstNameTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> familyNameTableColumn;
+
+    @FXML
     private TableColumn<Runner, Integer> ageTableColumn;
 
     @FXML
+    private TableColumn<Runner, Double> weightTableColumn;
+
+    @FXML
+    private TableColumn<Runner, Double> lengthTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> passwordTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> streetNameTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> houseNumberTableColumn;
+
+    @FXML
     private TableColumn<Runner, String> boxNumberTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> postalCodeTableColumn;
 
     @FXML
     private TableColumn<Runner, String> cityTableColumn;
 
     @FXML
     private TableColumn<Runner, String> countryTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> familyNameTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> firstNameTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> houseNumberTableColumn;
-
-    @FXML
-    private TableColumn<Runner, Integer> idTableColumn;
-
-    @FXML
-    private TableColumn<Runner, Double> lengthTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> postalCodeTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> streetNameTableColumn;
-
-    @FXML
-    private TableColumn<Runner, Double> weightTableColumn;
 
     private boolean confirmationDelete = false;
     private Stage stage;
@@ -96,6 +99,7 @@ public class RunnerController {
         ageTableColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
         weightTableColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         lengthTableColumn.setCellValueFactory(new PropertyValueFactory<>("length"));
+        passwordTableColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         streetNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("streetName"));
         houseNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
         boxNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("boxNumber"));
@@ -133,7 +137,7 @@ public class RunnerController {
             runner = getSelectedRunner();
             title = "edit runner";
         } else {
-            runner = new Runner(-1, "", "", -1, -1.0, -1.0, "", "", "", "", "", "");
+            runner = new Runner(-1, "", "", -1, -1.0, -1.0, null, "", "", "", "", "", "");
             title = "add runner";
         }
 

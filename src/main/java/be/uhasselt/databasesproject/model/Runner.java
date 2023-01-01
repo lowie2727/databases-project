@@ -11,6 +11,7 @@ public class Runner implements Serializable {
     private int age;
     private double weight;
     private double length;
+    private String password;
     private String streetName;
     private String houseNumber;
     private String boxNumber;
@@ -21,13 +22,14 @@ public class Runner implements Serializable {
     public Runner() {
     }
 
-    public Runner(int id, String firstName, String familyName, int age, double weight, double length, String streetName, String houseNumber, String boxNumber, String postalCode, String city, String country) {
+    public Runner(int id, String firstName, String familyName, int age, double weight, double length, String password, String streetName, String houseNumber, String boxNumber, String postalCode, String city, String country) {
         this.id = id;
         this.firstName = firstName;
         this.familyName = familyName;
         this.age = age;
         this.weight = weight;
         this.length = length;
+        this.password = password;
         this.streetName = streetName;
         this.houseNumber = houseNumber;
         this.boxNumber = boxNumber;
@@ -101,6 +103,14 @@ public class Runner implements Serializable {
 
     public void setLength(double length) {
         this.length = length;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStreetName() {

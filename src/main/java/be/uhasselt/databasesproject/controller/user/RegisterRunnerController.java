@@ -1,5 +1,6 @@
 package be.uhasselt.databasesproject.controller.user;
 
+import be.uhasselt.databasesproject.Password;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
@@ -82,6 +83,7 @@ public class RegisterRunnerController {
     private void runnerUpdate() {
         runner.setFirstName(firstNameTextField.getText());
         runner.setFamilyName(familyNameTextField.getText());
+        runner.setPassword(hashPassword());
         runner.setStreetName(streetNameTextField.getText());
         runner.setHouseNumber(houseNumberTextField.getText());
         runner.setBoxNumber(boxNumberTextField.getText());
@@ -104,6 +106,10 @@ public class RegisterRunnerController {
         } catch (NumberFormatException exception) {
             runner.setLength(-1.0);
         }
+    }
+
+    private String hashPassword() {
+        return Password.hashString(passwordField.getText());
     }
 
     private void register(ActionEvent event) {

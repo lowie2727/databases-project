@@ -22,14 +22,14 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
 
     @Override
     public void insert(Runner runner) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner (firstName, familyName, age, weight, length, streetName, houseNumber, boxNumber, postalCode, city, country) VALUES (:firstName, :familyName, :age, :weight, :length, :streetName, :houseNumber, :boxNumber, :postalCode, :city, :country)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner (firstName, familyName, age, weight, length, password, streetName, houseNumber, boxNumber, postalCode, city, country) VALUES (:firstName, :familyName, :age, :weight, :length, :password, :streetName, :houseNumber, :boxNumber, :postalCode, :city, :country)")
                 .bindBean(runner)
                 .execute());
     }
 
     @Override
     public void update(Runner runner) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner SET firstName = :firstName, familyName = :familyName, age = :age, weight = :weight, length = :length, streetName = :streetName, houseNumber = :houseNumber, boxNumber = :boxNumber, postalCode = :postalCode, city = :city, country = :country WHERE id = :id")
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner SET firstName = :firstName, familyName = :familyName, age = :age, weight = :weight, length = :length, password = :password, streetName = :streetName, houseNumber = :houseNumber, boxNumber = :boxNumber, postalCode = :postalCode, city = :city, country = :country WHERE id = :id")
                 .bindBean(runner)
                 .execute());
     }
@@ -42,5 +42,12 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
             handle.createUpdate("DELETE FROM runner_race WHERE runnerID = :id").bindBean(runner).execute();
             return handle.createUpdate("DELETE FROM segment_times WHERE runnerID = :id").bindBean(runner).execute();
         });
+    }
+
+    public String getHashedPassword(Runner runner) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT password FROM runner WHERE id = :id")
+                .bindBean(runner)
+                .mapTo(String.class)
+                .one());
     }
 }
