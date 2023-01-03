@@ -42,9 +42,9 @@
       <ChoiceBox fx:id="raceChoiceBox" layoutX="20.0" layoutY="378.0" prefWidth="300.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="290.0" />
       <Text layoutX="203.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="price (€):" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="296.0" />
       <Text fx:id="priceText" layoutX="380.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="380.0" AnchorPane.topAnchor="296.0" />
-      <Button fx:id="registerButton" layoutX="458.0" layoutY="351.0" mnemonicParsing="false" text="register" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
       <Text layoutX="20.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="if you want to create an account, you also need to enter a password" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="335.0" />
       <PasswordField fx:id="passwordField" layoutX="30.0" layoutY="366.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" />
       <Text layoutX="180.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(optional)" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="180.0" />
+      <Button fx:id="registerButton" layoutX="458.0" layoutY="351.0" mnemonicParsing="false" text="register" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>

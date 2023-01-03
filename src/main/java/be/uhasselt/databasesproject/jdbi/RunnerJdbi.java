@@ -44,9 +44,16 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
         });
     }
 
-    public String getHashedPassword(Runner runner) {
+    public Runner getById(int id) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM runner WHERE id = :id")
+                .bind("id", id)
+                .mapToBean(Runner.class)
+                .one());
+    }
+
+    public String getHashedPassword(int id) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT password FROM runner WHERE id = :id")
-                .bindBean(runner)
+                .bind("id", id)
                 .mapTo(String.class)
                 .one());
     }

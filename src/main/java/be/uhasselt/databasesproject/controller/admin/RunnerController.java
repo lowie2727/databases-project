@@ -148,8 +148,9 @@ public class RunnerController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
             AnchorPane root = loader.load();
 
-            EditRunnerController controller = loader.getController();
-            controller.inflateUI(runner);
+            EditRunnerController editRunnerController = loader.getController();
+            editRunnerController.inflateUI(runner);
+            editRunnerController.setAdminMode();
 
             Scene scene = new Scene(root);
             stage.setScene(scene);

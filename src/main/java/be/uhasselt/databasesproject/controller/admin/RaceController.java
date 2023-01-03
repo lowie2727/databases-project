@@ -1,6 +1,5 @@
 package be.uhasselt.databasesproject.controller.admin;
 
-import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;
 import be.uhasselt.databasesproject.model.Race;

@@ -2,11 +2,10 @@ package be.uhasselt.databasesproject.controller;
 
 import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.controller.admin.AdminController;
-import be.uhasselt.databasesproject.controller.admin.RunnerController;
+import be.uhasselt.databasesproject.controller.user.LoginRunnerController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -20,6 +19,9 @@ public class MainController {
     private Button adminButton;
 
     @FXML
+    private Button runnerLoginButton;
+
+    @FXML
     private Button runnerRegistrationButton;
 
     @FXML
@@ -27,8 +29,9 @@ public class MainController {
 
     @FXML
     void initialize() {
-        adminButton.setOnAction(event -> showPanel("admin", true));
         runnerRegistrationButton.setOnAction(event -> showPanel("registerRunner", false));
+        runnerLoginButton.setOnAction(event -> showPanel("loginRunner", false));
+        adminButton.setOnAction(event -> showPanel("admin", true));
     }
 
     private void showPanel(String string, boolean isAdmin) {
@@ -48,6 +51,9 @@ public class MainController {
             if (Objects.equals(string, "admin")) {
                 AdminController adminController = loader.getController();
                 adminController.setStage(stage);
+            } else if (Objects.equals(string, "loginRunner")) {
+                LoginRunnerController loginRunnerController = loader.getController();
+                loginRunnerController.setStage(stage);
             }
 
             Scene scene = new Scene(root);

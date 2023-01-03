@@ -67,6 +67,7 @@ public class EditRunnerController {
     private Runner runner;
     private Runner originalRunner;
     private Boolean confirmation = false;
+    private Boolean isAdmin;
 
     @FXML
     void initialize() {
@@ -78,9 +79,12 @@ public class EditRunnerController {
     private void close(ActionEvent event) {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
 
-        stage.getOnCloseRequest().handle(windowEvent);
+        if (isAdmin) {
+            WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
+            stage.getOnCloseRequest().handle(windowEvent);
+        }
+
         stage.close();
     }
 
@@ -262,6 +266,14 @@ public class EditRunnerController {
         if (confirmation) {
             close(event);
         }
+    }
+
+    public void setAdminMode() {
+        isAdmin = true;
+    }
+
+    public void setUserMode() {
+        isAdmin = false;
     }
 
     private void showAlert(String title, String content) {

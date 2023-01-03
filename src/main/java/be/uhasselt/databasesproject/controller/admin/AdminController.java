@@ -1,6 +1,5 @@
 package be.uhasselt.databasesproject.controller.admin;
 
-import be.uhasselt.databasesproject.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

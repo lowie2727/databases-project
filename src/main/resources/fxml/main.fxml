@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.MainController">
+    <children>
+        <Text layoutX="224.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu" AnchorPane.topAnchor="50.0">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Text>
+      <Button fx:id="runnerRegistrationButton" layoutX="185.0" layoutY="148.0" mnemonicParsing="false" text="runner registration" AnchorPane.leftAnchor="185.0" />
+      <Button fx:id="runnerLoginButton" layoutX="306.0" layoutY="148.0" mnemonicParsing="false" text="runner login" AnchorPane.leftAnchor="306.0" />
+      <Button fx:id="volunteerRegistrationButton" layoutX="224.0" layoutY="188.0" mnemonicParsing="false" text="volunteer registration" />
+      <Button fx:id="adminButton" layoutX="264.0" layoutY="226.0" mnemonicParsing="false" text="admin" />
+    </children>
+</AnchorPane>
