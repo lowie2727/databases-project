@@ -14,5 +14,7 @@
       </Text>
       <Button fx:id="editRunnersButton" layoutX="260.0" layoutY="132.0" mnemonicParsing="false" text="Edit runners" />
       <Button fx:id="editVolunteersButton" layoutX="252.0" layoutY="175.0" mnemonicParsing="false" text="Edit volunteers" />
+      <Button fx:id="editRacesButton" layoutX="264.0" layoutY="218.0" mnemonicParsing="false" text="Edit races" />
+
    </children>
 </AnchorPane>

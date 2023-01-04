@@ -1,8 +1,9 @@
 package be.uhasselt.databasesproject.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Volunteer {
+public class Volunteer implements Serializable{
 
     private int id;
     private String firstName;

@@ -18,18 +18,23 @@ public class AdminController {
     @FXML
     private Button editVolunteersButton;
 
+    @FXML
+    private Button editRacesButton;
+
     private Stage stage;
 
     @FXML
     void initialize() {
         editRunnersButton.setOnAction(event -> showPanel("runner"));
-        editVolunteersButton.setOnAction(event -> showPanel("race"));
+        editVolunteersButton.setOnAction(event -> showPanel("volunteer"));
+        editRacesButton.setOnAction(event -> showPanel("race"));
     }
 
     private void showPanel(String string) {
         String resourceName = "/fxml/admin/" + string + ".fxml";
 
         RunnerController runnerController;
+        VolunteerController volunteerController;
         RaceController raceController;
 
         try {
@@ -40,6 +45,9 @@ public class AdminController {
             if (Objects.equals(string, "runner")) {
                 runnerController = loader.getController();
                 runnerController.setStage(stage);
+            } else if (Objects.equals(string, "volunteer")) {
+                volunteerController = loader.getController();
+                volunteerController.setStage(stage);
             } else if (Objects.equals(string, "race")) {
                 raceController = loader.getController();
                 raceController.setStage(stage);
