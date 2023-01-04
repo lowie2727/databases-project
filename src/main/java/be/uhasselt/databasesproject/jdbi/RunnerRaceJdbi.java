@@ -1,13 +1,44 @@
 package be.uhasselt.databasesproject.jdbi;
 
+import be.uhasselt.databasesproject.model.RunnerRace;
 import org.jdbi.v3.core.Jdbi;
 
-public class RunnerRaceJdbi {
+import java.util.List;
+
+public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
 
     private final Jdbi jdbi;
 
     public RunnerRaceJdbi(String connectionString) {
         jdbi = Jdbi.create(connectionString);
+    }
+
+    @Override
+    public List<RunnerRace> getAll() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM runner_race")
+                .mapToBean(RunnerRace.class)
+                .list());
+    }
+
+    @Override
+    public void insert(RunnerRace runnerRace) {
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner_race (runnerID, raceID, shirtNumber, time) VALUES (:runnerId, :raceId, :shirtNumber, :time")
+                .bindBean(runnerRace)
+                .execute());
+    }
+
+    @Override
+    public void update(RunnerRace runnerRace) {
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner_race SET runnerID = :runnerId, raceID = :raceId, shirtNumber = :shirtNumber, time = :time")
+                .bindBean(runnerRace)
+                .execute());
+    }
+
+    @Override
+    public void delete(RunnerRace runnerRace) {
+        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM runner_race WHERE runnerID = :runnerId AND raceID = :raceId")
+                .bindBean(runnerRace)
+                .execute());
     }
 
     public void insert(int raceId) {
@@ -22,7 +53,9 @@ public class RunnerRaceJdbi {
     }
 
     public int getIdLatestAddedRunner() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name='runner'").mapTo(Integer.class).one());
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name='runner'")
+                .mapTo(Integer.class)
+                .one());
     }
 
     public int getNextShirtNumber(int raceId) {

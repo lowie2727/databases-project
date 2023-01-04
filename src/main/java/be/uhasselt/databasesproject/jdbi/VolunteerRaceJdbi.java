@@ -3,7 +3,6 @@ package be.uhasselt.databasesproject.jdbi;
 import be.uhasselt.databasesproject.model.VolunteerRace;
 import org.jdbi.v3.core.Jdbi;
 
-import java.util.Collections;
 import java.util.List;
 
 public class VolunteerRaceJdbi implements JdbiInterface<VolunteerRace> {
@@ -16,22 +15,29 @@ public class VolunteerRaceJdbi implements JdbiInterface<VolunteerRace> {
 
     @Override
     public List<VolunteerRace> getAll() {
-        //TODO
-        return Collections.emptyList();
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM volunteer_race")
+                .mapToBean(VolunteerRace.class)
+                .list());
     }
 
     @Override
     public void insert(VolunteerRace volunteerRace) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer_race (volunteerID, raceID) VALUES (:volunteerId, :raceId)")
+                .bindBean(volunteerRace)
+                .execute());
     }
 
     @Override
     public void update(VolunteerRace volunteerRace) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE volunteer_race SET volunteerID = :volunteerId, raceID = :raceId")
+                .bindBean(volunteerRace)
+                .execute());
     }
 
     @Override
     public void delete(VolunteerRace volunteerRace) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM volunteer_race WHERE volunteerID = :volunteerId AND raceID = :raceId")
+                .bindBean(volunteerRace)
+                .execute());
     }
 }

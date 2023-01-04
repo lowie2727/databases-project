@@ -3,7 +3,6 @@ package be.uhasselt.databasesproject.jdbi;
 import be.uhasselt.databasesproject.model.SegmentTimes;
 import org.jdbi.v3.core.Jdbi;
 
-import java.util.Collections;
 import java.util.List;
 
 public class SegmentTimesJdbi implements JdbiInterface<SegmentTimes> {
@@ -16,22 +15,29 @@ public class SegmentTimesJdbi implements JdbiInterface<SegmentTimes> {
 
     @Override
     public List<SegmentTimes> getAll() {
-        //TODO
-        return Collections.emptyList();
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM segment_times")
+                .mapToBean(SegmentTimes.class)
+                .list());
     }
 
     @Override
     public void insert(SegmentTimes segmentTimes) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (segmentID, runnerID, time) VALUES (:segmentId, :runnerId, :time)")
+                .bindBean(segmentTimes)
+                .execute());
     }
 
     @Override
     public void update(SegmentTimes segmentTimes) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment_times SET segmentID = :segmentId, runnerID = :runnerId, time = :time")
+                .bindBean(segmentTimes)
+                .execute());
     }
 
     @Override
     public void delete(SegmentTimes segmentTimes) {
-        //TODO
+        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM segment_times WHERE segmentID = :segmentId AND runnerID = :runnerId")
+                .bindBean(segmentTimes)
+                .execute());
     }
 }
