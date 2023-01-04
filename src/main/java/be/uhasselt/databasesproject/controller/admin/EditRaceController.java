@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
 
-import java.util.Objects;
-
 public class EditRaceController {
 
     @FXML
@@ -94,22 +92,19 @@ public class EditRaceController {
         race.setDate(dateTextField.getText());
         race.setName(nameTextField.getText());
 
-        if (Objects.equals(idText.getText(), "tbd")) {
-            try {
-                race.setDistance(Integer.parseInt(distanceTextField.getText()));
-            } catch (NumberFormatException exception) {
-                race.setDistance(-1);
-            }
-            try {
-                race.setPrice(Double.parseDouble(priceTextField.getText()));
-            } catch (NumberFormatException exception) {
-                race.setPrice(-1.0);
-            }
-        } else {
+
+        try {
             race.setDistance(Integer.parseInt(distanceTextField.getText()));
+        } catch (NumberFormatException exception) {
+            race.setDistance(-1);
+        }
+        try {
             race.setPrice(Double.parseDouble(priceTextField.getText()));
+        } catch (NumberFormatException exception) {
+            race.setPrice(-1.0);
         }
     }
+
 
     private boolean isNotChanged() {
         raceUpdate();

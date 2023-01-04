@@ -1,5 +1,6 @@
 package be.uhasselt.databasesproject.controller.admin;
 
+import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
 import be.uhasselt.databasesproject.model.Volunteer;
@@ -53,15 +54,17 @@ public class EditVolunteerController {
     }
 
     private void close(ActionEvent event) {
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-
         if (isAdmin) {
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+
             WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
             stage.getOnCloseRequest().handle(windowEvent);
-        }
 
-        stage.close();
+            stage.close();
+        } else {
+            SwitchAnchorPane.goToMainMenu();
+        }
     }
 
     public void inflateUI(Volunteer volunteer) {
@@ -148,7 +151,11 @@ public class EditVolunteerController {
     private void closeOnNoChanges(ActionEvent event) {
         showAlertWithConfirmation("Waring", "No changes were made!");
         if (confirmation) {
-            close(event);
+            if (isAdmin) {
+                close(event);
+            } else {
+                SwitchAnchorPane.goToMainMenu();
+            }
         }
     }
 

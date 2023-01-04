@@ -1,5 +1,7 @@
 package be.uhasselt.databasesproject.controller.admin;
 
+import be.uhasselt.databasesproject.Main;
+import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.model.Runner;
@@ -13,7 +15,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Objects;
 
 public class RunnerController {
 
@@ -72,7 +73,6 @@ public class RunnerController {
     private TableColumn<Runner, String> countryTableColumn;
 
     private boolean confirmationDelete = false;
-    private Stage stage;
 
     @FXML
     void initialize() {
@@ -81,7 +81,7 @@ public class RunnerController {
         addButton.setOnAction(event -> editRunner(false));
         editButton.setOnAction(event -> editRunner(true));
         deleteButton.setOnAction(event -> deleteRunner());
-        closeButton.setOnAction(event -> close());
+        closeButton.setOnAction(event -> SwitchAnchorPane.goToAdmin());
     }
 
     private void initTable() {
@@ -144,30 +144,28 @@ public class RunnerController {
         String resourceName = "/fxml/admin/editRunner.fxml";
 
         try {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
-            AnchorPane root = loader.load();
-
-            EditRunnerController editRunnerController = loader.getController();
-            editRunnerController.inflateUI(runner);
-            editRunnerController.setAdminMode();
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle(title);
-            stage.initOwner(this.stage);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-            stage.setOnCloseRequest(event -> {
-                loadRunners();
-            });
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));
+            AnchorPane anchorPane = loader.load();
+            setEditRunnerScreen(anchorPane, loader, runner, title);
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resourceName, e);
         }
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    private void setEditRunnerScreen(AnchorPane anchorPane, FXMLLoader loader, Runner runner, String title) {
+        EditRunnerController editRunnerController = loader.getController();
+        editRunnerController.inflateUI(runner);
+        editRunnerController.setAdminMode();
+
+        Scene scene = new Scene(anchorPane);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setTitle(title);
+        stage.initOwner(Main.getRootStage());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+        stage.setOnCloseRequest(event -> loadRunners());
     }
 
     private void deleteRunner() {
@@ -179,10 +177,6 @@ public class RunnerController {
                 loadRunners();
             }
         }
-    }
-
-    private void close() {
-        closeButton.getScene().getWindow().hide();
     }
 
     private void showAlert(String title, String content) {

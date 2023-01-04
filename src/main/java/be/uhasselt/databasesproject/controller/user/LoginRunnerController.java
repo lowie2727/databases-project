@@ -1,25 +1,18 @@
 package be.uhasselt.databasesproject.controller.user;
 
-import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.Password;
-import be.uhasselt.databasesproject.controller.admin.EditRunnerController;
+import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.model.Runner;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.util.Objects;
 
 public class LoginRunnerController {
 
@@ -51,7 +44,7 @@ public class LoginRunnerController {
 
         if (isValidInput()) {
             if (isPasswordCorrect()) {
-                showPanel();
+                SwitchAnchorPane.goToEditRunner(stage, id);
             } else {
                 errorText.setText("Incorrect password!");
                 passwordField.setBorder(Border.stroke(Paint.valueOf("red")));
@@ -85,36 +78,6 @@ public class LoginRunnerController {
 
     private boolean isPasswordCorrect() {
         return Password.isSamePassword(passwordField.getText(), id);
-    }
-
-    private Runner getRunnerById(int id) {
-        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-        return runnerJdbi.getById(id);
-    }
-
-    private void showPanel() {
-        String resourceName = "/fxml/admin/editRunner.fxml";
-
-        try {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
-            AnchorPane root = loader.load();
-
-            EditRunnerController editRunnerController = loader.getController();
-            editRunnerController.inflateUI(getRunnerById(id));
-            editRunnerController.setUserMode();
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("edit runner");
-            stage.initOwner(Main.getRootStage());
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-            this.stage.close();
-        } catch (
-                Exception e) {
-            throw new RuntimeException("Cannot find " + resourceName, e);
-        }
     }
 
     public void setStage(Stage stage) {

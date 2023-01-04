@@ -1,5 +1,7 @@
 package be.uhasselt.databasesproject.controller.admin;
 
+import be.uhasselt.databasesproject.Main;
+import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
 import be.uhasselt.databasesproject.model.Volunteer;
@@ -13,7 +15,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Objects;
 
 public class VolunteerController {
 
@@ -45,7 +46,6 @@ public class VolunteerController {
     private TableColumn<Volunteer, String> jobTableColumn;
 
     private boolean confirmationDelete = false;
-    private Stage stage;
 
     @FXML
     void initialize() {
@@ -54,7 +54,7 @@ public class VolunteerController {
         addButton.setOnAction(event -> editVolunteer(false));
         editButton.setOnAction(event -> editVolunteer(true));
         deleteButton.setOnAction(event -> deleteVolunteer());
-        closeButton.setOnAction(event -> close());
+        closeButton.setOnAction(event -> SwitchAnchorPane.goToAdmin());
     }
 
     private void initTable() {
@@ -108,30 +108,28 @@ public class VolunteerController {
         String resourceName = "/fxml/admin/editVolunteer.fxml";
 
         try {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
-            AnchorPane root = loader.load();
-
-            EditVolunteerController editVolunteerController = loader.getController();
-            editVolunteerController.inflateUI(volunteer);
-            editVolunteerController.setAdminMode();
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle(title);
-            stage.initOwner(this.stage);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-            stage.setOnCloseRequest(event -> {
-                loadVolunteers();
-            });
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));
+            AnchorPane anchorPane = loader.load();
+            setEditVolunteerScreen(anchorPane, loader, volunteer, title);
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resourceName, e);
         }
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    private void setEditVolunteerScreen(AnchorPane anchorPane, FXMLLoader loader, Volunteer volunteer, String title) {
+        EditVolunteerController editVolunteerController = loader.getController();
+        editVolunteerController.inflateUI(volunteer);
+        editVolunteerController.setAdminMode();
+
+        Scene scene = new Scene(anchorPane);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setTitle(title);
+        stage.initOwner(Main.getRootStage());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+        stage.setOnCloseRequest(event -> loadVolunteers());
     }
 
     private void deleteVolunteer() {
@@ -143,10 +141,6 @@ public class VolunteerController {
                 loadVolunteers();
             }
         }
-    }
-
-    private void close() {
-        closeButton.getScene().getWindow().hide();
     }
 
     private void showAlert(String title, String content) {

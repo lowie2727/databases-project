@@ -1,5 +1,6 @@
 package be.uhasselt.databasesproject.controller.admin;
 
+import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.model.Runner;
@@ -77,15 +78,18 @@ public class EditRunnerController {
     }
 
     private void close(ActionEvent event) {
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-
         if (isAdmin) {
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+
             WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
             stage.getOnCloseRequest().handle(windowEvent);
+
+            stage.close();
+        } else {
+            SwitchAnchorPane.goToMainMenu();
         }
 
-        stage.close();
     }
 
     public void inflateUI(Runner runner) {
@@ -129,15 +133,28 @@ public class EditRunnerController {
     private void runnerUpdate() {
         runner.setFirstName(firstNameTextField.getText());
         runner.setFamilyName(familyNameTextField.getText());
-        runner.setAge(Integer.parseInt(ageTextField.getText()));
-        runner.setWeight(Double.parseDouble(weightTextField.getText()));
-        runner.setLength(Double.parseDouble(lengthTextField.getText()));
         runner.setStreetName(streetNameTextField.getText());
         runner.setHouseNumber(houseNumberTextField.getText());
         runner.setBoxNumber(boxNumberTextField.getText());
         runner.setPostalCode(postalCodeTextField.getText());
         runner.setCity(cityTextField.getText());
         runner.setCountry(countryTextField.getText());
+
+        try {
+            runner.setAge(Integer.parseInt(ageTextField.getText()));
+        } catch (NumberFormatException e) {
+            runner.setAge(-1);
+        }
+        try {
+            runner.setWeight(Double.parseDouble(weightTextField.getText()));
+        } catch (NumberFormatException e) {
+            runner.setWeight(-1.0);
+        }
+        try {
+            runner.setLength(Double.parseDouble(lengthTextField.getText()));
+        } catch (NumberFormatException e) {
+            runner.setLength(-1.0);
+        }
     }
 
     private boolean isNotChanged() {
@@ -264,7 +281,11 @@ public class EditRunnerController {
     private void closeOnNoChanges(ActionEvent event) {
         showAlertWithConfirmation("Waring", "No changes were made!");
         if (confirmation) {
-            close(event);
+            if (isAdmin) {
+                close(event);
+            } else {
+                SwitchAnchorPane.goToMainMenu();
+            }
         }
     }
 

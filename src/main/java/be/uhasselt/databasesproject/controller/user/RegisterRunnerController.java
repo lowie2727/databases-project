@@ -1,6 +1,7 @@
 package be.uhasselt.databasesproject.controller.user;
 
 import be.uhasselt.databasesproject.Password;
+import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
@@ -9,14 +10,12 @@ import be.uhasselt.databasesproject.model.Race;
 import be.uhasselt.databasesproject.model.Runner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -27,6 +26,9 @@ public class RegisterRunnerController {
 
     @FXML
     private TextField boxNumberTextField;
+
+    @FXML
+    private Button cancelButton;
 
     @FXML
     private TextField cityTextField;
@@ -69,6 +71,8 @@ public class RegisterRunnerController {
 
     private Runner runner;
     private boolean confirmationNoAccount;
+    private boolean confirmationDiscardChanges;
+    private AnchorPane anchorPane;
 
     @FXML
     void initialize() {
@@ -77,7 +81,8 @@ public class RegisterRunnerController {
 
         choiceBoxSetup();
 
-        registerButton.setOnAction(this::register);
+        cancelButton.setOnAction(event -> cancel());
+        registerButton.setOnAction(event -> register());
     }
 
     private void runnerUpdate() {
@@ -112,7 +117,7 @@ public class RegisterRunnerController {
         return Password.hashString(passwordField.getText());
     }
 
-    private void register(ActionEvent event) {
+    private void register() {
         if (areMandatoryFieldsFilledIn()) {
             if (isRegisteredForRace()) {
                 runnerUpdate();
@@ -120,7 +125,7 @@ public class RegisterRunnerController {
                 if (confirmationNoAccount) {
                     insertIntoDatabase(runner);
                     addRunnerToRace();
-                    close(event);
+                    SwitchAnchorPane.goToMainMenu();
                 }
             } else {
                 showAlert("Warning", "Please select a race from the dropdown menu.");
@@ -132,9 +137,9 @@ public class RegisterRunnerController {
 
     private void checkEmptyPassword() {
         if (passwordField.getText().isBlank()) {
-            showAlertWithConfirmation("Warning", "Are you sure you don't want an account?");
+            showAlertWithConfirmationAccount("Warning", "Are you sure you don't want an account?");
         } else {
-            showAlertWithConfirmation("Warning", "Are you sure all your details have been entered correctly?");
+            showAlertWithConfirmationAccount("Warning", "Are you sure all your details have been entered correctly?");
         }
     }
 
@@ -232,12 +237,6 @@ public class RegisterRunnerController {
         raceChoiceBox.setOnAction(event -> priceText.setText(Double.toString(raceChoiceBox.getValue().getPrice())));
     }
 
-    private void close(ActionEvent event) {
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.close();
-    }
-
     private void resetTextFieldBorder() {
         firstNameTextField.setBorder(Border.EMPTY);
         familyNameTextField.setBorder(Border.EMPTY);
@@ -251,6 +250,49 @@ public class RegisterRunnerController {
         countryTextField.setBorder(Border.EMPTY);
     }
 
+    private void cancel() {
+        if (isSomeThingFilledIn()) {
+            showAlertWithConfirmationDiscardChanges("Warning", "Are you sure you want to discard your changes?");
+            if (confirmationDiscardChanges) {
+                SwitchAnchorPane.goToMainMenu();
+            }
+        } else {
+            SwitchAnchorPane.goToMainMenu();
+        }
+    }
+
+    private boolean isSomeThingFilledIn() {
+        boolean status = false;
+        if (!firstNameTextField.getText().isBlank()) {
+            status = true;
+        } else if (!familyNameTextField.getText().isBlank()) {
+            status = true;
+        } else if (!ageTextField.getText().isBlank()) {
+            status = true;
+        } else if (!weightTextField.getText().isBlank()) {
+            status = true;
+        } else if (!lengthTextField.getText().isBlank()) {
+            status = true;
+        } else if (!passwordField.getText().isBlank()) {
+            status = true;
+        } else if (!streetNameTextField.getText().isBlank()) {
+            status = true;
+        } else if (!houseNumberTextField.getText().isBlank()) {
+            status = true;
+        } else if (!boxNumberTextField.getText().isBlank()) {
+            status = true;
+        } else if (!postalCodeTextField.getText().isBlank()) {
+            status = true;
+        } else if (!cityTextField.getText().isBlank()) {
+            status = true;
+        } else if (!countryTextField.getText().isBlank()) {
+            status = true;
+        } else if (raceChoiceBox.getValue() != null) {
+            status = true;
+        }
+        return status;
+    }
+
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -259,10 +301,17 @@ public class RegisterRunnerController {
         alert.showAndWait();
     }
 
-    private void showAlertWithConfirmation(String title, String content) {
+    private void showAlertWithConfirmationAccount(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING, content, ButtonType.CANCEL, ButtonType.OK);
         alert.setTitle(title);
         alert.setHeaderText(title);
         alert.showAndWait().filter(ButtonType.OK::equals).ifPresent(buttonType -> confirmationNoAccount = true);
+    }
+
+    private void showAlertWithConfirmationDiscardChanges(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, content, ButtonType.CANCEL, ButtonType.OK);
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.showAndWait().filter(ButtonType.OK::equals).ifPresent(buttonType -> confirmationDiscardChanges = true);
     }
 }
