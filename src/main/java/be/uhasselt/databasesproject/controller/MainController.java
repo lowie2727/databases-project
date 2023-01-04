@@ -1,6 +1,8 @@
 package be.uhasselt.databasesproject.controller;
 
 import be.uhasselt.databasesproject.Main;
+import be.uhasselt.databasesproject.controller.admin.AdminController;
+import be.uhasselt.databasesproject.controller.user.LoginRunnerController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +19,9 @@ public class MainController {
     private Button adminButton;
 
     @FXML
+    private Button runnerLoginButton;
+
+    @FXML
     private Button runnerRegistrationButton;
 
     @FXML
@@ -24,12 +29,14 @@ public class MainController {
 
     @FXML
     void initialize() {
-        adminButton.setOnAction(event -> showPanel("admin", true));
         runnerRegistrationButton.setOnAction(event -> showPanel("registerRunner", false));
+        runnerLoginButton.setOnAction(event -> showPanel("loginRunner", false));
+        adminButton.setOnAction(event -> showPanel("admin", true));
     }
 
     private void showPanel(String string, boolean isAdmin) {
         String resourceName;
+
         if (isAdmin) {
             resourceName = "/fxml/admin/" + string + ".fxml";
         } else {
@@ -38,7 +45,17 @@ public class MainController {
 
         try {
             Stage stage = new Stage();
-            AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(resourceName)));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
+            AnchorPane root = loader.load();
+
+            if (Objects.equals(string, "admin")) {
+                AdminController adminController = loader.getController();
+                adminController.setStage(stage);
+            } else if (Objects.equals(string, "loginRunner")) {
+                LoginRunnerController loginRunnerController = loader.getController();
+                loginRunnerController.setStage(stage);
+            }
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(string);

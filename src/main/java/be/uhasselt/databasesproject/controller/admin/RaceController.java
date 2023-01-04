@@ -1,6 +1,5 @@
 package be.uhasselt.databasesproject.controller.admin;
 
-import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;
 import be.uhasselt.databasesproject.model.Race;
@@ -49,6 +48,7 @@ public class RaceController {
     private TableView<Race> tableView;
 
     private boolean confirmationDelete = false;
+    private Stage stage;
 
     @FXML
     void initialize() {
@@ -124,7 +124,7 @@ public class RaceController {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(title);
-            stage.initOwner(Main.getRootStage());
+            stage.initOwner(this.stage);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
             stage.setOnCloseRequest(event -> {
@@ -133,6 +133,10 @@ public class RaceController {
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resourceName, e);
         }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private void deleteRace() {

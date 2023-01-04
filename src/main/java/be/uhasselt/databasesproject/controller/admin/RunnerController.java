@@ -1,6 +1,5 @@
 package be.uhasselt.databasesproject.controller.admin;
 
-import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.model.Runner;
@@ -34,10 +33,37 @@ public class RunnerController {
     private TableView<Runner> tableView;
 
     @FXML
+    private TableColumn<Runner, Integer> idTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> firstNameTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> familyNameTableColumn;
+
+    @FXML
     private TableColumn<Runner, Integer> ageTableColumn;
 
     @FXML
+    private TableColumn<Runner, Double> weightTableColumn;
+
+    @FXML
+    private TableColumn<Runner, Double> lengthTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> passwordTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> streetNameTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> houseNumberTableColumn;
+
+    @FXML
     private TableColumn<Runner, String> boxNumberTableColumn;
+
+    @FXML
+    private TableColumn<Runner, String> postalCodeTableColumn;
 
     @FXML
     private TableColumn<Runner, String> cityTableColumn;
@@ -45,31 +71,8 @@ public class RunnerController {
     @FXML
     private TableColumn<Runner, String> countryTableColumn;
 
-    @FXML
-    private TableColumn<Runner, String> familyNameTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> firstNameTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> houseNumberTableColumn;
-
-    @FXML
-    private TableColumn<Runner, Integer> idTableColumn;
-
-    @FXML
-    private TableColumn<Runner, Double> lengthTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> postalCodeTableColumn;
-
-    @FXML
-    private TableColumn<Runner, String> streetNameTableColumn;
-
-    @FXML
-    private TableColumn<Runner, Double> weightTableColumn;
-
     private boolean confirmationDelete = false;
+    private Stage stage;
 
     @FXML
     void initialize() {
@@ -96,6 +99,7 @@ public class RunnerController {
         ageTableColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
         weightTableColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         lengthTableColumn.setCellValueFactory(new PropertyValueFactory<>("length"));
+        passwordTableColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         streetNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("streetName"));
         houseNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
         boxNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("boxNumber"));
@@ -125,6 +129,7 @@ public class RunnerController {
     private void editRunner(boolean isEdit) {
         Runner runner;
         String title;
+
         if (isEdit) {
             if (!verifyRowSelected()) {
                 return;
@@ -132,7 +137,7 @@ public class RunnerController {
             runner = getSelectedRunner();
             title = "edit runner";
         } else {
-            runner = new Runner(-1, "", "", -1, -1.0, -1.0, "", "", "", "", "", "");
+            runner = new Runner(-1, "", "", -1, -1.0, -1.0, null, "", "", "", "", "", "");
             title = "add runner";
         }
 
@@ -143,13 +148,14 @@ public class RunnerController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
             AnchorPane root = loader.load();
 
-            EditRunnerController controller = loader.getController();
-            controller.inflateUI(runner);
+            EditRunnerController editRunnerController = loader.getController();
+            editRunnerController.inflateUI(runner);
+            editRunnerController.setAdminMode();
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(title);
-            stage.initOwner(Main.getRootStage());
+            stage.initOwner(this.stage);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
             stage.setOnCloseRequest(event -> {
@@ -158,6 +164,10 @@ public class RunnerController {
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resourceName, e);
         }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private void deleteRunner() {

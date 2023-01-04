@@ -43,4 +43,10 @@ public class RaceJdbi implements JdbiInterface<Race> {
             return handle.createUpdate("DELETE FROM segment WHERE raceID = :id").bindBean(race).execute();
         });
     }
+
+    public List<Race> getAllUpcoming() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM race WHERE date > date('now', 'localtime')")
+                .mapToBean(Race.class)
+                .list());
+    }
 }

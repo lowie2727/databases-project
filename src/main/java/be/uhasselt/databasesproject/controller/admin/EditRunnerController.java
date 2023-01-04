@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
 
-import java.util.Objects;
-
 public class EditRunnerController {
 
     @FXML
@@ -69,6 +67,7 @@ public class EditRunnerController {
     private Runner runner;
     private Runner originalRunner;
     private Boolean confirmation = false;
+    private Boolean isAdmin;
 
     @FXML
     void initialize() {
@@ -80,15 +79,19 @@ public class EditRunnerController {
     private void close(ActionEvent event) {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
 
-        stage.getOnCloseRequest().handle(windowEvent);
+        if (isAdmin) {
+            WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
+            stage.getOnCloseRequest().handle(windowEvent);
+        }
+
         stage.close();
     }
 
     public void inflateUI(Runner runner) {
         this.runner = runner;
         originalRunner = SerializationUtils.clone(runner);
+
         if (runner.getId() == -1) {
             idText.setText("tbd");
         } else {
@@ -97,6 +100,13 @@ public class EditRunnerController {
 
         firstNameTextField.setText(runner.getFirstName());
         familyNameTextField.setText(runner.getFamilyName());
+        streetNameTextField.setText(runner.getStreetName());
+        houseNumberTextField.setText(runner.getHouseNumber());
+        boxNumberTextField.setText(runner.getBoxNumber());
+        postalCodeTextField.setText(runner.getPostalCode());
+        cityTextField.setText(runner.getCity());
+        countryTextField.setText(runner.getCountry());
+
         if (runner.getAge() == -1) {
             ageTextField.setText("");
         } else {
@@ -114,46 +124,20 @@ public class EditRunnerController {
         } else {
             lengthTextField.setText(Double.toString(runner.getLength()));
         }
-
-        streetNameTextField.setText(runner.getStreetName());
-        houseNumberTextField.setText(runner.getHouseNumber());
-        boxNumberTextField.setText(runner.getBoxNumber());
-        postalCodeTextField.setText(runner.getPostalCode());
-        cityTextField.setText(runner.getCity());
-        countryTextField.setText(runner.getCountry());
     }
 
     private void runnerUpdate() {
         runner.setFirstName(firstNameTextField.getText());
         runner.setFamilyName(familyNameTextField.getText());
+        runner.setAge(Integer.parseInt(ageTextField.getText()));
+        runner.setWeight(Double.parseDouble(weightTextField.getText()));
+        runner.setLength(Double.parseDouble(lengthTextField.getText()));
         runner.setStreetName(streetNameTextField.getText());
         runner.setHouseNumber(houseNumberTextField.getText());
         runner.setBoxNumber(boxNumberTextField.getText());
         runner.setPostalCode(postalCodeTextField.getText());
         runner.setCity(cityTextField.getText());
         runner.setCountry(countryTextField.getText());
-
-        if (Objects.equals(idText.getText(), "tbd")) {
-            try {
-                runner.setAge(Integer.parseInt(ageTextField.getText()));
-            } catch (NumberFormatException exception) {
-                runner.setAge(-1);
-            }
-            try {
-                runner.setWeight(Double.parseDouble(weightTextField.getText()));
-            } catch (NumberFormatException exception) {
-                runner.setWeight(-1.0);
-            }
-            try {
-                runner.setLength(Double.parseDouble(lengthTextField.getText()));
-            } catch (NumberFormatException exception) {
-                runner.setLength(-1.0);
-            }
-        } else {
-            runner.setAge(Integer.parseInt(ageTextField.getText()));
-            runner.setWeight(Double.parseDouble(weightTextField.getText()));
-            runner.setLength(Double.parseDouble(lengthTextField.getText()));
-        }
     }
 
     private boolean isNotChanged() {
@@ -182,13 +166,50 @@ public class EditRunnerController {
     private boolean areMandatoryFieldsFilledIn() {
         boolean status = true;
         String color = "red";
-        if (firstNameTextField.getText().isBlank() || familyNameTextField.getText().isBlank() || ageTextField.getText().isBlank() || weightTextField.getText().isBlank() || lengthTextField.getText().isBlank() || streetNameTextField.getText().isBlank() || houseNumberTextField.getText().isBlank() || postalCodeTextField.getText().isBlank() || cityTextField.getText().isBlank() || countryTextField.getText().isBlank()) {
-            errorMessageText.setText("Please fill in all mandatory fields.");
-            showMandatoryFields();
+
+        resetTextFieldBorder();
+
+        if (firstNameTextField.getText().isBlank()) {
+            firstNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (familyNameTextField.getText().isBlank()) {
+            familyNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (ageTextField.getText().isBlank()) {
+            ageTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (weightTextField.getText().isBlank()) {
+            weightTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (lengthTextField.getText().isBlank()) {
+            lengthTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (streetNameTextField.getText().isBlank()) {
+            streetNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (houseNumberTextField.getText().isBlank()) {
+            houseNumberTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (postalCodeTextField.getText().isBlank()) {
+            postalCodeTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (cityTextField.getText().isBlank()) {
+            cityTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (countryTextField.getText().isBlank()) {
+            countryTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
 
-        showMandatoryFields();
         try {
             Integer.parseInt(ageTextField.getText());
         } catch (NumberFormatException exception) {
@@ -209,6 +230,7 @@ public class EditRunnerController {
             lengthTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
+
         if (status) {
             errorMessageText.setText("");
         }
@@ -223,41 +245,6 @@ public class EditRunnerController {
             if (confirmation) {
                 close(event);
             }
-        }
-    }
-
-    private void showMandatoryFields() {
-        String color = "red";
-        resetTextFieldBorder();
-        if (firstNameTextField.getText().isBlank()) {
-            firstNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (familyNameTextField.getText().isBlank()) {
-            familyNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (ageTextField.getText().isBlank()) {
-            ageTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (weightTextField.getText().isBlank()) {
-            weightTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (lengthTextField.getText().isBlank()) {
-            lengthTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (streetNameTextField.getText().isBlank()) {
-            streetNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (houseNumberTextField.getText().isBlank()) {
-            houseNumberTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (postalCodeTextField.getText().isBlank()) {
-            postalCodeTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (cityTextField.getText().isBlank()) {
-            cityTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (countryTextField.getText().isBlank()) {
-            countryTextField.setBorder(Border.stroke(Paint.valueOf(color)));
         }
     }
 
@@ -279,6 +266,14 @@ public class EditRunnerController {
         if (confirmation) {
             close(event);
         }
+    }
+
+    public void setAdminMode() {
+        isAdmin = true;
+    }
+
+    public void setUserMode() {
+        isAdmin = false;
     }
 
     private void showAlert(String title, String content) {

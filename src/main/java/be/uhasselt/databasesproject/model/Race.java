@@ -22,9 +22,13 @@ public class Race implements Serializable {
         this.price = price;
     }
 
+    private int meterToKilometer() {
+        return distance / 1000;
+    }
+
     @Override
     public String toString() {
-        return String.format("Race{id: %d, date: '%s', name: '%s'}", id, date, name);
+        return String.format("%s %sK %s", name, meterToKilometer(), date);
     }
 
     @Override
