@@ -1,7 +1,7 @@
 package be.uhasselt.databasesproject.controller;
 
 import be.uhasselt.databasesproject.Main;
-import be.uhasselt.databasesproject.controller.admin.*;
+import be.uhasselt.databasesproject.controller.admin.edit.EditRunnerController;
 import be.uhasselt.databasesproject.controller.user.LoginRunnerController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
@@ -20,6 +20,7 @@ public class SwitchAnchorPane {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
             AnchorPane anchorPane = loader.load();
             SwitchAnchorPane.anchorPane.getChildren().setAll(anchorPane);
+            //setStageSize(anchorPane.getPrefHeight(), anchorPane.getPrefHeight());
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resource, e);
         }
@@ -28,35 +29,59 @@ public class SwitchAnchorPane {
     public static void goToMainMenu() {
         String resource = "/fxml/main.fxml";
         goTo(resource);
-        setStageSize(600, 400);
+        setStageSize(600, 440);
     }
 
     public static void goToAdmin() {
         String resource = "/fxml/admin/admin.fxml";
         goTo(resource);
         setStageSize(600, 440);
-        Main.getRootStage().setWidth(600);
     }
 
     public static void goToRunner() {
-        String resource = "/fxml/admin/runner.fxml";
+        String resource = "/fxml/admin/table/runner.fxml";
         goTo(resource);
-        setStageSize(1160, 440);
+        setStageSize(1170, 440);
     }
 
     public static void goToVolunteer() {
-        String resource = "/fxml/admin/volunteer.fxml";
+        String resource = "/fxml/admin/table/volunteer.fxml";
         goTo(resource);
+        setStageSize(600,440);
     }
 
     public static void goToRace() {
-        String resource = "/fxml/admin/race.fxml";
+        String resource = "/fxml/admin/table/race.fxml";
         goTo(resource);
         setStageSize(600, 440);
     }
 
     public static void goToRegisterRunner() {
         String resource = "/fxml/user/registerRunner.fxml";
+        goTo(resource);
+        setStageSize(600, 440);
+    }
+
+    public static void goToSegment() {
+        String resource = "/fxml/admin/table/segment.fxml";
+        goTo(resource);
+        setStageSize(600, 440);
+    }
+
+    public static void goToSegmentTime() {
+        String resource = "/fxml/admin/table/segmentTime.fxml";
+        goTo(resource);
+        setStageSize(600, 440);
+    }
+
+    public static void goToVolunteerRace() {
+        String resource = "/fxml/admin/table/volunteerRace.fxml";
+        goTo(resource);
+        setStageSize(600, 440);
+    }
+
+    public static void goToGlobalRanking() {
+        String resource = "/fxml/admin/table/globalRanking.fxml";
         goTo(resource);
         setStageSize(600, 440);
     }
@@ -87,9 +112,8 @@ public class SwitchAnchorPane {
         stage.show();
     }
 
-
     public static void goToEditRunner(Stage stage, int id) {
-        String resourceName = "/fxml/admin/editRunner.fxml";
+        String resourceName = "/fxml/admin/edit/editRunner.fxml";
 
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));
@@ -112,7 +136,7 @@ public class SwitchAnchorPane {
         stage.close();
     }
 
-    private static void setStageSize(int width, int height) {
+    private static void setStageSize(double width, double height) {
         Main.getRootStage().setWidth(width);
         Main.getRootStage().setHeight(height);
     }

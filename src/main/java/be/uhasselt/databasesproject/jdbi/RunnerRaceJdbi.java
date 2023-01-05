@@ -22,14 +22,14 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
 
     @Override
     public void insert(RunnerRace runnerRace) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner_race (runnerID, raceID, shirtNumber, time) VALUES (:runnerId, :raceId, :shirtNumber, :time")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner_race (shirtNumber, time) VALUES (:shirtNumber, :time")
                 .bindBean(runnerRace)
                 .execute());
     }
 
     @Override
     public void update(RunnerRace runnerRace) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner_race SET runnerID = :runnerId, raceID = :raceId, shirtNumber = :shirtNumber, time = :time")
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner_race SET shirtNumber = :shirtNumber, time = :time WHERE runnerID = :runnerId AND raceID = :raceId")
                 .bindBean(runnerRace)
                 .execute());
     }

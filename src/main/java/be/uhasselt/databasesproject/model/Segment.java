@@ -1,8 +1,9 @@
 package be.uhasselt.databasesproject.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Segment {
+public class Segment implements Serializable {
 
     private int id;
     private int raceId;

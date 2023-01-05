@@ -1,8 +1,9 @@
 package be.uhasselt.databasesproject.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class GlobalRanking {
+public class GlobalRanking implements Serializable {
 
     private int runnerId;
     private double prizeMoney;

@@ -1,4 +1,4 @@
-package be.uhasselt.databasesproject.controller.admin;
+package be.uhasselt.databasesproject.controller.admin.edit;
 
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;

@@ -1,7 +1,8 @@
-package be.uhasselt.databasesproject.controller.admin;
+package be.uhasselt.databasesproject.controller.admin.table;
 
 import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
+import be.uhasselt.databasesproject.controller.admin.edit.EditRaceController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;
 import be.uhasselt.databasesproject.model.Race;
@@ -61,9 +62,6 @@ public class RaceController {
     }
 
     private void initTable() {
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tableView.setEditable(true);
-
         initColumns();
         loadRaces();
     }
@@ -109,7 +107,7 @@ public class RaceController {
             title = "add race";
         }
 
-        String resourceName = "/fxml/admin/editRace.fxml";
+        String resourceName = "/fxml/admin/edit/editRace.fxml";
 
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));

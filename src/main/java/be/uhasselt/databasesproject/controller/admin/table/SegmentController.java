@@ -1,10 +1,11 @@
-package be.uhasselt.databasesproject.controller.admin;
+package be.uhasselt.databasesproject.controller.admin.table;
 
 import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
+import be.uhasselt.databasesproject.controller.admin.edit.EditSegmentController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
-import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
-import be.uhasselt.databasesproject.model.Volunteer;
+import be.uhasselt.databasesproject.jdbi.SegmentJdbi;
+import be.uhasselt.databasesproject.model.Segment;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,8 +16,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Objects;
 
-public class VolunteerController {
+public class SegmentController {
 
     @FXML
     private Button addButton;
@@ -31,19 +33,19 @@ public class VolunteerController {
     private Button editButton;
 
     @FXML
-    private TableView<Volunteer> tableView;
+    private TableView<Segment> tableView;
 
     @FXML
-    private TableColumn<Volunteer, Integer> idTableColumn;
+    private TableColumn<Segment, Integer> idTableColumn;
 
     @FXML
-    private TableColumn<Volunteer, String> firstNameTableColumn;
+    private TableColumn<Segment, Integer> raceIdTableColumn;
 
     @FXML
-    private TableColumn<Volunteer, String> familyNameTableColumn;
+    private TableColumn<Segment, String> locationTableColumn;
 
     @FXML
-    private TableColumn<Volunteer, String> jobTableColumn;
+    private TableColumn<Segment, Integer> distanceTableColumn;
 
     private boolean confirmationDelete = false;
 
@@ -51,31 +53,28 @@ public class VolunteerController {
     void initialize() {
         initTable();
 
-        addButton.setOnAction(event -> editVolunteer(false));
-        editButton.setOnAction(event -> editVolunteer(true));
-        deleteButton.setOnAction(event -> deleteVolunteer());
+        addButton.setOnAction(event -> editSegment(false));
+        editButton.setOnAction(event -> editSegment(true));
+        deleteButton.setOnAction(event -> deleteSegment());
         closeButton.setOnAction(event -> SwitchAnchorPane.goToAdmin());
     }
 
     private void initTable() {
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tableView.setEditable(true);
-
         initColumns();
-        loadVolunteers();
+        loadSegments();
     }
 
     private void initColumns() {
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        familyNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("familyName"));
-        jobTableColumn.setCellValueFactory(new PropertyValueFactory<>("job"));
+        raceIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("raceId"));
+        locationTableColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
     }
 
-    private void loadVolunteers() {
-        VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
-        List<Volunteer> volunteers = volunteerJdbi.getAll();
-        tableView.getItems().setAll(volunteers);
+    private void loadSegments() {
+        SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Segment> segments = segmentJdbi.getAll();
+        tableView.getItems().setAll(segments);
     }
 
     private boolean verifyRowSelected() {
@@ -86,40 +85,40 @@ public class VolunteerController {
         return true;
     }
 
-    private Volunteer getSelectedVolunteer() {
+    private Segment getSelectedSegment() {
         return tableView.getSelectionModel().getSelectedItem();
     }
 
-    private void editVolunteer(boolean isEdit) {
-        Volunteer volunteer;
+    private void editSegment(boolean isEdit) {
+        Segment segment;
         String title;
 
         if (isEdit) {
             if (!verifyRowSelected()) {
                 return;
             }
-            volunteer = getSelectedVolunteer();
-            title = "edit volunteer";
+            segment = getSelectedSegment();
+            title = "edit segment";
         } else {
-            volunteer = new Volunteer(-1, "", "", "");
-            title = "add volunteer";
+            segment = new Segment(-1, -1, "", -1);
+            title = "add segment";
         }
 
-        String resourceName = "/fxml/admin/editVolunteer.fxml";
+        String resourceName = "/fxml/admin/edit/editSegment.fxml";
 
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
             AnchorPane anchorPane = loader.load();
-            setEditVolunteerScreen(anchorPane, loader, volunteer, title);
+            setSegmentScreen(anchorPane, loader, segment, title);
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resourceName, e);
         }
     }
 
-    private void setEditVolunteerScreen(AnchorPane anchorPane, FXMLLoader loader, Volunteer volunteer, String title) {
-        EditVolunteerController editVolunteerController = loader.getController();
-        editVolunteerController.inflateUI(volunteer);
-        editVolunteerController.setAdminMode();
+    private void setSegmentScreen(AnchorPane anchorPane, FXMLLoader loader, Segment segment, String title) {
+        EditSegmentController editSegmentController = loader.getController();
+        editSegmentController.inflateUI(segment);
+        editSegmentController.setAdminMode();
 
         Scene scene = new Scene(anchorPane);
         Stage stage = new Stage();
@@ -129,16 +128,16 @@ public class VolunteerController {
         stage.initOwner(Main.getRootStage());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
-        stage.setOnCloseRequest(event -> loadVolunteers());
+        stage.setOnCloseRequest(event -> loadSegments());
     }
 
-    private void deleteVolunteer() {
+    private void deleteSegment() {
         if (verifyRowSelected()) {
-            showAlertDelete("Warning", "Are you sure you want to delete this volunteer? This action cannot be undone.");
+            showAlertDelete("Warning", "Are you sure you want to delete this segment? This action cannot be undone.");
             if (confirmationDelete) {
-                VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
-                volunteerJdbi.delete(getSelectedVolunteer());
-                loadVolunteers();
+                SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
+                segmentJdbi.delete(getSelectedSegment());
+                loadSegments();
             }
         }
     }

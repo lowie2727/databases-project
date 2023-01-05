@@ -22,14 +22,14 @@ public class SegmentTimesJdbi implements JdbiInterface<SegmentTimes> {
 
     @Override
     public void insert(SegmentTimes segmentTimes) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (segmentID, runnerID, time) VALUES (:segmentId, :runnerId, :time)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (time) VALUES (:time)")
                 .bindBean(segmentTimes)
                 .execute());
     }
 
     @Override
     public void update(SegmentTimes segmentTimes) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment_times SET segmentID = :segmentId, runnerID = :runnerId, time = :time")
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment_times SET time = :time WHERE runnerID = :runnerId AND segmentID = :segmentId ")
                 .bindBean(segmentTimes)
                 .execute());
     }

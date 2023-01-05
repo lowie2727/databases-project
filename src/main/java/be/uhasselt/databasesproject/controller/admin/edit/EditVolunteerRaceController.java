@@ -1,9 +1,8 @@
-package be.uhasselt.databasesproject.controller.admin;
+package be.uhasselt.databasesproject.controller.admin.edit;
 
-import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
-import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
-import be.uhasselt.databasesproject.model.Volunteer;
+import be.uhasselt.databasesproject.jdbi.VolunteerRaceJdbi;
+import be.uhasselt.databasesproject.model.VolunteerRace;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -18,10 +17,10 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
 
-public class EditVolunteerController {
+public class EditVolunteerRaceController {
 
     @FXML
-    private TextField jobTextField;
+    private Text raceIdText;
 
     @FXML
     private Button cancelButton;
@@ -30,19 +29,13 @@ public class EditVolunteerController {
     private Text errorMessageText;
 
     @FXML
-    private TextField familyNameTextField;
-
-    @FXML
-    private TextField firstNameTextField;
-
-    @FXML
-    private Text idText;
+    private Text volunteerIdText;
 
     @FXML
     private Button saveButton;
 
-    private Volunteer volunteer;
-    private Volunteer originalVolunteer;
+    private VolunteerRace volunteerRace;
+    private VolunteerRace originalVolunteerRace;
     private Boolean confirmation = false;
     private Boolean isAdmin;
 
@@ -54,42 +47,41 @@ public class EditVolunteerController {
     }
 
     private void close(ActionEvent event) {
-        if (isAdmin) {
-            Node node = (Node) event.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
 
+        if (isAdmin) {
             WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
             stage.getOnCloseRequest().handle(windowEvent);
-
-            stage.close();
-        } else {
-            SwitchAnchorPane.goToMainMenu();
-        }
-    }
-
-    public void inflateUI(Volunteer volunteer) {
-        this.volunteer = volunteer;
-        originalVolunteer = SerializationUtils.clone(volunteer);
-        if (volunteer.getId() == -1) {
-            idText.setText("tbd");
-        } else {
-            idText.setText(Integer.toString(volunteer.getId()));
         }
 
-        firstNameTextField.setText(volunteer.getFirstName());
-        familyNameTextField.setText(volunteer.getFamilyName());
-        jobTextField.setText(volunteer.getJob());
+        stage.close();
     }
 
-    private void volunteerUpdate() {
-        volunteer.setFirstName(firstNameTextField.getText());
-        volunteer.setFamilyName(familyNameTextField.getText());
-        volunteer.setJob(jobTextField.getText());
+    public void inflateUI(VolunteerRace volunteerRace) {
+        this.volunteerRace = volunteerRace;
+        originalVolunteerRace = SerializationUtils.clone(volunteerRace);
+        if (volunteerRace.getRaceId() == -1) {
+            raceIdText.setText("tbd");
+        } else {
+            raceIdText.setText(Integer.toString(volunteerRace.getRaceId()));
+        }
+
+        if (volunteerRace.getVolunteerId() == -1) {
+            volunteerIdText.setText("tbd");
+        } else {
+            volunteerIdText.setText(Integer.toString(volunteerRace.getVolunteerId()));
+        }
+
+    }
+
+    private void VolunteerRaceUpdate() {
+
     }
 
     private boolean isNotChanged() {
-        volunteerUpdate();
-        return originalVolunteer.equals(volunteer);
+        VolunteerRaceUpdate();
+        return originalVolunteerRace.equals(volunteerRace);
     }
 
     private void databaseUpdate(ActionEvent event) {
@@ -97,11 +89,11 @@ public class EditVolunteerController {
             if (isNotChanged()) {
                 closeOnNoChanges(event);
             } else {
-                VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
-                if (volunteer.getId() == -1) {
-                    volunteerJdbi.insert(volunteer);
+                VolunteerRaceJdbi volunteerRaceJdbi = new VolunteerRaceJdbi(ConnectionManager.CONNECTION_STRING);
+                if (volunteerRace.getVolunteerId() == -1) {
+                    volunteerRaceJdbi.insert(volunteerRace);
                 } else {
-                    volunteerJdbi.update(volunteer);
+                    volunteerRaceJdbi.update(volunteerRace);
                 }
                 close(event);
             }
@@ -115,15 +107,6 @@ public class EditVolunteerController {
         String color = "red";
 
         resetTextFieldBorder();
-
-        if (firstNameTextField.getText().isBlank()) {
-            firstNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-            status = false;
-        }
-        if (familyNameTextField.getText().isBlank()) {
-            familyNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-            status = false;
-        }
 
         if (status) {
             errorMessageText.setText("");
@@ -143,19 +126,13 @@ public class EditVolunteerController {
     }
 
     private void resetTextFieldBorder() {
-        firstNameTextField.setBorder(Border.EMPTY);
-        familyNameTextField.setBorder(Border.EMPTY);
-        jobTextField.setBorder(Border.EMPTY);
+
     }
 
     private void closeOnNoChanges(ActionEvent event) {
         showAlertWithConfirmation("Waring", "No changes were made!");
         if (confirmation) {
-            if (isAdmin) {
-                close(event);
-            } else {
-                SwitchAnchorPane.goToMainMenu();
-            }
+            close(event);
         }
     }
 

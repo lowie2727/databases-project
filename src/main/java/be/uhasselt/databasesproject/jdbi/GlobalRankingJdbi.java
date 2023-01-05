@@ -22,14 +22,14 @@ public class GlobalRankingJdbi implements JdbiInterface<GlobalRanking> {
 
     @Override
     public void insert(GlobalRanking globalRanking) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO global_ranking (runnerID, prizeMoney, totalTime) VALUES (:runnerId, :prizeMoney, :totalTime)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO global_ranking (prizeMoney, totalTime) VALUES (:prizeMoney, :totalTime)")
                 .bindBean(globalRanking)
                 .execute());
     }
 
     @Override
     public void update(GlobalRanking globalRanking) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE global_ranking SET runnerID = :runnerId, prizeMoney = :prizeMoney, totalTime = :totalTime")
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE global_ranking SET prizeMoney = :prizeMoney, totalTime = :totalTime WHERE runnerID = :runnerId")
                 .bindBean(globalRanking)
                 .execute());
     }

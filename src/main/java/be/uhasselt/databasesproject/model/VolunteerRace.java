@@ -1,8 +1,9 @@
 package be.uhasselt.databasesproject.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class VolunteerRace {
+public class VolunteerRace implements Serializable {
 
     private int volunteerId;
     private int raceId;

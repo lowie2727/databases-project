@@ -21,11 +21,31 @@ public class AdminController {
     private Button mainMenuButton;
 
     @FXML
+    private Button editSegmentsButton;
+
+    @FXML
+    private Button editRunnerRaceButton;
+
+    @FXML
+    private Button editSegmentTimeButton;
+
+    @FXML
+    private Button editVolunteerRaceButton;
+
+    @FXML
+    private Button editGlobalRankingButton;
+
+    @FXML
     void initialize() {
         editRunnersButton.setOnAction(event -> showPanel("runner"));
         editVolunteersButton.setOnAction(event -> showPanel("volunteer"));
         editRacesButton.setOnAction(event -> showPanel("race"));
         mainMenuButton.setOnAction(event -> SwitchAnchorPane.goToMainMenu());
+        editSegmentsButton.setOnAction(event -> showPanel("segment"));
+        editRunnerRaceButton.setOnAction(event -> showPanel("runnerRace"));
+        editSegmentTimeButton.setOnAction(event -> showPanel("segmentTime"));
+        editVolunteerRaceButton.setOnAction(event -> showPanel("volunteerRace"));
+        editGlobalRankingButton.setOnAction(event -> showPanel("globalRanking"));
     }
 
     private void showPanel(String string) {
@@ -35,6 +55,16 @@ public class AdminController {
             SwitchAnchorPane.goToVolunteer();
         } else if (Objects.equals(string, "race")) {
             SwitchAnchorPane.goToRace();
+        } else if (Objects.equals(string, "segment")) {
+            SwitchAnchorPane.goToSegment();
+        } else if (Objects.equals(string, "runnerRace")) {
+            SwitchAnchorPane.goToSegment();
+        } else if (Objects.equals(string, "segmentTime")) {
+            SwitchAnchorPane.goToSegmentTime();
+        } else if (Objects.equals(string, "volunteerRace")) {
+            SwitchAnchorPane.goToVolunteerRace();
+        } else if (Objects.equals(string, "globalRanking")) {
+            SwitchAnchorPane.goToGlobalRanking();
         }
     }
 }

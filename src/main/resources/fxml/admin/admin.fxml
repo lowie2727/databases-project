@@ -12,10 +12,14 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Button fx:id="editRunnersButton" layoutX="260.0" layoutY="132.0" mnemonicParsing="false" text="Edit runners" />
-      <Button fx:id="editVolunteersButton" layoutX="252.0" layoutY="175.0" mnemonicParsing="false" text="Edit volunteers" />
-      <Button fx:id="editRacesButton" layoutX="264.0" layoutY="218.0" mnemonicParsing="false" text="Edit races" />
       <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Main Menu" />
-
+      <Button fx:id="editRunnersButton" layoutX="200.0" layoutY="132.0" mnemonicParsing="false" text="Edit runners" />
+      <Button fx:id="editVolunteersButton" layoutX="200.0" layoutY="175.0" mnemonicParsing="false" text="Edit volunteers" />
+      <Button fx:id="editRacesButton" layoutX="200.0" layoutY="218.0" mnemonicParsing="false" text="Edit races" />
+      <Button fx:id="editSegmentsButton" layoutX="200.0" layoutY="261.0" mnemonicParsing="false" text="Edit segments" />
+      <Button fx:id="editRunnerRaceButton" layoutX="300.0" layoutY="132.0" mnemonicParsing="false" text="Edit runnerRace" />
+      <Button fx:id="editSegmentTimeButton" layoutX="300.0" layoutY="175.0" mnemonicParsing="false" text="Edit segmentTime" />
+      <Button fx:id="editVolunteerRaceButton" layoutX="300.0" layoutY="218.0" mnemonicParsing="false" text="Edit volunteerRace" />
+      <Button fx:id="editGlobalRankingButton" layoutX="300.0" layoutY="261.0" mnemonicParsing="false" text="Edit global ranking" />
    </children>
 </AnchorPane>

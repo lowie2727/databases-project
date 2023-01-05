@@ -19,4 +19,8 @@ module be.uhasselt.databasesproject {
     exports be.uhasselt.databasesproject.model;
     exports be.uhasselt.databasesproject.controller.admin;
     exports be.uhasselt.databasesproject.controller.user;
+    exports be.uhasselt.databasesproject.controller.admin.edit;
+    opens be.uhasselt.databasesproject.controller.admin.edit to javafx.fxml;
+    exports be.uhasselt.databasesproject.controller.admin.table;
+    opens be.uhasselt.databasesproject.controller.admin.table to javafx.fxml;
 }

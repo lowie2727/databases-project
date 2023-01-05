@@ -1,7 +1,8 @@
-package be.uhasselt.databasesproject.controller.admin;
+package be.uhasselt.databasesproject.controller.admin.table;
 
 import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
+import be.uhasselt.databasesproject.controller.admin.edit.EditRunnerController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.model.Runner;
@@ -85,9 +86,6 @@ public class RunnerController {
     }
 
     private void initTable() {
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tableView.setEditable(true);
-
         initColumns();
         loadRunners();
     }
@@ -141,7 +139,7 @@ public class RunnerController {
             title = "add runner";
         }
 
-        String resourceName = "/fxml/admin/editRunner.fxml";
+        String resourceName = "/fxml/admin/edit/editRunner.fxml";
 
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));
