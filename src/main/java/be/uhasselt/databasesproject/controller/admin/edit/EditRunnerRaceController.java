@@ -1,26 +1,31 @@
 package be.uhasselt.databasesproject.controller.admin.edit;
 
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
+import be.uhasselt.databasesproject.jdbi.RaceJdbi;
+import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.jdbi.RunnerRaceJdbi;
+import be.uhasselt.databasesproject.model.Race;
+import be.uhasselt.databasesproject.model.Runner;
 import be.uhasselt.databasesproject.model.RunnerRace;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.JdbiException;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class EditRunnerRaceController {
-
-    @FXML
-    private Text runnerIdText;
 
     @FXML
     private Button cancelButton;
@@ -29,20 +34,30 @@ public class EditRunnerRaceController {
     private Text errorMessageText;
 
     @FXML
+    private ChoiceBox<Race> raceChoiceBox;
+
+    @FXML
     private Text raceIdText;
 
     @FXML
-    private TextField shirtNumberTextField;
+    private ChoiceBox<Runner> runnerChoiceBox;
 
     @FXML
-    private TextField timeTextField;
+    private Text runnerIdText;
 
     @FXML
     private Button saveButton;
 
+    @FXML
+    private Text shirtNumberText;
+
+    @FXML
+    private TextField timeTextField;
+
     private RunnerRace runnerRace;
     private RunnerRace originalRunnerRace;
     private Boolean confirmation = false;
+    private Boolean isEdit;
 
     @FXML
     void initialize() {
@@ -62,25 +77,27 @@ public class EditRunnerRaceController {
     }
 
     public void inflateUI(RunnerRace runnerRace) {
+        if (isEdit) {
+            runnerChoiceBox.setVisible(false);
+            raceChoiceBox.setVisible(false);
+            shirtNumberText.setText(Integer.toString(runnerRace.getShirtNumber()));
+        } else {
+            shirtNumberText.setText("automagic");
+        }
+
         this.runnerRace = runnerRace;
         originalRunnerRace = SerializationUtils.clone(runnerRace);
 
         if (runnerRace.getRunnerId() == -1) {
-            runnerIdText.setText("tbd");
+            setRaceChoiceBox();
         } else {
             runnerIdText.setText(Integer.toString(runnerRace.getRunnerId()));
         }
 
         if (runnerRace.getRaceId() == -1) {
-            raceIdText.setText("tbd");
+            setRunnerChoiceBox();
         } else {
             raceIdText.setText(Integer.toString(runnerRace.getRaceId()));
-        }
-
-        if (runnerRace.getShirtNumber() == -1) {
-            shirtNumberTextField.setText("");
-        } else {
-            shirtNumberTextField.setText(Integer.toString(runnerRace.getShirtNumber()));
         }
 
         if (runnerRace.getTime() == -1) {
@@ -90,9 +107,39 @@ public class EditRunnerRaceController {
         }
     }
 
+    private void setRunnerChoiceBox() {
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Runner> runners = runnerJdbi.getAll();
+        ObservableList<Runner> observableRunners = FXCollections.observableList(runners);
+        runnerChoiceBox.setItems(observableRunners);
+    }
+
+    private void setRaceChoiceBox() {
+        RaceJdbi raceJdbi = new RaceJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Race> races = raceJdbi.getAll();
+        ObservableList<Race> observableRaces = FXCollections.observableList(races);
+        raceChoiceBox.setItems(observableRaces);
+    }
+
     private void runnerRaceUpdate() {
-        runnerRace.setShirtNumber(Integer.parseInt(shirtNumberTextField.getText()));
-        runnerRace.setTime(Integer.parseInt(timeTextField.getText()));
+        if (!isEdit) {
+            runnerRace.setRaceId(raceChoiceBox.getValue().getId());
+            runnerRace.setRunnerId(runnerChoiceBox.getValue().getId());
+        }
+
+        try {
+            runnerRace.setTime(Integer.parseInt(timeTextField.getText()));
+        } catch (NumberFormatException e) {
+            runnerRace.setTime(-1);
+        }
+    }
+
+    private boolean isRaceSelected() {
+        return raceChoiceBox.getValue() != null;
+    }
+
+    private boolean isRunnerSelected() {
+        return runnerChoiceBox.getValue() != null;
     }
 
     private boolean isNotChanged() {
@@ -106,8 +153,17 @@ public class EditRunnerRaceController {
                 closeOnNoChanges(event);
             } else {
                 RunnerRaceJdbi runnerRaceJdbi = new RunnerRaceJdbi(ConnectionManager.CONNECTION_STRING);
-                if (runnerRace.getRunnerId() == -1) {
-                    runnerRaceJdbi.insert(runnerRace);
+                if (!isEdit) {
+                    int shirtNumber = runnerRaceJdbi.getNextShirtNumber(runnerRace.getRaceId());
+                    runnerRace.setShirtNumber(shirtNumber);
+                    try {
+                        runnerRaceJdbi.insert(runnerRace);
+                    } catch (Exception e) {
+                        raceChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
+                        runnerChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
+                        errorMessageText.setText("runner and race combo exists");
+                        return;
+                    }
                 } else {
                     runnerRaceJdbi.update(runnerRace);
                 }
@@ -125,22 +181,28 @@ public class EditRunnerRaceController {
         resetTextFieldBorder();
 
         try {
-            Integer.parseInt(shirtNumberTextField.getText());
-        } catch (NumberFormatException exception) {
-            shirtNumberTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-            status = false;
-        }
-
-        try {
             Integer.parseInt(timeTextField.getText());
         } catch (NumberFormatException exception) {
             timeTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
 
+        if (!isEdit) {
+            if (!isRaceSelected()) {
+                raceChoiceBox.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
+
+            if (!isRunnerSelected()) {
+                runnerChoiceBox.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
+        }
+
         if (status) {
             errorMessageText.setText("");
         }
+
         return status;
     }
 
@@ -156,8 +218,9 @@ public class EditRunnerRaceController {
     }
 
     private void resetTextFieldBorder() {
-        shirtNumberTextField.setBorder(Border.EMPTY);
         timeTextField.setBorder(Border.EMPTY);
+        raceChoiceBox.setBorder(Border.EMPTY);
+        runnerChoiceBox.setBorder(Border.EMPTY);
     }
 
     private void closeOnNoChanges(ActionEvent event) {
@@ -165,6 +228,14 @@ public class EditRunnerRaceController {
         if (confirmation) {
             close(event);
         }
+    }
+
+    public void setAdd() {
+        isEdit = false;
+    }
+
+    public void setEdit() {
+        isEdit = true;
     }
 
     private void showAlert(String title, String content) {

@@ -3,6 +3,7 @@ package be.uhasselt.databasesproject.jdbi;
 import be.uhasselt.databasesproject.model.RunnerRace;
 import org.jdbi.v3.core.Jdbi;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
@@ -20,9 +21,8 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
                 .list());
     }
 
-    @Override
     public void insert(RunnerRace runnerRace) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner_race (shirtNumber, time) VALUES (:shirtNumber, :time")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner_race (runnerID, raceID, shirtNumber, time) VALUES (:runnerId, :raceId, :shirtNumber, :time)")
                 .bindBean(runnerRace)
                 .execute());
     }

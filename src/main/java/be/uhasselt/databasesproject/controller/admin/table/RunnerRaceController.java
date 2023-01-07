@@ -117,6 +117,12 @@ public class RunnerRaceController {
 
     private void setEditRaceScreen(AnchorPane anchorPane, FXMLLoader loader, RunnerRace runnerRace, String title) {
         EditRunnerRaceController editRunnerRaceController = loader.getController();
+
+        if (runnerRace.getRunnerId() == -1) {
+            editRunnerRaceController.setAdd();
+        } else {
+            editRunnerRaceController.setEdit();
+        }
         editRunnerRaceController.inflateUI(runnerRace);
 
         Scene scene = new Scene(anchorPane);

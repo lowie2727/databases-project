@@ -30,6 +30,7 @@ admin
 - [ ] add login screen for admins
 - [ ] add segments to race from edit races menu
 - [ ] add entities to junction tables (select from choiceBox)
+- [ ] do not show all data in the choiceBox
 
 user
 - [x] add registration screen for runners

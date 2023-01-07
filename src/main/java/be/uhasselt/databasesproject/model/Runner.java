@@ -40,7 +40,7 @@ public class Runner implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Runner{id: %d, firstName: '%s', familyName: '%s'}", id, firstName, familyName);
+        return String.format("%s %s", firstName, familyName);
     }
 
     @Override
