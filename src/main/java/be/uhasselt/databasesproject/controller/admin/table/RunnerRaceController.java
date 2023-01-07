@@ -118,7 +118,6 @@ public class RunnerRaceController {
     private void setEditRaceScreen(AnchorPane anchorPane, FXMLLoader loader, RunnerRace runnerRace, String title) {
         EditRunnerRaceController editRunnerRaceController = loader.getController();
         editRunnerRaceController.inflateUI(runnerRace);
-        editRunnerRaceController.setAdminMode();
 
         Scene scene = new Scene(anchorPane);
         Stage stage = new Stage();

@@ -30,60 +30,77 @@ public class SwitchAnchorPane {
         String resource = "/fxml/main.fxml";
         goTo(resource);
         setStageSize(600, 440);
+        Main.getRootStage().setTitle("Main Menu");
     }
 
     public static void goToAdmin() {
         String resource = "/fxml/admin/admin.fxml";
         goTo(resource);
         setStageSize(600, 440);
+        Main.getRootStage().setTitle("Admin");
     }
 
     public static void goToRunner() {
         String resource = "/fxml/admin/table/runner.fxml";
         goTo(resource);
         setStageSize(1170, 440);
+        Main.getRootStage().setTitle("Runner");
     }
 
     public static void goToVolunteer() {
         String resource = "/fxml/admin/table/volunteer.fxml";
         goTo(resource);
         setStageSize(600,440);
+        Main.getRootStage().setTitle("Volunteer");
+    }
+
+    public static void goToRunnerRace() {
+        String resource = "/fxml/admin/table/runnerRace.fxml";
+        goTo(resource);
+        setStageSize(600,440);
+        Main.getRootStage().setTitle("Runner race");
     }
 
     public static void goToRace() {
         String resource = "/fxml/admin/table/race.fxml";
         goTo(resource);
         setStageSize(600, 440);
+        Main.getRootStage().setTitle("Race");
     }
 
     public static void goToRegisterRunner() {
         String resource = "/fxml/user/registerRunner.fxml";
         goTo(resource);
         setStageSize(600, 440);
+        Main.getRootStage().setTitle("Register");
     }
 
     public static void goToSegment() {
         String resource = "/fxml/admin/table/segment.fxml";
         goTo(resource);
         setStageSize(600, 440);
+        Main.getRootStage().setTitle("Segment");
     }
 
     public static void goToSegmentTime() {
         String resource = "/fxml/admin/table/segmentTime.fxml";
         goTo(resource);
         setStageSize(600, 440);
+        Main.getRootStage().setTitle("Segment time");
     }
 
     public static void goToVolunteerRace() {
         String resource = "/fxml/admin/table/volunteerRace.fxml";
         goTo(resource);
         setStageSize(600, 440);
+        Main.getRootStage().setTitle("Volunteer race");
     }
 
     public static void goToGlobalRanking() {
         String resource = "/fxml/admin/table/globalRanking.fxml";
         goTo(resource);
         setStageSize(600, 440);
+        Main.getRootStage().setTitle("Global ranking");
     }
 
     public static void goToLogin() {
@@ -133,6 +150,7 @@ public class SwitchAnchorPane {
         editRunnerController.setUserMode();
 
         setStageSize(750, 340);
+        Main.getRootStage().setTitle("Edit runner");
         stage.close();
     }
 

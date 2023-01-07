@@ -43,7 +43,6 @@ public class EditSegmentController {
     private Segment segment;
     private Segment originalSegment;
     private Boolean confirmation = false;
-    private Boolean isAdmin;
 
     @FXML
     void initialize() {
@@ -56,10 +55,8 @@ public class EditSegmentController {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
 
-        if (isAdmin) {
-            WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
-            stage.getOnCloseRequest().handle(windowEvent);
-        }
+        WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
+        stage.getOnCloseRequest().handle(windowEvent);
 
         stage.close();
     }
@@ -67,6 +64,7 @@ public class EditSegmentController {
     public void inflateUI(Segment segment) {
         this.segment = segment;
         originalSegment = SerializationUtils.clone(segment);
+
         if (segment.getId() == -1) {
             idText.setText("tbd");
         } else {
@@ -164,14 +162,6 @@ public class EditSegmentController {
         if (confirmation) {
             close(event);
         }
-    }
-
-    public void setAdminMode() {
-        isAdmin = true;
-    }
-
-    public void setUserMode() {
-        isAdmin = false;
     }
 
     private void showAlert(String title, String content) {

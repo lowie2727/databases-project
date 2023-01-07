@@ -43,7 +43,6 @@ public class EditRunnerRaceController {
     private RunnerRace runnerRace;
     private RunnerRace originalRunnerRace;
     private Boolean confirmation = false;
-    private Boolean isAdmin;
 
     @FXML
     void initialize() {
@@ -56,10 +55,8 @@ public class EditRunnerRaceController {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
 
-        if (isAdmin) {
-            WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
-            stage.getOnCloseRequest().handle(windowEvent);
-        }
+        WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
+        stage.getOnCloseRequest().handle(windowEvent);
 
         stage.close();
     }
@@ -67,6 +64,7 @@ public class EditRunnerRaceController {
     public void inflateUI(RunnerRace runnerRace) {
         this.runnerRace = runnerRace;
         originalRunnerRace = SerializationUtils.clone(runnerRace);
+
         if (runnerRace.getRunnerId() == -1) {
             runnerIdText.setText("tbd");
         } else {
@@ -167,14 +165,6 @@ public class EditRunnerRaceController {
         if (confirmation) {
             close(event);
         }
-    }
-
-    public void setAdminMode() {
-        isAdmin = true;
-    }
-
-    public void setUserMode() {
-        isAdmin = false;
     }
 
     private void showAlert(String title, String content) {

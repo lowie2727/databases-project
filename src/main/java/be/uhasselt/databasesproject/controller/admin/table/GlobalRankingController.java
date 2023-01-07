@@ -114,7 +114,6 @@ public class GlobalRankingController {
     private void setGlobalRankingScreen(AnchorPane anchorPane, FXMLLoader loader, GlobalRanking globalRanking, String title) {
         EditGlobalRankingController editGlobalRankingController = loader.getController();
         editGlobalRankingController.inflateUI(globalRanking);
-        editGlobalRankingController.setAdminMode();
 
         Scene scene = new Scene(anchorPane);
         Stage stage = new Stage();

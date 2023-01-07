@@ -110,7 +110,6 @@ public class VolunteerRaceController {
     private void setVolunteerRaceScreen(AnchorPane anchorPane, FXMLLoader loader, VolunteerRace volunteerRace, String title) {
         EditVolunteerRaceController editVolunteerRaceController = loader.getController();
         editVolunteerRaceController.inflateUI(volunteerRace);
-        editVolunteerRaceController.setAdminMode();
 
         Scene scene = new Scene(anchorPane);
         Stage stage = new Stage();

@@ -89,7 +89,6 @@ public class EditRunnerController {
         } else {
             SwitchAnchorPane.goToMainMenu();
         }
-
     }
 
     public void inflateUI(Runner runner) {

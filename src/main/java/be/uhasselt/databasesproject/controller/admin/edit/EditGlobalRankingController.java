@@ -40,7 +40,6 @@ public class EditGlobalRankingController {
     private GlobalRanking globalRanking;
     private GlobalRanking originalGlobalRanking;
     private Boolean confirmation = false;
-    private Boolean isAdmin;
 
     @FXML
     void initialize() {
@@ -53,10 +52,8 @@ public class EditGlobalRankingController {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
 
-        if (isAdmin) {
-            WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
-            stage.getOnCloseRequest().handle(windowEvent);
-        }
+        WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
+        stage.getOnCloseRequest().handle(windowEvent);
 
         stage.close();
     }
@@ -64,13 +61,14 @@ public class EditGlobalRankingController {
     public void inflateUI(GlobalRanking globalRanking) {
         this.globalRanking = globalRanking;
         originalGlobalRanking = SerializationUtils.clone(globalRanking);
+
         if (globalRanking.getRunnerId() == -1) {
             runnerIdText.setText("tbd");
         } else {
             runnerIdText.setText(Integer.toString(globalRanking.getRunnerId()));
         }
 
-        if (globalRanking.getPrizeMoney() == -1) {
+        if (globalRanking.getPrizeMoney() == -1.0) {
             prizeMoneyTextField.setText("");
         } else {
             prizeMoneyTextField.setText(Double.toString(globalRanking.getPrizeMoney()));
@@ -158,14 +156,6 @@ public class EditGlobalRankingController {
         if (confirmation) {
             close(event);
         }
-    }
-
-    public void setAdminMode() {
-        isAdmin = true;
-    }
-
-    public void setUserMode() {
-        isAdmin = false;
     }
 
     private void showAlert(String title, String content) {

@@ -57,15 +57,17 @@ public class EditRaceController {
     private void close(ActionEvent event) {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
 
+        WindowEvent windowEvent = new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST);
         stage.getOnCloseRequest().handle(windowEvent);
+
         stage.close();
     }
 
     public void inflateUI(Race race) {
         this.race = race;
         originalRace = SerializationUtils.clone(race);
+
         if (race.getId() == -1) {
             idText.setText("tbd");
         } else {
@@ -92,7 +94,6 @@ public class EditRaceController {
         race.setDate(dateTextField.getText());
         race.setName(nameTextField.getText());
 
-
         try {
             race.setDistance(Integer.parseInt(distanceTextField.getText()));
         } catch (NumberFormatException exception) {
@@ -104,7 +105,6 @@ public class EditRaceController {
             race.setPrice(-1.0);
         }
     }
-
 
     private boolean isNotChanged() {
         raceUpdate();
@@ -132,13 +132,26 @@ public class EditRaceController {
     private boolean areMandatoryFieldsFilledIn() {
         boolean status = true;
         String color = "red";
-        if (dateTextField.getText().isBlank() || nameTextField.getText().isBlank() || distanceTextField.getText().isBlank() || priceTextField.getText().isBlank()) {
-            errorMessageText.setText("Please fill in all mandatory fields.");
-            showMandatoryFields();
+
+        resetTextFieldBorder();
+
+        if (dateTextField.getText().isBlank()) {
+            dateTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (nameTextField.getText().isBlank()) {
+            nameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (distanceTextField.getText().isBlank()) {
+            distanceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+        if (priceTextField.getText().isBlank()) {
+            priceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
 
-        showMandatoryFields();
         try {
             Integer.parseInt(distanceTextField.getText());
         } catch (NumberFormatException exception) {
@@ -167,23 +180,6 @@ public class EditRaceController {
             if (confirmation) {
                 close(event);
             }
-        }
-    }
-
-    private void showMandatoryFields() {
-        String color = "red";
-        resetTextFieldBorder();
-        if (dateTextField.getText().isBlank()) {
-            dateTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (nameTextField.getText().isBlank()) {
-            nameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (distanceTextField.getText().isBlank()) {
-            distanceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-        }
-        if (priceTextField.getText().isBlank()) {
-            priceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
         }
     }
 

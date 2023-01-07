@@ -58,7 +58,7 @@ public class AdminController {
         } else if (Objects.equals(string, "segment")) {
             SwitchAnchorPane.goToSegment();
         } else if (Objects.equals(string, "runnerRace")) {
-            SwitchAnchorPane.goToSegment();
+            SwitchAnchorPane.goToRunnerRace();
         } else if (Objects.equals(string, "segmentTime")) {
             SwitchAnchorPane.goToSegmentTime();
         } else if (Objects.equals(string, "volunteerRace")) {

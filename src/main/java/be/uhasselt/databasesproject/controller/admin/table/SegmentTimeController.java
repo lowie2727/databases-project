@@ -114,7 +114,6 @@ public class SegmentTimeController {
     private void setSegmentTimesScreen(AnchorPane anchorPane, FXMLLoader loader, SegmentTimes segmentTimes, String title) {
         EditSegmentTimeController editSegmentTimeController = loader.getController();
         editSegmentTimeController.inflateUI(segmentTimes);
-        editSegmentTimeController.setAdminMode();
 
         Scene scene = new Scene(anchorPane);
         Stage stage = new Stage();

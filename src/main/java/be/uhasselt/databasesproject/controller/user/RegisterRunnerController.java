@@ -12,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -72,7 +71,6 @@ public class RegisterRunnerController {
     private Runner runner;
     private boolean confirmationNoAccount;
     private boolean confirmationDiscardChanges;
-    private AnchorPane anchorPane;
 
     @FXML
     void initialize() {
@@ -225,7 +223,6 @@ public class RegisterRunnerController {
             lengthTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
-
         return status;
     }
 

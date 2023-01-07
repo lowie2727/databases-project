@@ -118,7 +118,6 @@ public class SegmentController {
     private void setSegmentScreen(AnchorPane anchorPane, FXMLLoader loader, Segment segment, String title) {
         EditSegmentController editSegmentController = loader.getController();
         editSegmentController.inflateUI(segment);
-        editSegmentController.setAdminMode();
 
         Scene scene = new Scene(anchorPane);
         Stage stage = new Stage();

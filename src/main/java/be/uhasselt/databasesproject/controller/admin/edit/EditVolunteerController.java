@@ -70,6 +70,7 @@ public class EditVolunteerController {
     public void inflateUI(Volunteer volunteer) {
         this.volunteer = volunteer;
         originalVolunteer = SerializationUtils.clone(volunteer);
+
         if (volunteer.getId() == -1) {
             idText.setText("tbd");
         } else {
