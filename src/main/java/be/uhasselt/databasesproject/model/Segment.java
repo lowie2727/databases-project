@@ -22,7 +22,7 @@ public class Segment implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Segment{id: %d, raceId: %d, location: '%s'}", id, raceId, location);
+        return String.format("race: %d, %s", raceId, location);
     }
 
     @Override

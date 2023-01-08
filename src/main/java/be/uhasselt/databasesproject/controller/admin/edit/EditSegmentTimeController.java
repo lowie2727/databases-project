@@ -1,21 +1,27 @@
 package be.uhasselt.databasesproject.controller.admin.edit;
 
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
+import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
+import be.uhasselt.databasesproject.jdbi.SegmentJdbi;
 import be.uhasselt.databasesproject.jdbi.SegmentTimesJdbi;
+import be.uhasselt.databasesproject.model.Race;
+import be.uhasselt.databasesproject.model.Runner;
+import be.uhasselt.databasesproject.model.Segment;
 import be.uhasselt.databasesproject.model.SegmentTimes;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
+
+import java.util.List;
 
 public class EditSegmentTimeController {
 
@@ -29,6 +35,12 @@ public class EditSegmentTimeController {
     private Text errorMessageText;
 
     @FXML
+    private ChoiceBox<Segment> segmentChoiceBox;
+
+    @FXML
+    private ChoiceBox<Runner> runnerChoiceBox;
+
+    @FXML
     private Text segmentIdText;
 
     @FXML
@@ -40,6 +52,8 @@ public class EditSegmentTimeController {
     private SegmentTimes segmentTime;
     private SegmentTimes originalSegmentTime;
     private Boolean confirmation = false;
+    private Boolean isEdit;
+
 
     @FXML
     void initialize() {
@@ -59,17 +73,22 @@ public class EditSegmentTimeController {
     }
 
     public void inflateUI(SegmentTimes segmentTime) {
+        if(isEdit){
+            runnerChoiceBox.setVisible(false);
+            segmentChoiceBox.setVisible(false);
+        }
+
         this.segmentTime = segmentTime;
         originalSegmentTime = SerializationUtils.clone(segmentTime);
 
         if (segmentTime.getRunnerId() == -1) {
-            runnerIdText.setText("tbd");
+            setRunnerChoiceBox();
         } else {
             runnerIdText.setText(Integer.toString(segmentTime.getRunnerId()));
         }
 
         if (segmentTime.getSegmentId() == -1) {
-            segmentIdText.setText("tbd");
+            setSegmentChoiceBox();
         } else {
             segmentIdText.setText(Integer.toString(segmentTime.getSegmentId()));
         }
@@ -81,9 +100,40 @@ public class EditSegmentTimeController {
         }
     }
 
-    private void segmentTimeUpdate() {
-        segmentTime.setTime(Integer.parseInt(timeTextField.getText()));
+    private void setRunnerChoiceBox() {
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Runner> runners = runnerJdbi.getAll();
+        ObservableList<Runner> observableRunners = FXCollections.observableList(runners);
+        runnerChoiceBox.setItems(observableRunners);
     }
+
+    private void setSegmentChoiceBox() {
+        SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Segment> segments = segmentJdbi.getAll();
+        ObservableList<Segment> observableSegments = FXCollections.observableList(segments);
+        segmentChoiceBox.setItems(observableSegments);
+    }
+    private void segmentTimeUpdate() {
+        if (!isEdit) {
+            segmentTime.setSegmentId(segmentChoiceBox.getValue().getId());
+            segmentTime.setRunnerId(runnerChoiceBox.getValue().getId());
+        }
+
+        try {
+            segmentTime.setTime(Integer.parseInt(timeTextField.getText()));
+        } catch (NumberFormatException e) {
+            segmentTime.setTime(-1);
+        }
+    }
+
+    private boolean isSegmentSelected() {
+        return segmentChoiceBox.getValue() != null;
+    }
+
+    private boolean isRunnerSelected() {
+        return runnerChoiceBox.getValue() != null;
+    }
+
 
     private boolean isNotChanged() {
         segmentTimeUpdate();
@@ -96,8 +146,15 @@ public class EditSegmentTimeController {
                 closeOnNoChanges(event);
             } else {
                 SegmentTimesJdbi segmentTimesJdbi = new SegmentTimesJdbi(ConnectionManager.CONNECTION_STRING);
-                if (segmentTime.getSegmentId() == -1) {
-                    segmentTimesJdbi.insert(segmentTime);
+                if (!isEdit) {
+                    try{
+                        segmentTimesJdbi.insert(segmentTime);
+                    } catch (Exception e){
+                        runnerChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
+                        segmentChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
+                        errorMessageText.setText("runner and segment combo exists");
+                        return;
+                    }
                 } else {
                     segmentTimesJdbi.update(segmentTime);
                 }
@@ -121,6 +178,18 @@ public class EditSegmentTimeController {
             status = false;
         }
 
+        if (!isEdit) {
+            if (!isSegmentSelected()) {
+                segmentChoiceBox.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
+
+            if (!isRunnerSelected()) {
+                runnerChoiceBox.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
+        }
+
         if (status) {
             errorMessageText.setText("");
         }
@@ -140,6 +209,8 @@ public class EditSegmentTimeController {
 
     private void resetTextFieldBorder() {
         timeTextField.setBorder(Border.EMPTY);
+        segmentChoiceBox.setBorder(Border.EMPTY);
+        runnerChoiceBox.setBorder(Border.EMPTY);
     }
 
     private void closeOnNoChanges(ActionEvent event) {
@@ -148,6 +219,10 @@ public class EditSegmentTimeController {
             close(event);
         }
     }
+
+    public void setAdd() { isEdit = false; }
+
+    public void setEdit() { isEdit = true; }
 
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);

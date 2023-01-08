@@ -22,7 +22,7 @@ public class SegmentTimesJdbi implements JdbiInterface<SegmentTimes> {
 
     @Override
     public void insert(SegmentTimes segmentTimes) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (time) VALUES (:time)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (runnerID, segmentID, time) VALUES (:runnerId, :segmentId, :time)")
                 .bindBean(segmentTimes)
                 .execute());
     }

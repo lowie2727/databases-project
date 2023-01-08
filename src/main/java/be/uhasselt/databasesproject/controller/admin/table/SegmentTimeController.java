@@ -113,6 +113,11 @@ public class SegmentTimeController {
 
     private void setSegmentTimesScreen(AnchorPane anchorPane, FXMLLoader loader, SegmentTimes segmentTimes, String title) {
         EditSegmentTimeController editSegmentTimeController = loader.getController();
+        if (segmentTimes.getRunnerId() == -1) {
+            editSegmentTimeController.setAdd();
+        } else {
+            editSegmentTimeController.setEdit();
+        }
         editSegmentTimeController.inflateUI(segmentTimes);
 
         Scene scene = new Scene(anchorPane);
