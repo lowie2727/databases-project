@@ -30,9 +30,6 @@ public class VolunteerRaceController {
     private Button deleteButton;
 
     @FXML
-    private Button editButton;
-
-    @FXML
     private TableView<VolunteerRace> tableView;
 
     @FXML
@@ -47,8 +44,7 @@ public class VolunteerRaceController {
     void initialize() {
         initTable();
 
-        addButton.setOnAction(event -> editVolunteerRace(false));
-        editButton.setOnAction(event -> editVolunteerRace(true));
+        addButton.setOnAction(event -> editVolunteerRace());
         deleteButton.setOnAction(event -> deleteVolunteerRace());
         closeButton.setOnAction(event -> SwitchAnchorPane.goToAdmin());
     }
@@ -81,20 +77,13 @@ public class VolunteerRaceController {
         return tableView.getSelectionModel().getSelectedItem();
     }
 
-    private void editVolunteerRace(boolean isEdit) {
+    private void editVolunteerRace() {
         VolunteerRace volunteerRace;
         String title;
 
-        if (isEdit) {
-            if (!verifyRowSelected()) {
-                return;
-            }
-            volunteerRace = getSelectedVolunteerRace();
-            title = "edit VolunteerRace";
-        } else {
-            volunteerRace = new VolunteerRace(-1, -1);
-            title = "add VolunteerRace";
-        }
+        volunteerRace = new VolunteerRace(-1, -1);
+        title = "add VolunteerRace";
+
 
         String resourceName = "/fxml/admin/edit/editVolunteerRace.fxml";
 

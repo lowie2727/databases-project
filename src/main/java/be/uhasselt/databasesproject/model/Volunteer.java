@@ -22,7 +22,7 @@ public class Volunteer implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Volunteer{id: %d, firstName: '%s', familyName: '%s'}", id, firstName, familyName);
+        return String.format("%s %s", firstName, familyName);
     }
 
     @Override

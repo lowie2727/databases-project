@@ -1,18 +1,24 @@
 package be.uhasselt.databasesproject.controller.admin.edit;
 
-import be.uhasselt.databasesproject.jdbi.ConnectionManager;
-import be.uhasselt.databasesproject.jdbi.VolunteerRaceJdbi;
-import be.uhasselt.databasesproject.model.VolunteerRace;
+import be.uhasselt.databasesproject.jdbi.*;
+import be.uhasselt.databasesproject.model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.Border;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
+
+import java.util.List;
 
 public class EditVolunteerRaceController {
 
@@ -27,6 +33,12 @@ public class EditVolunteerRaceController {
 
     @FXML
     private Text volunteerIdText;
+
+    @FXML
+    private ChoiceBox<Volunteer> volunteerChoiceBox;
+
+    @FXML
+    private ChoiceBox<Race> raceChoiceBox;
 
     @FXML
     private Button saveButton;
@@ -56,21 +68,44 @@ public class EditVolunteerRaceController {
         this.volunteerRace = volunteerRace;
         originalVolunteerRace = SerializationUtils.clone(volunteerRace);
         if (volunteerRace.getRaceId() == -1) {
-            raceIdText.setText("tbd");
+            setRaceChoiceBox();
         } else {
             raceIdText.setText(Integer.toString(volunteerRace.getRaceId()));
         }
 
         if (volunteerRace.getVolunteerId() == -1) {
-            volunteerIdText.setText("tbd");
+            setVolunteerChoiceBox();
         } else {
             volunteerIdText.setText(Integer.toString(volunteerRace.getVolunteerId()));
         }
 
     }
 
-    private void VolunteerRaceUpdate() {
+    private void setRaceChoiceBox() {
+        RaceJdbi raceJdbi = new RaceJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Race> races = raceJdbi.getAll();
+        ObservableList<Race> observableRaces = FXCollections.observableList(races);
+        raceChoiceBox.setItems(observableRaces);
+    }
 
+    private void setVolunteerChoiceBox() {
+        VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Volunteer> volunteers = volunteerJdbi.getAll();
+        ObservableList<Volunteer> observableVolunteers = FXCollections.observableList(volunteers);
+        volunteerChoiceBox.setItems(observableVolunteers);
+    }
+
+    private void VolunteerRaceUpdate() {
+        volunteerRace.setRaceId(raceChoiceBox.getValue().getId());
+        volunteerRace.setVolunteerId(volunteerChoiceBox.getValue().getId());
+    }
+
+    private boolean isRaceSelected() {
+        return raceChoiceBox.getValue() != null;
+    }
+
+    private boolean isVolunteerSelected() {
+        return volunteerChoiceBox.getValue() != null;
     }
 
     private boolean isNotChanged() {
@@ -84,10 +119,13 @@ public class EditVolunteerRaceController {
                 closeOnNoChanges(event);
             } else {
                 VolunteerRaceJdbi volunteerRaceJdbi = new VolunteerRaceJdbi(ConnectionManager.CONNECTION_STRING);
-                if (volunteerRace.getVolunteerId() == -1) {
+                try{
                     volunteerRaceJdbi.insert(volunteerRace);
-                } else {
-                    volunteerRaceJdbi.update(volunteerRace);
+                } catch (Exception e){
+                    raceChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
+                    volunteerChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
+                    errorMessageText.setText("volunteer and race combo exists");
+                    return;
                 }
                 close(event);
             }
@@ -101,6 +139,17 @@ public class EditVolunteerRaceController {
         String color = "red";
 
         resetTextFieldBorder();
+
+        if (!isRaceSelected()) {
+            raceChoiceBox.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
+        if (!isVolunteerSelected()) {
+            volunteerChoiceBox.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
 
         if (status) {
             errorMessageText.setText("");
@@ -120,7 +169,8 @@ public class EditVolunteerRaceController {
     }
 
     private void resetTextFieldBorder() {
-
+        raceChoiceBox.setBorder(Border.EMPTY);
+        volunteerChoiceBox.setBorder(Border.EMPTY);
     }
 
     private void closeOnNoChanges(ActionEvent event) {

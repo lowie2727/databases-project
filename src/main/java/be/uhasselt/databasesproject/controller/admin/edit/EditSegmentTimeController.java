@@ -4,7 +4,6 @@ import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.jdbi.SegmentJdbi;
 import be.uhasselt.databasesproject.jdbi.SegmentTimesJdbi;
-import be.uhasselt.databasesproject.model.Race;
 import be.uhasselt.databasesproject.model.Runner;
 import be.uhasselt.databasesproject.model.Segment;
 import be.uhasselt.databasesproject.model.SegmentTimes;

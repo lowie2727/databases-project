@@ -69,11 +69,8 @@ public class GlobalRankingController {
 
     private void loadGlobalRankings() {
         GlobalRankingJdbi globalRankingJdbi = new GlobalRankingJdbi(ConnectionManager.CONNECTION_STRING);
-        List<GlobalRanking> globalRankings = globalRankingJdbi.getAll();
+        List<GlobalRanking> globalRankings = globalRankingJdbi.getAllRanked();
         tableView.getItems().setAll(globalRankings);
-        totalTimeTableColumn.setSortType(TableColumn.SortType.ASCENDING);
-        tableView.getSortOrder().add(totalTimeTableColumn);
-        tableView.sort();
     }
 
     private boolean verifyRowSelected() {

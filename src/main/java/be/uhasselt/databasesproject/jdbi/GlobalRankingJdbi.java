@@ -15,7 +15,7 @@ public class GlobalRankingJdbi implements JdbiInterface<GlobalRanking> {
 
     @Override
     public List<GlobalRanking> getAll() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM global_ranking")
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM global_ranking ")
                 .mapToBean(GlobalRanking.class)
                 .list());
     }
@@ -39,5 +39,11 @@ public class GlobalRankingJdbi implements JdbiInterface<GlobalRanking> {
         jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM global_ranking WHERE runnerID = :runnerId")
                 .bindBean(globalRanking)
                 .execute());
+    }
+
+    public List<GlobalRanking> getAllRanked() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM global_ranking ORDER BY totalTime ASC")
+                .mapToBean(GlobalRanking.class)
+                .list());
     }
 }
