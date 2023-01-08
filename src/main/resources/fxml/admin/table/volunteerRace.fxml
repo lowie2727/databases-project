@@ -13,7 +13,6 @@
             <columns>
                 <TableColumn fx:id="volunteerIdTableColumn" prefWidth="75.0" text="volunteer id" />
                 <TableColumn fx:id="raceIdTableColumn" prefWidth="75.0" text="race id" />
-
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

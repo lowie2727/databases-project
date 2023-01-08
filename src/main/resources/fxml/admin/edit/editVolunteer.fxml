@@ -12,11 +12,9 @@
         <Text layoutX="16.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="first name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="630.0" AnchorPane.topAnchor="46.0" />
         <Text layoutX="38.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="family name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="630.0" AnchorPane.topAnchor="76.0" />
         <Text layoutX="18.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="job" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="630.0" AnchorPane.topAnchor="106.0" />
-
         <TextField fx:id="firstNameTextField" layoutX="133.0" layoutY="59.0" prefHeight="25.0" promptText="first name" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="40.0" />
         <TextField fx:id="familyNameTextField" layoutX="133.0" layoutY="88.0" prefHeight="25.0" promptText="family name" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="70.0" />
         <TextField fx:id="jobTextField" layoutX="133.0" layoutY="119.0" prefHeight="25.0" promptText="job" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="100.0" />
-
         <Text fx:id="errorMessageText" layoutX="178.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="178.0" />
         <Button fx:id="saveButton" layoutX="44.0" layoutY="303.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="45.0" text="Save" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
         <Button fx:id="cancelButton" layoutX="63.0" layoutY="265.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="60.0" />

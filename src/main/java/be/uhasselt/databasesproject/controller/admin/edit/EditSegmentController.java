@@ -35,6 +35,9 @@ public class EditSegmentController {
     private TextField raceIdTextField;
 
     @FXML
+    private Text raceIdText;
+
+    @FXML
     private Text idText;
 
     @FXML
@@ -43,6 +46,7 @@ public class EditSegmentController {
     private Segment segment;
     private Segment originalSegment;
     private Boolean confirmation = false;
+    private Boolean isFromRace;
 
     @FXML
     void initialize() {
@@ -71,10 +75,15 @@ public class EditSegmentController {
             idText.setText(Integer.toString(segment.getId()));
         }
 
-        if (segment.getRaceId() == -1) {
-            raceIdTextField.setText("");
+        if (isFromRace) {
+            raceIdTextField.setVisible(false);
+            raceIdText.setText("tbd");
         } else {
-            raceIdTextField.setText(Integer.toString(segment.getRaceId()));
+            if (segment.getRaceId() == -1) {
+                raceIdTextField.setText("");
+            } else {
+                raceIdTextField.setText(Integer.toString(segment.getRaceId()));
+            }
         }
 
         locationTextField.setText(segment.getLocation());
@@ -87,9 +96,18 @@ public class EditSegmentController {
     }
 
     private void segmentUpdate() {
-        segment.setRaceId(Integer.parseInt(raceIdTextField.getText()));
+        if (!isFromRace) {
+            segment.setRaceId(Integer.parseInt(raceIdTextField.getText()));
+        }
+
         segment.setLocation(locationTextField.getText());
-        segment.setDistance(Integer.parseInt(distanceTextField.getText()));
+
+        try {
+            segment.setDistance(Integer.parseInt(distanceTextField.getText()));
+        } catch (NumberFormatException e) {
+            segment.setDistance(-1);
+        }
+
     }
 
     private boolean isNotChanged() {
@@ -121,15 +139,25 @@ public class EditSegmentController {
 
         resetTextFieldBorder();
 
-        if (raceIdTextField.getText().isBlank()) {
-            raceIdTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-            status = false;
+        if (!isFromRace) {
+            if (raceIdTextField.getText().isBlank()) {
+                raceIdTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
         }
+
         if (locationTextField.getText().isBlank()) {
             locationTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
         if (distanceTextField.getText().isBlank()) {
+            distanceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
+        try {
+            Integer.parseInt(distanceTextField.getText());
+        } catch (NumberFormatException exception) {
             distanceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
@@ -149,6 +177,14 @@ public class EditSegmentController {
                 close(event);
             }
         }
+    }
+
+    public void setIsFromRace() {
+        isFromRace = true;
+    }
+
+    public void setIsFromSegment() {
+        isFromRace = false;
     }
 
     private void resetTextFieldBorder() {

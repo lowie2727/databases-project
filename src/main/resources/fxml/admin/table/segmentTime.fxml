@@ -14,7 +14,6 @@
                 <TableColumn fx:id="segmentIdTableColumn" prefWidth="75.0" text="segment id" />
                 <TableColumn fx:id="runnerIdTableColumn" prefWidth="75.0" text="runner id" />
                 <TableColumn fx:id="timeTableColumn" prefWidth="75.0" text="time" />
-
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

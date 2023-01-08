@@ -2,55 +2,88 @@ package be.uhasselt.databasesproject.controller.admin.edit;
 
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;
+import be.uhasselt.databasesproject.jdbi.SegmentJdbi;
 import be.uhasselt.databasesproject.model.Race;
+import be.uhasselt.databasesproject.model.Segment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
 
+import java.util.List;
+import java.util.Objects;
+
 public class EditRaceController {
 
-    @FXML
-    private TextField distanceTextField;
 
     @FXML
     private Button cancelButton;
 
     @FXML
+    private TextField dateTextField;
+
+    @FXML
+    private TableColumn<Segment, Integer> distanceTableColumn;
+
+    @FXML
+    private TextField distanceTextField;
+
+    @FXML
+    private Button addSegmentButton;
+
+    @FXML
+    private Button editSegmentButton;
+
+    @FXML
     private Text errorMessageText;
 
     @FXML
-    private TextField nameTextField;
-
-    @FXML
-    private TextField dateTextField;
+    private TableColumn<Segment, Integer> idTableColumn;
 
     @FXML
     private Text idText;
 
     @FXML
-    private Button saveButton;
+    private TableColumn<Segment, String> locationTableColumn;
+
+    @FXML
+    private TextField nameTextField;
 
     @FXML
     private TextField priceTextField;
 
+    @FXML
+    private TableColumn<Segment, Integer> raceIdTableColumn;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private TableView<Segment> tableView;
+
     private Race race;
     private Race originalRace;
     private Boolean confirmation = false;
+    private int originalAmountOfSegments;
+    private Stage stage;
 
     @FXML
     void initialize() {
         saveButton.setOnAction(this::databaseUpdate);
         cancelButton.setOnAction(this::cancel);
+        editSegmentButton.setOnAction(event -> editSegment(true));
+        addSegmentButton.setOnAction(event -> editSegment(false));
         errorMessageText.setText("");
     }
 
@@ -64,9 +97,85 @@ public class EditRaceController {
         stage.close();
     }
 
+    private void editSegment(boolean isEdit) {
+        Segment segment;
+        String title;
+
+        if (isEdit) {
+            if (!verifyRowSelected()) {
+                return;
+            }
+            segment = getSelectedSegment();
+            title = "edit segment";
+        } else {
+            segment = new Segment(-1, race.getId(), "", -1);
+            title = "add segment";
+        }
+
+        String resourceName = "/fxml/admin/edit/editSegment.fxml";
+
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
+            AnchorPane anchorPane = loader.load();
+            setSegmentScreen(anchorPane, loader, segment, title);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot find " + resourceName, e);
+        }
+    }
+
+    private void setSegmentScreen(AnchorPane anchorPane, FXMLLoader loader, Segment segment, String title) {
+        EditSegmentController editSegmentController = loader.getController();
+        editSegmentController.setIsFromRace();
+        editSegmentController.inflateUI(segment);
+
+        Scene scene = new Scene(anchorPane);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setTitle(title);
+        stage.initOwner(this.stage);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+        stage.setOnCloseRequest(event -> loadSegments());
+    }
+
+    private Segment getSelectedSegment() {
+        return tableView.getSelectionModel().getSelectedItem();
+    }
+
+    private boolean verifyRowSelected() {
+        if (tableView.getSelectionModel().getSelectedCells().size() == 0) {
+            showAlert("Warning", "Please select a row");
+            return false;
+        }
+        return true;
+    }
+
+    private void setUpTableView() {
+        initColumns();
+        loadSegments();
+    }
+
+    private void initColumns() {
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        raceIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("raceId"));
+        locationTableColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
+    }
+
+    private void loadSegments() {
+        SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Segment> segments = segmentJdbi.getAllByRaceId(race.getId());
+        tableView.getItems().setAll(segments);
+    }
+
     public void inflateUI(Race race) {
         this.race = race;
         originalRace = SerializationUtils.clone(race);
+
+        setUpTableView();
+        originalAmountOfSegments = tableView.getItems().size();
+
 
         if (race.getId() == -1) {
             idText.setText("tbd");
@@ -108,7 +217,7 @@ public class EditRaceController {
 
     private boolean isNotChanged() {
         raceUpdate();
-        return originalRace.equals(race);
+        return originalRace.equals(race) && originalAmountOfSegments == tableView.getItems().size();
     }
 
     private void databaseUpdate(ActionEvent event) {
@@ -119,6 +228,8 @@ public class EditRaceController {
                 RaceJdbi raceJdbi = new RaceJdbi(ConnectionManager.CONNECTION_STRING);
                 if (race.getId() == -1) {
                     raceJdbi.insert(race);
+                    int raceId = raceJdbi.getIdLatestAddedRunner();
+                    setRaceIdSegments(raceId);
                 } else {
                     raceJdbi.update(race);
                 }
@@ -126,6 +237,13 @@ public class EditRaceController {
             }
         } else {
             showAlert("Warning", "Please fill in the mandatory fields.");
+        }
+    }
+
+    private void setRaceIdSegments(int raceId) {
+        SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
+        for (Segment s : tableView.getItems()) {
+            segmentJdbi.updateRaceId(s, raceId);
         }
     }
 
@@ -181,6 +299,10 @@ public class EditRaceController {
                 close(event);
             }
         }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private void resetTextFieldBorder() {

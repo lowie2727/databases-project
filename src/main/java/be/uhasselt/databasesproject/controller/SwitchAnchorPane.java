@@ -20,7 +20,6 @@ public class SwitchAnchorPane {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
             AnchorPane anchorPane = loader.load();
             SwitchAnchorPane.anchorPane.getChildren().setAll(anchorPane);
-            //setStageSize(anchorPane.getPrefHeight(), anchorPane.getPrefHeight());
         } catch (Exception e) {
             throw new RuntimeException("Cannot find " + resource, e);
         }
@@ -50,14 +49,14 @@ public class SwitchAnchorPane {
     public static void goToVolunteer() {
         String resource = "/fxml/admin/table/volunteer.fxml";
         goTo(resource);
-        setStageSize(600,440);
+        setStageSize(600, 440);
         Main.getRootStage().setTitle("Volunteer");
     }
 
     public static void goToRunnerRace() {
         String resource = "/fxml/admin/table/runnerRace.fxml";
         goTo(resource);
-        setStageSize(600,440);
+        setStageSize(600, 440);
         Main.getRootStage().setTitle("Runner race");
     }
 

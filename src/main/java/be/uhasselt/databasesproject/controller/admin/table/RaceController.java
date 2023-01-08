@@ -125,6 +125,8 @@ public class RaceController {
         Scene scene = new Scene(anchorPane);
         Stage stage = new Stage();
 
+        editRaceController.setStage(stage);
+
         stage.setScene(scene);
         stage.setTitle(title);
         stage.initOwner(Main.getRootStage());

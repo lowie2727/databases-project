@@ -112,7 +112,13 @@ public class RegisterRunnerController {
     }
 
     private String hashPassword() {
-        return Password.hashString(passwordField.getText());
+        String password;
+        if (!passwordField.getText().isEmpty()) {
+            password = Password.hashString(passwordField.getText());
+        } else {
+            password = null;
+        }
+        return password;
     }
 
     private void register() {

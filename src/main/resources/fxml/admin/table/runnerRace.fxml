@@ -15,7 +15,6 @@
                 <TableColumn fx:id="raceIdTableColumn" prefWidth="75.0" text="race id" />
                 <TableColumn fx:id="shirtNumberTableColumn" prefWidth="75.0" text="shirt number" />
                 <TableColumn fx:id="timeTableColumn" prefWidth="75.0" text="time" />
-
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

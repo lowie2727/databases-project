@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="331.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.admin.edit.EditRaceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.admin.edit.EditRaceController">
     <children>
         <Text layoutX="66.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="id" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
         <Text fx:id="idText" layoutX="133.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="10.0" />
@@ -23,14 +23,16 @@
         <Text fx:id="errorMessageText" layoutX="178.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="178.0" />
         <Button fx:id="saveButton" layoutX="44.0" layoutY="303.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="45.0" text="Save" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
         <Button fx:id="cancelButton" layoutX="63.0" layoutY="265.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="60.0" />
-        <TableView fx:id="segmentTableView" layoutX="330.0" layoutY="16.0" prefHeight="286.0" prefWidth="303.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0">
+        <TableView fx:id="tableView" layoutX="330.0" layoutY="16.0" prefHeight="285.0" prefWidth="340.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0">
         <columns>
-          <TableColumn fx:id="id" prefWidth="75.0" text="id" />
-          <TableColumn fx:id="raceId" prefWidth="75.0" text="race id" />
-          <TableColumn prefWidth="75.0" text="location" />
-          <TableColumn prefWidth="75.0" text="distance" />
+          <TableColumn fx:id="idTableColumn" prefWidth="50.0" text="id" />
+          <TableColumn fx:id="raceIdTableColumn" prefWidth="50.0" text="race id" />
+          <TableColumn fx:id="locationTableColumn" prefWidth="170.0" text="location" />
+          <TableColumn fx:id="distanceTableColumn" prefWidth="75.0" text="distance" />
         </columns>
         </TableView>
         <Text layoutX="335.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="segments" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="10.0" />
+      <Button fx:id="addSegmentButton" layoutX="250.0" layoutY="295.0" mnemonicParsing="false" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="360.0" />
+      <Button fx:id="editSegmentButton" layoutX="241.0" layoutY="241.0" mnemonicParsing="false" text="Edit" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="360.0" />
     </children>
 </AnchorPane>

@@ -19,10 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
-import org.jdbi.v3.core.Jdbi;
-import org.jdbi.v3.core.JdbiException;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class EditRunnerRaceController {
@@ -123,8 +120,16 @@ public class EditRunnerRaceController {
 
     private void runnerRaceUpdate() {
         if (!isEdit) {
-            runnerRace.setRaceId(raceChoiceBox.getValue().getId());
-            runnerRace.setRunnerId(runnerChoiceBox.getValue().getId());
+            if (raceChoiceBox.getValue() == null) {
+                runnerRace.setRaceId(-1);
+            } else {
+                runnerRace.setRaceId(raceChoiceBox.getValue().getId());
+            }
+            if (runnerChoiceBox.getValue() == null) {
+                runnerRace.setRunnerId(-1);
+            } else {
+                runnerRace.setRunnerId(runnerChoiceBox.getValue().getId());
+            }
         }
 
         try {

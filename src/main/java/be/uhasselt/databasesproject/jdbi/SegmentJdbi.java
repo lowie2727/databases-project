@@ -20,6 +20,13 @@ public class SegmentJdbi implements JdbiInterface<Segment> {
                 .list());
     }
 
+    public List<Segment> getAllByRaceId(int raceId) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM segment WHERE raceID = :raceId")
+                .bind("raceId", raceId)
+                .mapToBean(Segment.class)
+                .list());
+    }
+
     @Override
     public void insert(Segment segment) {
         jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment (raceID, location, distance) VALUES (:raceId, :location, :distance)")
@@ -31,6 +38,13 @@ public class SegmentJdbi implements JdbiInterface<Segment> {
     public void update(Segment segment) {
         jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment SET raceID = :raceId, location = :location, distance = :distance WHERE id = :id")
                 .bindBean(segment)
+                .execute());
+    }
+
+    public void updateRaceId(Segment segment, int raceId) {
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment SET raceID = :raceId WHERE id = :id")
+                .bindBean(segment)
+                .bind("raceId", raceId)
                 .execute());
     }
 

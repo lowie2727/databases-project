@@ -117,6 +117,7 @@ public class SegmentController {
 
     private void setSegmentScreen(AnchorPane anchorPane, FXMLLoader loader, Segment segment, String title) {
         EditSegmentController editSegmentController = loader.getController();
+        editSegmentController.setIsFromSegment();
         editSegmentController.inflateUI(segment);
 
         Scene scene = new Scene(anchorPane);

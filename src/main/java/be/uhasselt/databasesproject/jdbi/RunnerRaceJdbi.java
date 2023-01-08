@@ -3,7 +3,6 @@ package be.uhasselt.databasesproject.jdbi;
 import be.uhasselt.databasesproject.model.RunnerRace;
 import org.jdbi.v3.core.Jdbi;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {

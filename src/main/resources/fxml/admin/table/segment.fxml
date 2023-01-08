@@ -15,7 +15,6 @@
                 <TableColumn fx:id="raceIdTableColumn" prefWidth="75.0" text="race id" />
                 <TableColumn fx:id="locationTableColumn" prefWidth="75.0" text="location" />
                 <TableColumn fx:id="distanceTableColumn" prefWidth="75.0" text="distance" />
-
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
