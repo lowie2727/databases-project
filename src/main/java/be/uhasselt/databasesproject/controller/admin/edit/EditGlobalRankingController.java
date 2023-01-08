@@ -82,8 +82,17 @@ public class EditGlobalRankingController {
     }
 
     private void GlobalRankingUpdate() {
-        globalRanking.setPrizeMoney(Double.parseDouble(prizeMoneyTextField.getText()));
-        globalRanking.setTotalTime(Integer.parseInt(totalTimeTextField.getText()));
+        try {
+            globalRanking.setPrizeMoney(Double.parseDouble(prizeMoneyTextField.getText()));
+        } catch (NumberFormatException e) {
+            globalRanking.setPrizeMoney(-1);
+        }
+
+        try {
+            globalRanking.setTotalTime(Integer.parseInt(totalTimeTextField.getText()));
+        } catch (NumberFormatException e) {
+            globalRanking.setTotalTime(-1);
+        }
     }
 
     private boolean isNotChanged() {

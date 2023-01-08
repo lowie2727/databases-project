@@ -55,4 +55,10 @@ public class SegmentJdbi implements JdbiInterface<Segment> {
             return handle.createUpdate("DELETE FROM segment_times WHERE segmentID = :id").bindBean(segment).execute();
         });
     }
+
+    public void deleteByRaceId(int raceId) {
+        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM segment WHERE raceID = :raceId")
+                .bind("raceId", raceId)
+                .execute());
+    }
 }

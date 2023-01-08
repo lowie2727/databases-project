@@ -21,7 +21,10 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class EditRaceController {
@@ -31,7 +34,7 @@ public class EditRaceController {
     private Button cancelButton;
 
     @FXML
-    private TextField dateTextField;
+    private DatePicker datePicker;
 
     @FXML
     private TableColumn<Segment, Integer> distanceTableColumn;
@@ -61,6 +64,12 @@ public class EditRaceController {
     private TextField nameTextField;
 
     @FXML
+    private Text originalDateDefaultText;
+
+    @FXML
+    private Text originalDateText;
+
+    @FXML
     private TextField priceTextField;
 
     @FXML
@@ -80,6 +89,7 @@ public class EditRaceController {
 
     @FXML
     void initialize() {
+        datePicker.setEditable(false);
         saveButton.setOnAction(this::databaseUpdate);
         cancelButton.setOnAction(this::cancel);
         editSegmentButton.setOnAction(event -> editSegment(true));
@@ -183,7 +193,14 @@ public class EditRaceController {
             idText.setText(Integer.toString(race.getId()));
         }
 
-        dateTextField.setText(race.getDate());
+        if (!Objects.equals(race.getDate(), "")) {
+            originalDateText.setText(race.getDate());
+        } else {
+            originalDateDefaultText.setVisible(false);
+            originalDateText.setVisible(false);
+            originalDateText.setText("");
+        }
+
         nameTextField.setText(race.getName());
 
         if (race.getDistance() == -1) {
@@ -200,7 +217,16 @@ public class EditRaceController {
     }
 
     private void raceUpdate() {
-        race.setDate(dateTextField.getText());
+        if (datePicker.getValue() == null) {
+            if (originalDateText.getText().isBlank()) {
+                race.setDate("");
+            } else {
+                race.setDate(originalDateText.getText());
+            }
+        } else {
+            race.setDate(datePicker.getValue().toString());
+        }
+
         race.setName(nameTextField.getText());
 
         try {
@@ -253,10 +279,16 @@ public class EditRaceController {
 
         resetTextFieldBorder();
 
-        if (dateTextField.getText().isBlank()) {
-            dateTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-            status = false;
+        if (datePicker.getValue() == null) {
+            if (originalDateText.getText().isBlank()) {
+                race.setDate("");
+            } else {
+                race.setDate(originalDateText.getText());
+            }
+        } else {
+            race.setDate(datePicker.getValue().toString());
         }
+
         if (nameTextField.getText().isBlank()) {
             nameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
@@ -296,6 +328,10 @@ public class EditRaceController {
         } else {
             showAlertWithConfirmation("Warning", "Are you sure you want to discard your changes?");
             if (confirmation) {
+                if (race.getId() == -1) {
+                    SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
+                    segmentJdbi.deleteByRaceId(race.getId());
+                }
                 close(event);
             }
         }
@@ -306,7 +342,6 @@ public class EditRaceController {
     }
 
     private void resetTextFieldBorder() {
-        dateTextField.setBorder(Border.EMPTY);
         nameTextField.setBorder(Border.EMPTY);
         distanceTextField.setBorder(Border.EMPTY);
         priceTextField.setBorder(Border.EMPTY);

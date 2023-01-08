@@ -12,14 +12,16 @@
             <Font size="30.0" />
          </font>
       </Text>
+      <Text layoutX="80.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main tables" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="105.0" />
       <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Main Menu" />
-      <Button fx:id="editRunnersButton" layoutX="200.0" layoutY="132.0" mnemonicParsing="false" text="Edit runners" />
-      <Button fx:id="editVolunteersButton" layoutX="200.0" layoutY="175.0" mnemonicParsing="false" text="Edit volunteers" />
-      <Button fx:id="editRacesButton" layoutX="200.0" layoutY="218.0" mnemonicParsing="false" text="Edit races" />
-      <Button fx:id="editSegmentsButton" layoutX="200.0" layoutY="261.0" mnemonicParsing="false" text="Edit segments" />
-      <Button fx:id="editRunnerRaceButton" layoutX="300.0" layoutY="132.0" mnemonicParsing="false" text="Edit runnerRace" />
-      <Button fx:id="editSegmentTimeButton" layoutX="300.0" layoutY="175.0" mnemonicParsing="false" text="Edit segmentTime" />
-      <Button fx:id="editVolunteerRaceButton" layoutX="300.0" layoutY="218.0" mnemonicParsing="false" text="Edit volunteerRace" />
-      <Button fx:id="editGlobalRankingButton" layoutX="300.0" layoutY="261.0" mnemonicParsing="false" text="Edit global ranking" />
+      <Button fx:id="editRunnersButton" layoutX="200.0" layoutY="132.0" mnemonicParsing="false" text="Edit runners" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="130.0" />
+      <Button fx:id="editVolunteersButton" layoutX="200.0" layoutY="175.0" mnemonicParsing="false" text="Edit volunteers" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="160.0" />
+      <Button fx:id="editRacesButton" layoutX="200.0" layoutY="218.0" mnemonicParsing="false" text="Edit races" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="190.0" />
+      <Button fx:id="editSegmentsButton" layoutX="200.0" layoutY="261.0" mnemonicParsing="false" text="Edit segments" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="220.0" />
+      <Button fx:id="editRunnerRaceButton" layoutX="300.0" layoutY="132.0" mnemonicParsing="false" text="Edit runnerRace" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="130.0" />
+      <Button fx:id="editSegmentTimeButton" layoutX="300.0" layoutY="175.0" mnemonicParsing="false" text="Edit segmentTime" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="160.0" />
+      <Button fx:id="editVolunteerRaceButton" layoutX="300.0" layoutY="218.0" mnemonicParsing="false" text="Edit volunteerRace" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="190.0" />
+      <Button fx:id="editGlobalRankingButton" layoutX="300.0" layoutY="261.0" mnemonicParsing="false" text="Edit global ranking" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="220.0" />
+      <Text layoutX="300.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Junction tables" AnchorPane.leftAnchor="305.0" />
    </children>
 </AnchorPane>

@@ -79,6 +79,7 @@ public class EditSegmentController {
             raceIdTextField.setVisible(false);
             raceIdText.setText("tbd");
         } else {
+            raceIdText.setVisible(false);
             if (segment.getRaceId() == -1) {
                 raceIdTextField.setText("");
             } else {
@@ -97,7 +98,11 @@ public class EditSegmentController {
 
     private void segmentUpdate() {
         if (!isFromRace) {
-            segment.setRaceId(Integer.parseInt(raceIdTextField.getText()));
+            try {
+                segment.setRaceId(Integer.parseInt(raceIdTextField.getText()));
+            } catch (NumberFormatException e) {
+                segment.setRaceId(-1);
+            }
         }
 
         segment.setLocation(locationTextField.getText());

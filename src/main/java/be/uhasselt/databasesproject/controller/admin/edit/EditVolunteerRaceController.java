@@ -96,8 +96,17 @@ public class EditVolunteerRaceController {
     }
 
     private void VolunteerRaceUpdate() {
-        volunteerRace.setRaceId(raceChoiceBox.getValue().getId());
-        volunteerRace.setVolunteerId(volunteerChoiceBox.getValue().getId());
+        if (raceChoiceBox.getValue() == null) {
+            volunteerRace.setRaceId(-1);
+        } else {
+            volunteerRace.setRaceId(raceChoiceBox.getValue().getId());
+        }
+        if (volunteerChoiceBox.getValue() == null) {
+            volunteerRace.setVolunteerId(-1);
+        } else {
+            volunteerRace.setVolunteerId(volunteerChoiceBox.getValue().getId());
+        }
+
     }
 
     private boolean isRaceSelected() {
@@ -119,9 +128,9 @@ public class EditVolunteerRaceController {
                 closeOnNoChanges(event);
             } else {
                 VolunteerRaceJdbi volunteerRaceJdbi = new VolunteerRaceJdbi(ConnectionManager.CONNECTION_STRING);
-                try{
+                try {
                     volunteerRaceJdbi.insert(volunteerRace);
-                } catch (Exception e){
+                } catch (Exception e) {
                     raceChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
                     volunteerChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
                     errorMessageText.setText("volunteer and race combo exists");

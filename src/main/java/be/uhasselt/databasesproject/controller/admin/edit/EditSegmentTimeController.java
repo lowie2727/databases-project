@@ -72,7 +72,7 @@ public class EditSegmentTimeController {
     }
 
     public void inflateUI(SegmentTimes segmentTime) {
-        if(isEdit){
+        if (isEdit) {
             runnerChoiceBox.setVisible(false);
             segmentChoiceBox.setVisible(false);
         }
@@ -112,10 +112,19 @@ public class EditSegmentTimeController {
         ObservableList<Segment> observableSegments = FXCollections.observableList(segments);
         segmentChoiceBox.setItems(observableSegments);
     }
+
     private void segmentTimeUpdate() {
         if (!isEdit) {
-            segmentTime.setSegmentId(segmentChoiceBox.getValue().getId());
-            segmentTime.setRunnerId(runnerChoiceBox.getValue().getId());
+            if (segmentChoiceBox.getValue() == null) {
+                segmentTime.setSegmentId(-1);
+            } else {
+                segmentTime.setSegmentId(segmentChoiceBox.getValue().getId());
+            }
+            if (runnerChoiceBox.getValue() == null) {
+                segmentTime.setRunnerId(-1);
+            } else {
+                segmentTime.setRunnerId(runnerChoiceBox.getValue().getId());
+            }
         }
 
         try {
@@ -146,9 +155,9 @@ public class EditSegmentTimeController {
             } else {
                 SegmentTimesJdbi segmentTimesJdbi = new SegmentTimesJdbi(ConnectionManager.CONNECTION_STRING);
                 if (!isEdit) {
-                    try{
+                    try {
                         segmentTimesJdbi.insert(segmentTime);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         runnerChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
                         segmentChoiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
                         errorMessageText.setText("runner and segment combo exists");
@@ -219,9 +228,13 @@ public class EditSegmentTimeController {
         }
     }
 
-    public void setAdd() { isEdit = false; }
+    public void setAdd() {
+        isEdit = false;
+    }
 
-    public void setEdit() { isEdit = true; }
+    public void setEdit() {
+        isEdit = true;
+    }
 
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
