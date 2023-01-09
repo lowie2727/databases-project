@@ -2,6 +2,7 @@ package be.uhasselt.databasesproject;
 
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
+import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -27,11 +28,25 @@ public class Password {
         }
     }
 
-    public static boolean isSamePassword(String input, int id) {
+    public static boolean isSamePasswordRunner(String input, int id) {
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
         String hashedRunnerPassword = runnerJdbi.getHashedPassword(id);
         String hashedInput = hashString(input);
 
         return hashedInput.equals(hashedRunnerPassword);
+    }
+
+    public static boolean isSamePasswordVolunteer(String input, int id) {
+        VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
+        String hashedRunnerPassword = volunteerJdbi.getHashedPassword(id);
+        String hashedInput = hashString(input);
+
+        return hashedInput.equals(hashedRunnerPassword);
+    }
+
+    public static boolean isSamePassword(String input) {
+        String hashedInput = hashString(input);
+        String adminPassword = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+        return hashedInput.equals(adminPassword);
     }
 }

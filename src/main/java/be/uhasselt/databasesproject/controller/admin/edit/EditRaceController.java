@@ -21,10 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class EditRaceController {

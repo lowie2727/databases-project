@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="285.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.user.RegisterVolunteerController">
+   <children>
+      <Text layoutX="217.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up" AnchorPane.topAnchor="14.1015625">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="20.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="first name*" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="70.0" />
+      <Text layoutX="47.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="family name*" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
+      <Text layoutX="58.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="job*" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="130.0" />
+      <TextField fx:id="firstNameTextField" layoutX="98.0" layoutY="126.0" promptText="first name" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="64.0" />
+      <TextField fx:id="familyNameTextField" layoutX="98.0" layoutY="156.0" promptText="family name" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="94.0" />
+      <TextField fx:id="jobTextField" layoutX="98.0" layoutY="195.0" promptText="job" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="124.0" />
+      <Text layoutX="20.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="please select the race you wish to register for" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />
+      <ChoiceBox fx:id="raceChoiceBox" layoutX="20.0" layoutY="378.0" prefWidth="300.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" />
+      <Text layoutX="20.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="if you want to create an account, you also need to enter a password" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />
+      <PasswordField fx:id="passwordField" layoutX="30.0" layoutY="366.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" />
+      <Text layoutX="180.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(optional)" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="180.0" />
+      <Button fx:id="cancelButton" layoutX="444.0" layoutY="363.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="75.0" />
+      <Button fx:id="registerButton" layoutX="458.0" layoutY="351.0" mnemonicParsing="false" text="Register" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+   </children>
+</AnchorPane>

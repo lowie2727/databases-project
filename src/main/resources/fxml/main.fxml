@@ -12,9 +12,11 @@
                 <Font size="30.0" />
             </font>
         </Text>
-      <Button fx:id="runnerRegistrationButton" layoutX="185.0" layoutY="148.0" mnemonicParsing="false" text="runner registration" AnchorPane.leftAnchor="185.0" />
-      <Button fx:id="runnerLoginButton" layoutX="306.0" layoutY="148.0" mnemonicParsing="false" text="runner login" AnchorPane.leftAnchor="306.0" />
-      <Button fx:id="volunteerRegistrationButton" layoutX="224.0" layoutY="188.0" mnemonicParsing="false" text="volunteer registration" />
-      <Button fx:id="adminButton" layoutX="264.0" layoutY="226.0" mnemonicParsing="false" text="admin" />
+      <Button fx:id="runnerRegistrationButton" layoutX="185.0" layoutY="148.0" mnemonicParsing="false" prefWidth="115.0" text="runner registration" AnchorPane.leftAnchor="185.0" AnchorPane.topAnchor="150.0" />
+      <Button fx:id="runnerLoginButton" layoutX="306.0" layoutY="148.0" mnemonicParsing="false" text="runner login" AnchorPane.leftAnchor="306.0" AnchorPane.topAnchor="150.0" />
+      <Button fx:id="volunteerRegistrationButton" layoutX="224.0" layoutY="188.0" mnemonicParsing="false" prefWidth="130.0" text="volunteer registration" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="180.0" />
+      <Button fx:id="adminButton" layoutX="218.0" layoutY="226.0" mnemonicParsing="false" text="admin" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="210.0" />
+      <Button fx:id="adminLoginButton" layoutX="289.0" layoutY="226.0" mnemonicParsing="false" text="admin login" AnchorPane.leftAnchor="305.0" AnchorPane.topAnchor="210.0" />
+      <Button fx:id="volunteerLoginButton" layoutX="307.0" layoutY="180.0" mnemonicParsing="false" text="volunteer login" AnchorPane.leftAnchor="305.0" AnchorPane.topAnchor="180.0" />
     </children>
 </AnchorPane>

@@ -9,15 +9,17 @@ public class Volunteer implements Serializable {
     private String firstName;
     private String familyName;
     private String job;
+    private String password;
 
     public Volunteer() {
     }
 
-    public Volunteer(int id, String firstName, String familyName, String job) {
+    public Volunteer(int id, String firstName, String familyName, String job, String password) {
         this.id = id;
         this.firstName = firstName;
         this.familyName = familyName;
         this.job = job;
+        this.password = password;
     }
 
     @Override
@@ -69,5 +71,11 @@ public class Volunteer implements Serializable {
 
     public void setJob(String job) {
         this.job = job;
+    }
+
+    public String getPassword() {return password;}
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -50,7 +50,7 @@ public class Main extends Application {
 
         Runner runner = new Runner(-1, "Joe", "Biden", 100, 60.0, 1.6, "252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111", "Pennsylvania Avenue NW", "1600", null, "DC 20500", "Washington", "Verenigde Staten");
         Race race = new Race(-1, "2022-12-12", "Dwars door Genk", 5000, 50);
-        Volunteer volunteer = new Volunteer(-1, "Bob", "Dylan", "richting aangever");
+        Volunteer volunteer = new Volunteer(-1, "Bob", "Dylan", "richting aangever", "252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111");
         Segment segment = new Segment(1, 1, "door het bos", 2313);
 
         runnerJdbi.insert(runner);

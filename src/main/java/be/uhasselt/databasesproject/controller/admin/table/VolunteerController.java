@@ -99,7 +99,7 @@ public class VolunteerController {
             volunteer = getSelectedVolunteer();
             title = "edit volunteer";
         } else {
-            volunteer = new Volunteer(-1, "", "", "");
+            volunteer = new Volunteer(-1, "", "", "", "");
             title = "add volunteer";
         }
 

@@ -40,12 +40,12 @@ public class AdminController {
         editRunnersButton.setOnAction(event -> showPanel("runner"));
         editVolunteersButton.setOnAction(event -> showPanel("volunteer"));
         editRacesButton.setOnAction(event -> showPanel("race"));
-        mainMenuButton.setOnAction(event -> SwitchAnchorPane.goToMainMenu());
         editSegmentsButton.setOnAction(event -> showPanel("segment"));
         editRunnerRaceButton.setOnAction(event -> showPanel("runnerRace"));
         editSegmentTimeButton.setOnAction(event -> showPanel("segmentTime"));
         editVolunteerRaceButton.setOnAction(event -> showPanel("volunteerRace"));
         editGlobalRankingButton.setOnAction(event -> showPanel("globalRanking"));
+        mainMenuButton.setOnAction(event -> SwitchAnchorPane.goToMainMenu());
     }
 
     private void showPanel(String string) {

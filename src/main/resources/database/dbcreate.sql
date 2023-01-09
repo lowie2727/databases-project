@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS "volunteer" (
 	"firstName"		TEXT NOT NULL,
 	"familyName"	TEXT NOT NULL,
 	"job"			TEXT NOT NULL,
+	"password"	    TEXT,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 DROP TABLE IF EXISTS "runner_race";
