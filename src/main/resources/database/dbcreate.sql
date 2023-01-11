@@ -97,8 +97,8 @@ INSERT INTO "volunteer" ("id","firstName","familyName","job") VALUES (3,'Bill','
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,1,1,6300);
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (2,1,2,9000);
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (3,1,3,7600);
-INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,2,1,5000);
-INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,3,1,21600);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (4,2,1,5000);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (4,3,1,21600);
 
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,1,480);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,2,500);
@@ -107,6 +107,8 @@ INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,3,600);
 INSERT INTO "volunteer_race" ("volunteerID","raceID") VALUES (1,1);
 INSERT INTO "volunteer_race" ("volunteerID","raceID") VALUES (2,1);
 INSERT INTO "volunteer_race" ("volunteerID","raceID") VALUES (3,1);
+INSERT INTO "volunteer_race" ("volunteerID","raceID") VALUES (4,1);
+
 
 INSERT INTO "global_ranking" ("runnerID","prizeMoney","totalTime") VALUES (1,10, 60500);
 INSERT INTO "global_ranking" ("runnerID","prizeMoney","totalTime") VALUES (2,20, 70300);

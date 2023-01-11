@@ -1,5 +1,6 @@
 package be.uhasselt.databasesproject.jdbi;
 
+import be.uhasselt.databasesproject.model.Race;
 import be.uhasselt.databasesproject.model.RunnerRace;
 import org.jdbi.v3.core.Jdbi;
 
@@ -40,6 +41,13 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
                 .execute());
     }
 
+    public void delete(int runnerId, int raceId) {
+        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM runner_race WHERE runnerID = :runnerId AND raceID = :raceId")
+                .bind("runnerId", runnerId)
+                .bind("raceId", raceId)
+                .execute());
+    }
+
     public void insert(int raceId) {
         int nextShirtNumber = getNextShirtNumber(raceId);
 
@@ -68,5 +76,20 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
             shirtNumber++;
         }
         return shirtNumber;
+    }
+
+    public List<Race> getRegisteredRaces(int runnerId) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT race.id, race.date, race.name, race.distance, race.price FROM runner_race INNER JOIN race ON runner_race.raceID = race.id WHERE runner_race.runnerID = :runnerId")
+                .bind("runnerId", runnerId)
+                .mapToBean(Race.class)
+                .list());
+    }
+
+    public RunnerRace getRunnerRaceById(int runnerId, int raceId) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM runner_race WHERE runnerID = :runnerId AND raceID = :raceId")
+                .bind("runnerId", runnerId)
+                .bind("raceId", raceId)
+                .mapToBean(RunnerRace.class)
+                .one());
     }
 }

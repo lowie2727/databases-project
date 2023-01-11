@@ -63,7 +63,7 @@ public class EditVolunteerController {
 
             stage.close();
         } else {
-            SwitchAnchorPane.goToMainMenu();
+            SwitchAnchorPane.goToVolunteerUser(volunteer.getId());
         }
     }
 
@@ -159,7 +159,7 @@ public class EditVolunteerController {
             if (isAdmin) {
                 close(event);
             } else {
-                SwitchAnchorPane.goToMainMenu();
+                SwitchAnchorPane.goToVolunteerUser(volunteer.getId());
             }
         }
     }

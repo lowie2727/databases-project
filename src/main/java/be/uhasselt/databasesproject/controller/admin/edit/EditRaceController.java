@@ -26,7 +26,6 @@ import java.util.Objects;
 
 public class EditRaceController {
 
-
     @FXML
     private Button cancelButton;
 

@@ -34,8 +34,8 @@ public class Main extends Application {
 
         stage.setTitle("Main Menu");
         stage.setScene(scene);
-        stage.setWidth(600);
-        stage.setHeight(440);
+        stage.setWidth(585);
+        stage.setHeight(435);
         stage.show();
     }
 

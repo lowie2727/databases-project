@@ -47,12 +47,11 @@ public class UserLoginController {
 
         if (isValidInput()) {
             if (isPasswordCorrect()) {
-                if(isRunner) {
-                    SwitchAnchorPane.goToEditRunner(id);
+                if (isRunner) {
+                    SwitchAnchorPane.goToRunnerUser(id);
                 } else {
-                    SwitchAnchorPane.goToEditVolunteer(id);
+                    SwitchAnchorPane.goToVolunteerUser(id);
                 }
-
                 stage.close();
             } else {
                 errorText.setText("Incorrect password!");

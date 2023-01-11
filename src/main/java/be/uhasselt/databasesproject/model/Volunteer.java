@@ -73,7 +73,9 @@ public class Volunteer implements Serializable {
         this.job = job;
     }
 
-    public String getPassword() {return password;}
+    public String getPassword() {
+        return password;
+    }
 
     public void setPassword(String password) {
         this.password = password;

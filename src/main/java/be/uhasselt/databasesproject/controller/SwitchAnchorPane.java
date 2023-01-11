@@ -4,7 +4,9 @@ import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.controller.admin.LoginAdminController;
 import be.uhasselt.databasesproject.controller.admin.edit.EditRunnerController;
 import be.uhasselt.databasesproject.controller.admin.edit.EditVolunteerController;
+import be.uhasselt.databasesproject.controller.user.RunnerUserController;
 import be.uhasselt.databasesproject.controller.user.UserLoginController;
+import be.uhasselt.databasesproject.controller.user.VolunteerUserController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
@@ -17,6 +19,8 @@ import javafx.stage.Stage;
 public class SwitchAnchorPane {
 
     public static AnchorPane anchorPane;
+    private static int defaultWidth = 585;
+    private static int defaultHeight = 435;
 
     private static void goTo(String resource) {
         try {
@@ -31,14 +35,14 @@ public class SwitchAnchorPane {
     public static void goToMainMenu() {
         String resource = "/fxml/main.fxml";
         goTo(resource);
-        setStageSize(585, 440);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Main Menu");
     }
 
     public static void goToAdmin() {
         String resource = "/fxml/admin/admin.fxml";
         goTo(resource);
-        setStageSize(585, 440);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Admin");
     }
 
@@ -71,14 +75,14 @@ public class SwitchAnchorPane {
     public static void goToRunner() {
         String resource = "/fxml/admin/table/runner.fxml";
         goTo(resource);
-        setStageSize(1170, 435);
+        setStageSize(1170, defaultHeight);
         Main.getRootStage().setTitle("Runner");
     }
 
     public static void goToVolunteer() {
         String resource = "/fxml/admin/table/volunteer.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Volunteer");
     }
 
@@ -92,49 +96,49 @@ public class SwitchAnchorPane {
     public static void goToRunnerRace() {
         String resource = "/fxml/admin/table/runnerRace.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Runner race");
     }
 
     public static void goToRace() {
         String resource = "/fxml/admin/table/race.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Race");
     }
 
     public static void goToRegisterRunner() {
         String resource = "/fxml/user/registerRunner.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Register");
     }
 
     public static void goToSegment() {
         String resource = "/fxml/admin/table/segment.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Segment");
     }
 
     public static void goToSegmentTime() {
         String resource = "/fxml/admin/table/segmentTime.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Segment time");
     }
 
     public static void goToVolunteerRace() {
         String resource = "/fxml/admin/table/volunteerRace.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Volunteer race");
     }
 
     public static void goToGlobalRanking() {
         String resource = "/fxml/admin/table/globalRanking.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Global ranking");
     }
 
@@ -216,6 +220,52 @@ public class SwitchAnchorPane {
 
         setStageSize(750, 340);
         Main.getRootStage().setTitle("Edit runner");
+    }
+
+    public static void goToRunnerUser(int id) {
+        String resourceName = "/fxml/user/runnerUser.fxml";
+
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));
+            AnchorPane anchorPane = loader.load();
+            setRunnerUserScreen(anchorPane, loader, id);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot find " + resourceName, e);
+        }
+    }
+
+    private static void setRunnerUserScreen(AnchorPane anchorPane, FXMLLoader loader, int id) {
+        RunnerUserController runnerUserController = loader.getController();
+        SwitchAnchorPane.anchorPane.getChildren().setAll(anchorPane);
+
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+        runnerUserController.inflateUI(runnerJdbi.getById(id));
+
+        setStageSize(390, defaultHeight);
+        Main.getRootStage().setTitle("runner user");
+    }
+
+    public static void goToVolunteerUser(int id) {
+        String resourceName = "/fxml/user/volunteerUser.fxml";
+
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));
+            AnchorPane anchorPane = loader.load();
+            setVolunteerUserScreen(anchorPane, loader, id);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot find " + resourceName, e);
+        }
+    }
+
+    private static void setVolunteerUserScreen(AnchorPane anchorPane, FXMLLoader loader, int id) {
+        VolunteerUserController volunteerUserController = loader.getController();
+        SwitchAnchorPane.anchorPane.getChildren().setAll(anchorPane);
+
+        VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
+        volunteerUserController.inflateUI(volunteerJdbi.getById(id));
+
+        setStageSize(335, defaultHeight);
+        Main.getRootStage().setTitle("volunteer user");
     }
 
     private static void setStageSize(double width, double height) {

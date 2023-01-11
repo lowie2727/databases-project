@@ -87,7 +87,7 @@ public class EditRunnerController {
 
             stage.close();
         } else {
-            SwitchAnchorPane.goToMainMenu();
+            SwitchAnchorPane.goToRunnerUser(runner.getId());
         }
     }
 
@@ -283,7 +283,7 @@ public class EditRunnerController {
             if (isAdmin) {
                 close(event);
             } else {
-                SwitchAnchorPane.goToMainMenu();
+                SwitchAnchorPane.goToRunnerUser(runner.getId());
             }
         }
     }
