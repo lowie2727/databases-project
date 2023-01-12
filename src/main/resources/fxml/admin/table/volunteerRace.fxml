@@ -13,13 +13,15 @@
             <columns>
                 <TableColumn fx:id="volunteerIdTableColumn" prefWidth="75.0" text="volunteer id" />
                 <TableColumn fx:id="raceIdTableColumn" prefWidth="75.0" text="race id" />
+                <TableColumn fx:id="jobTableColumn" prefWidth="75.0" text="job" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
         <Button fx:id="addButton" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-        <Button fx:id="deleteButton" layoutX="65.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" />
+        <Button fx:id="editButton" layoutX="65.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="Edit" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" />
+        <Button fx:id="deleteButton" layoutX="115.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0" />
         <Button fx:id="closeButton" layoutX="919.0" layoutY="349.0" mnemonicParsing="false" text="Close" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
     </children>
 </AnchorPane>

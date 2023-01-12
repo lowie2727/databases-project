@@ -1,7 +1,6 @@
 package be.uhasselt.databasesproject.jdbi;
 
 import be.uhasselt.databasesproject.model.Race;
-import be.uhasselt.databasesproject.model.RunnerRace;
 import be.uhasselt.databasesproject.model.VolunteerRace;
 import org.jdbi.v3.core.Jdbi;
 
@@ -24,14 +23,14 @@ public class VolunteerRaceJdbi implements JdbiInterface<VolunteerRace> {
 
     @Override
     public void insert(VolunteerRace volunteerRace) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer_race (volunteerID, raceID) VALUES (:volunteerId, :raceId)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer_race (volunteerID, raceID, job) VALUES (:volunteerId, :raceId, :job)")
                 .bindBean(volunteerRace)
                 .execute());
     }
 
     @Override
     public void update(VolunteerRace volunteerRace) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE volunteer_race SET volunteerID = :volunteerId, raceID = :raceId")
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE volunteer_race SET job = :job WHERE volunteerID = :volunteerId AND raceID = :raceId")
                 .bindBean(volunteerRace)
                 .execute());
     }
@@ -50,6 +49,20 @@ public class VolunteerRaceJdbi implements JdbiInterface<VolunteerRace> {
                 .execute());
     }
 
+    public void insert(int raceId) {
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer_race (volunteerID, raceID, job) VALUES (:volunteerID, :raceID, :job)")
+                .bind("volunteerID", getIdLatestAddedVolunteer())
+                .bind("raceID", raceId)
+                .bind("job", "nog niet toegewezen")
+                .execute());
+    }
+
+    public int getIdLatestAddedVolunteer() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name='volunteer'")
+                .mapTo(Integer.class)
+                .one());
+    }
+
     public List<Race> getRegisteredRaces(int volunteerId) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT race.id, race.date, race.name, race.distance, race.price FROM volunteer_race INNER JOIN race ON volunteer_race.raceID = race.id WHERE volunteer_race.volunteerID = :volunteerId")
                 .bind("volunteerId", volunteerId)
@@ -64,4 +77,6 @@ public class VolunteerRaceJdbi implements JdbiInterface<VolunteerRace> {
                 .mapToBean(VolunteerRace.class)
                 .one());
     }
+
+
 }

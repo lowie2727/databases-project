@@ -22,14 +22,14 @@ public class VolunteerJdbi implements JdbiInterface<Volunteer> {
 
     @Override
     public void insert(Volunteer volunteer) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer (firstName, familyName, job, password) VALUES (:firstName, :familyName, :job, :password)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer (firstName, familyName, password) VALUES (:firstName, :familyName, :password)")
                 .bindBean(volunteer)
                 .execute());
     }
 
     @Override
     public void update(Volunteer volunteer) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE volunteer SET firstName = :firstName, familyName = :familyName, job = :job WHERE id = :id")
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE volunteer SET firstName = :firstName, familyName = :familyName WHERE id = :id")
                 .bindBean(volunteer)
                 .execute());
     }

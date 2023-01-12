@@ -38,7 +38,6 @@ CREATE TABLE IF NOT EXISTS "volunteer" (
 	"id"			INTEGER NOT NULL UNIQUE,
 	"firstName"		TEXT NOT NULL,
 	"familyName"	TEXT NOT NULL,
-	"job"			TEXT NOT NULL,
 	"password"	    TEXT,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
@@ -65,6 +64,7 @@ DROP TABLE IF EXISTS "volunteer_race";
 CREATE TABLE IF NOT EXISTS "volunteer_race" (
 	"volunteerID"	INTEGER NOT NULL,
 	"raceID"		INTEGER NOT NULL,
+	"job"			TEXT NOT NULL,
 	PRIMARY KEY("volunteerID","raceID"),
 	FOREIGN KEY("raceID") REFERENCES "race"("id"),
 	FOREIGN KEY("volunteerID") REFERENCES "volunteer"("id")
@@ -90,9 +90,9 @@ INSERT INTO "segment" ("id","raceID","location","distance") VALUES (1,1,'bos',23
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (2,1,'langs het kanaal',3000);
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (3,1,'laatste rechte lijn',500);
 
-INSERT INTO "volunteer" ("id","firstName","familyName","job") VALUES (1,'Jef','Bezos','runners in de juiste richting sturen');
-INSERT INTO "volunteer" ("id","firstName","familyName","job") VALUES (2,'Steve','Jobs','bevoorrading');
-INSERT INTO "volunteer" ("id","firstName","familyName","job") VALUES (3,'Bill','Gates','bevoorrading');
+INSERT INTO "volunteer" ("id","firstName","familyName") VALUES (1,'Jef','Bezos');
+INSERT INTO "volunteer" ("id","firstName","familyName") VALUES (2,'Steve','Jobs');
+INSERT INTO "volunteer" ("id","firstName","familyName") VALUES (3,'Bill','Gates');
 
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,1,1,6300);
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (2,1,2,9000);
@@ -104,10 +104,10 @@ INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,1,480);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,2,500);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,3,600);
 
-INSERT INTO "volunteer_race" ("volunteerID","raceID") VALUES (1,1);
-INSERT INTO "volunteer_race" ("volunteerID","raceID") VALUES (2,1);
-INSERT INTO "volunteer_race" ("volunteerID","raceID") VALUES (3,1);
-INSERT INTO "volunteer_race" ("volunteerID","raceID") VALUES (4,1);
+INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (1,1,"bevoorrading");
+INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (2,1,"richtingaangever");
+INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (3,1,"richtingaangever");
+INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (4,1,"haas");
 
 
 INSERT INTO "global_ranking" ("runnerID","prizeMoney","totalTime") VALUES (1,10, 60500);

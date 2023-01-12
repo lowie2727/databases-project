@@ -5,6 +5,7 @@ import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.controller.admin.edit.EditVolunteerRaceController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.VolunteerRaceJdbi;
+import be.uhasselt.databasesproject.model.Volunteer;
 import be.uhasselt.databasesproject.model.VolunteerRace;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,9 @@ public class VolunteerRaceController {
     private Button deleteButton;
 
     @FXML
+    private Button editButton;
+
+    @FXML
     private TableView<VolunteerRace> tableView;
 
     @FXML
@@ -38,13 +42,17 @@ public class VolunteerRaceController {
     @FXML
     private TableColumn<VolunteerRace, Integer> raceIdTableColumn;
 
+    @FXML
+    private TableColumn<Volunteer, String> jobTableColumn;
+
     private boolean confirmationDelete = false;
 
     @FXML
     void initialize() {
         initTable();
 
-        addButton.setOnAction(event -> editVolunteerRace());
+        addButton.setOnAction(event -> editVolunteerRace(false));
+        editButton.setOnAction(event -> editVolunteerRace(true));
         deleteButton.setOnAction(event -> deleteVolunteerRace());
         closeButton.setOnAction(event -> SwitchAnchorPane.goToAdmin());
     }
@@ -57,6 +65,7 @@ public class VolunteerRaceController {
     private void initColumns() {
         volunteerIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("volunteerId"));
         raceIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("raceId"));
+        jobTableColumn.setCellValueFactory(new PropertyValueFactory<>("job"));
     }
 
     private void loadVolunteerRaces() {
@@ -77,12 +86,20 @@ public class VolunteerRaceController {
         return tableView.getSelectionModel().getSelectedItem();
     }
 
-    private void editVolunteerRace() {
+    private void editVolunteerRace(boolean isEdit) {
         VolunteerRace volunteerRace;
         String title;
 
-        volunteerRace = new VolunteerRace(-1, -1);
-        title = "add VolunteerRace";
+        if (isEdit) {
+            if (!verifyRowSelected()) {
+                return;
+            }
+            volunteerRace = getSelectedVolunteerRace();
+            title = "edit VolunteerRace";
+        } else {
+            volunteerRace = new VolunteerRace(-1, -1, "");
+            title = "add VolunteerRace";
+        }
 
 
         String resourceName = "/fxml/admin/edit/editVolunteerRace.fxml";
@@ -98,6 +115,12 @@ public class VolunteerRaceController {
 
     private void setVolunteerRaceScreen(AnchorPane anchorPane, FXMLLoader loader, VolunteerRace volunteerRace, String title) {
         EditVolunteerRaceController editVolunteerRaceController = loader.getController();
+
+        if (volunteerRace.getVolunteerId() == -1) {
+            editVolunteerRaceController.setAdd();
+        } else {
+            editVolunteerRaceController.setEdit();
+        }
         editVolunteerRaceController.inflateUI(volunteerRace);
 
         Scene scene = new Scene(anchorPane);

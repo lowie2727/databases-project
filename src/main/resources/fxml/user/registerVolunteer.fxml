@@ -17,10 +17,8 @@
       </Text>
       <Text layoutX="20.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="first name*" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="70.0" />
       <Text layoutX="47.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="family name*" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
-      <Text layoutX="58.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="job*" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="130.0" />
       <TextField fx:id="firstNameTextField" layoutX="98.0" layoutY="126.0" promptText="first name" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="64.0" />
       <TextField fx:id="familyNameTextField" layoutX="98.0" layoutY="156.0" promptText="family name" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="94.0" />
-      <TextField fx:id="jobTextField" layoutX="98.0" layoutY="195.0" promptText="job" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="124.0" />
       <Text layoutX="20.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="please select the race you wish to register for" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />
       <ChoiceBox fx:id="raceChoiceBox" layoutX="20.0" layoutY="378.0" prefWidth="300.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" />
       <Text layoutX="20.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="if you want to create an account, you also need to enter a password" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />

@@ -7,13 +7,16 @@ public class VolunteerRace implements Serializable {
 
     private int volunteerId;
     private int raceId;
+    private String job;
+
 
     public VolunteerRace() {
     }
 
-    public VolunteerRace(int volunteerId, int raceId) {
+    public VolunteerRace(int volunteerId, int raceId, String job) {
         this.volunteerId = volunteerId;
         this.raceId = raceId;
+        this.job = job;
     }
 
     @Override
@@ -27,12 +30,12 @@ public class VolunteerRace implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         VolunteerRace volunteerRace = (VolunteerRace) o;
-        return volunteerId == volunteerRace.volunteerId && raceId == volunteerRace.raceId;
+        return volunteerId == volunteerRace.volunteerId && raceId == volunteerRace.raceId && job.equals(volunteerRace.job);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(volunteerId, raceId);
+        return Objects.hash(volunteerId, raceId, job);
     }
 
     public int getVolunteerId() {
@@ -49,5 +52,13 @@ public class VolunteerRace implements Serializable {
 
     public void setRaceId(int raceId) {
         this.raceId = raceId;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
     }
 }

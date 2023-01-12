@@ -43,9 +43,6 @@ public class VolunteerController {
     @FXML
     private TableColumn<Volunteer, String> familyNameTableColumn;
 
-    @FXML
-    private TableColumn<Volunteer, String> jobTableColumn;
-
     private boolean confirmationDelete = false;
 
     @FXML
@@ -67,7 +64,6 @@ public class VolunteerController {
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         familyNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("familyName"));
-        jobTableColumn.setCellValueFactory(new PropertyValueFactory<>("job"));
     }
 
     private void loadVolunteers() {
@@ -99,7 +95,7 @@ public class VolunteerController {
             volunteer = getSelectedVolunteer();
             title = "edit volunteer";
         } else {
-            volunteer = new Volunteer(-1, "", "", "", "");
+            volunteer = new Volunteer(-1, "", "", "");
             title = "add volunteer";
         }
 

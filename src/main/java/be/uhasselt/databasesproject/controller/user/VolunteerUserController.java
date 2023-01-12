@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class VolunteerUserController {
+
     @FXML
     private ChoiceBox<Race> choiceBox;
 
@@ -88,7 +89,6 @@ public class VolunteerUserController {
         dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
-        //priceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
 
@@ -110,7 +110,7 @@ public class VolunteerUserController {
 
         VolunteerRaceJdbi volunteerRaceJdbi = new VolunteerRaceJdbi(ConnectionManager.CONNECTION_STRING);
         int raceId = choiceBox.getValue().getId();
-        VolunteerRace volunteerRace = new VolunteerRace(volunteer.getId(), raceId);
+        VolunteerRace volunteerRace = new VolunteerRace(volunteer.getId(), raceId, "nog niet toegewezen");
 
         try {
             volunteerRaceJdbi.insert(volunteerRace);

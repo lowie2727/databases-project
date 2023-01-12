@@ -8,17 +8,15 @@ public class Volunteer implements Serializable {
     private int id;
     private String firstName;
     private String familyName;
-    private String job;
     private String password;
 
     public Volunteer() {
     }
 
-    public Volunteer(int id, String firstName, String familyName, String job, String password) {
+    public Volunteer(int id, String firstName, String familyName, String password) {
         this.id = id;
         this.firstName = firstName;
         this.familyName = familyName;
-        this.job = job;
         this.password = password;
     }
 
@@ -33,12 +31,12 @@ public class Volunteer implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         Volunteer volunteer = (Volunteer) o;
-        return id == volunteer.id && firstName.equals(volunteer.firstName) && familyName.equals(volunteer.familyName) && job.equals(volunteer.job);
+        return id == volunteer.id && firstName.equals(volunteer.firstName) && familyName.equals(volunteer.familyName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, familyName, job);
+        return Objects.hash(id, firstName, familyName);
     }
 
     public int getId() {
@@ -63,14 +61,6 @@ public class Volunteer implements Serializable {
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
     }
 
     public String getPassword() {

@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 public class SwitchAnchorPane {
 
     public static AnchorPane anchorPane;
-    private static int defaultWidth = 585;
-    private static int defaultHeight = 435;
+    private static final int defaultWidth = 585;
+    private static final int defaultHeight = 435;
 
     private static void goTo(String resource) {
         try {

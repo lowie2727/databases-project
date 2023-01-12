@@ -5,6 +5,7 @@ import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;
 import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
+import be.uhasselt.databasesproject.jdbi.VolunteerRaceJdbi;
 import be.uhasselt.databasesproject.model.Race;
 import be.uhasselt.databasesproject.model.Volunteer;
 import javafx.collections.FXCollections;
@@ -23,9 +24,6 @@ public class RegisterVolunteerController {
 
     @FXML
     private TextField familyNameTextField;
-
-    @FXML
-    private TextField jobTextField;
 
     @FXML
     private Button cancelButton;
@@ -56,7 +54,6 @@ public class RegisterVolunteerController {
     private void volunteerUpdate() {
         volunteer.setFirstName(firstNameTextField.getText());
         volunteer.setFamilyName(familyNameTextField.getText());
-        volunteer.setJob(jobTextField.getText());
         volunteer.setPassword(hashPassword());
     }
 
@@ -77,6 +74,7 @@ public class RegisterVolunteerController {
                 checkEmptyPassword();
                 if (confirmationNoAccount) {
                     insertIntoDatabase(volunteer);
+                    addVolunteerToRace();
                     SwitchAnchorPane.goToMainMenu();
                 }
             } else {
@@ -93,6 +91,12 @@ public class RegisterVolunteerController {
         } else {
             showAlertWithConfirmationAccount("Warning", "Are you sure all your details have been entered correctly?");
         }
+    }
+
+    private void addVolunteerToRace() {
+        int raceId = raceChoiceBox.getValue().getId();
+        VolunteerRaceJdbi volunteerRaceJdbi = new VolunteerRaceJdbi(ConnectionManager.CONNECTION_STRING);
+        volunteerRaceJdbi.insert(raceId);
     }
 
 
@@ -119,10 +123,6 @@ public class RegisterVolunteerController {
             familyNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
-        if (jobTextField.getText().isBlank()) {
-            jobTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-            status = false;
-        }
         return status;
     }
 
@@ -136,7 +136,6 @@ public class RegisterVolunteerController {
     private void resetTextFieldBorder() {
         firstNameTextField.setBorder(Border.EMPTY);
         familyNameTextField.setBorder(Border.EMPTY);
-        jobTextField.setBorder(Border.EMPTY);
     }
 
     private void cancel() {
@@ -155,8 +154,6 @@ public class RegisterVolunteerController {
         if (!firstNameTextField.getText().isBlank()) {
             status = true;
         } else if (!familyNameTextField.getText().isBlank()) {
-            status = true;
-        } else if (!jobTextField.getText().isBlank()) {
             status = true;
         } else if (!passwordField.getText().isBlank()) {
             status = true;

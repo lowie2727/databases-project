@@ -21,9 +21,6 @@ import org.apache.commons.lang3.SerializationUtils;
 public class EditVolunteerController {
 
     @FXML
-    private TextField jobTextField;
-
-    @FXML
     private Button cancelButton;
 
     @FXML
@@ -79,13 +76,11 @@ public class EditVolunteerController {
 
         firstNameTextField.setText(volunteer.getFirstName());
         familyNameTextField.setText(volunteer.getFamilyName());
-        jobTextField.setText(volunteer.getJob());
     }
 
     private void volunteerUpdate() {
         volunteer.setFirstName(firstNameTextField.getText());
         volunteer.setFamilyName(familyNameTextField.getText());
-        volunteer.setJob(jobTextField.getText());
     }
 
     private boolean isNotChanged() {
@@ -125,10 +120,7 @@ public class EditVolunteerController {
             familyNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
-        if (jobTextField.getText().isBlank()) {
-            jobTextField.setBorder(Border.stroke(Paint.valueOf(color)));
-            status = false;
-        }
+
 
         if (status) {
             errorMessageText.setText("");
@@ -150,7 +142,6 @@ public class EditVolunteerController {
     private void resetTextFieldBorder() {
         firstNameTextField.setBorder(Border.EMPTY);
         familyNameTextField.setBorder(Border.EMPTY);
-        jobTextField.setBorder(Border.EMPTY);
     }
 
     private void closeOnNoChanges(ActionEvent event) {
