@@ -49,7 +49,7 @@ public class Main extends Application {
         Volunteer volunteer = new Volunteer(-1, "Bob", "Dylan", "252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111");
         Segment segment = new Segment(1, 1, "door het bos", 2313);
 
-        runnerJdbi.insert(runner);
+        runnerJdbi.insertGlobal(runner);
         raceJdbi.insert(race);
         volunteerJdbi.insert(volunteer);
         segmentJdbi.insert(segment);

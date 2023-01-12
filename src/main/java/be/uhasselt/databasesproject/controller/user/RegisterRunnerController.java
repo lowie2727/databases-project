@@ -155,7 +155,7 @@ public class RegisterRunnerController {
 
     private void insertIntoDatabase(Runner runner) {
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-        runnerJdbi.insert(runner);
+        runnerJdbi.insertGlobal(runner);
     }
 
     private boolean isRegisteredForRace() {

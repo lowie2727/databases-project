@@ -250,7 +250,7 @@ public class EditRaceController {
                 RaceJdbi raceJdbi = new RaceJdbi(ConnectionManager.CONNECTION_STRING);
                 if (race.getId() == -1) {
                     raceJdbi.insert(race);
-                    int raceId = raceJdbi.getIdLatestAddedRunner();
+                    int raceId = raceJdbi.getIdLatestAddedRace();
                     setRaceIdSegments(raceId);
                 } else {
                     raceJdbi.update(race);

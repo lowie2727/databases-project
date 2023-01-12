@@ -135,10 +135,17 @@ public class SwitchAnchorPane {
         Main.getRootStage().setTitle("Volunteer race");
     }
 
-    public static void goToGlobalRanking() {
+    public static void goToGlobalRankingAdmin() {
         String resource = "/fxml/admin/table/globalRanking.fxml";
         goTo(resource);
         setStageSize(defaultWidth, defaultHeight);
+        Main.getRootStage().setTitle("Global ranking");
+    }
+
+    public static void goToMainGlobalRanking() {
+        String resource = "/fxml/mainGlobalRanking.fxml";
+        goTo(resource);
+        setStageSize(585, 435);
         Main.getRootStage().setTitle("Global ranking");
     }
 

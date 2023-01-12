@@ -64,7 +64,7 @@ public class AdminController {
         } else if (Objects.equals(string, "volunteerRace")) {
             SwitchAnchorPane.goToVolunteerRace();
         } else if (Objects.equals(string, "globalRanking")) {
-            SwitchAnchorPane.goToGlobalRanking();
+            SwitchAnchorPane.goToGlobalRankingAdmin();
         }
     }
 }

@@ -18,5 +18,6 @@
       <Button fx:id="adminButton" layoutX="218.0" layoutY="226.0" mnemonicParsing="false" text="admin" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="210.0" />
       <Button fx:id="adminLoginButton" layoutX="289.0" layoutY="226.0" mnemonicParsing="false" text="admin login" AnchorPane.leftAnchor="305.0" AnchorPane.topAnchor="210.0" />
       <Button fx:id="volunteerLoginButton" layoutX="307.0" layoutY="180.0" mnemonicParsing="false" text="volunteer login" AnchorPane.leftAnchor="305.0" AnchorPane.topAnchor="180.0" />
+      <Button fx:id="globalRankingButton" layoutX="258.0" layoutY="117.0" mnemonicParsing="false" text="Global ranking" AnchorPane.leftAnchor="255.0" AnchorPane.topAnchor="120.0" />
     </children>
 </AnchorPane>

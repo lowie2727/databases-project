@@ -64,7 +64,7 @@ public class GlobalRankingController {
     private void initColumns() {
         runnerIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("runnerId"));
         prizeMoneyTableColumn.setCellValueFactory(new PropertyValueFactory<>("prizeMoney"));
-        totalTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("totalTime"));
+        totalTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("averageSpeed"));
     }
 
     private void loadGlobalRankings() {

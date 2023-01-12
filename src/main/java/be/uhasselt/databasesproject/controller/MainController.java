@@ -14,6 +14,9 @@ public class MainController {
     private Button adminLoginButton;
 
     @FXML
+    private Button globalRankingButton;
+
+    @FXML
     private Button runnerLoginButton;
 
     @FXML
@@ -27,6 +30,7 @@ public class MainController {
 
     @FXML
     void initialize() {
+        globalRankingButton.setOnAction(event -> showPanel("mainGlobalRanking"));
         runnerRegistrationButton.setOnAction(event -> showPanel("registerRunner"));
         runnerLoginButton.setOnAction(event -> showPanel("loginRunner"));
         volunteerRegistrationButton.setOnAction(event -> showPanel("registerVolunteer"));
@@ -36,18 +40,14 @@ public class MainController {
     }
 
     private void showPanel(String string) {
-        if (Objects.equals(string, "admin")) {
-            SwitchAnchorPane.goToAdmin();
-        } else if (Objects.equals(string, "loginAdmin")) {
-            SwitchAnchorPane.goToLoginAdmin();
-        } else if (Objects.equals(string, "registerRunner")) {
-            SwitchAnchorPane.goToRegisterRunner();
-        } else if (Objects.equals(string, "loginRunner")) {
-            SwitchAnchorPane.goToLogin(true);
-        } else if (Objects.equals(string, "registerVolunteer")) {
-            SwitchAnchorPane.goToRegisterVolunteer();
-        } else if (Objects.equals(string, "loginVolunteer")) {
-            SwitchAnchorPane.goToLogin(false);
+        switch (string) {
+            case "mainGlobalRanking" -> SwitchAnchorPane.goToMainGlobalRanking();
+            case "admin" -> SwitchAnchorPane.goToAdmin();
+            case "loginAdmin" -> SwitchAnchorPane.goToLoginAdmin();
+            case "registerRunner" -> SwitchAnchorPane.goToRegisterRunner();
+            case "loginRunner" -> SwitchAnchorPane.goToLogin(true);
+            case "registerVolunteer" -> SwitchAnchorPane.goToRegisterVolunteer();
+            case "loginVolunteer" -> SwitchAnchorPane.goToLogin(false);
         }
     }
 }

@@ -57,4 +57,22 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
                 .mapTo(String.class)
                 .one());
     }
+
+    private int getIdLatestAddedRunner() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name='runner'")
+                .mapTo(Integer.class)
+                .one());
+    }
+
+    private void insertRunnerInGlobalRanking(int runnerId) {
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO global_ranking (runnerID, prizeMoney, averageSpeed) VALUES (:runnerId, 0, 0)")
+                .bind("runnerId", runnerId)
+                .execute());
+    }
+
+    public void insertGlobal(Runner runner) {
+        insert(runner);
+        int runnerId = getIdLatestAddedRunner();
+        insertRunnerInGlobalRanking(runnerId);
+    }
 }

@@ -74,10 +74,10 @@ public class EditGlobalRankingController {
             prizeMoneyTextField.setText(Double.toString(globalRanking.getPrizeMoney()));
         }
 
-        if (globalRanking.getTotalTime() == -1) {
+        if (globalRanking.getAverageSpeed() == -1) {
             totalTimeTextField.setText("");
         } else {
-            totalTimeTextField.setText(Integer.toString(globalRanking.getTotalTime()));
+            totalTimeTextField.setText(Double.toString(globalRanking.getAverageSpeed()));
         }
     }
 
@@ -89,9 +89,9 @@ public class EditGlobalRankingController {
         }
 
         try {
-            globalRanking.setTotalTime(Integer.parseInt(totalTimeTextField.getText()));
+            globalRanking.setAverageSpeed(Integer.parseInt(totalTimeTextField.getText()));
         } catch (NumberFormatException e) {
-            globalRanking.setTotalTime(-1);
+            globalRanking.setAverageSpeed(-1);
         }
     }
 

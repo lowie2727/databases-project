@@ -7,20 +7,20 @@ public class GlobalRanking implements Serializable {
 
     private int runnerId;
     private double prizeMoney;
-    private int totalTime;
+    private double averageSpeed;
 
     public GlobalRanking() {
     }
 
-    public GlobalRanking(int runnerId, double prizeMoney, int totalTime) {
+    public GlobalRanking(int runnerId, double prizeMoney, double averageSpeed) {
         this.runnerId = runnerId;
         this.prizeMoney = prizeMoney;
-        this.totalTime = totalTime;
+        this.averageSpeed = averageSpeed;
     }
 
     @Override
     public String toString() {
-        return String.format("GlobalRanking{runnerId: %d; prizeMoney: %f, totalTime: %d}", runnerId, prizeMoney, totalTime);
+        return String.format("GlobalRanking{runnerId: %d; prizeMoney: %f, totalTime: %f}", runnerId, prizeMoney, averageSpeed);
     }
 
     @Override
@@ -29,12 +29,12 @@ public class GlobalRanking implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         GlobalRanking globalRanking = (GlobalRanking) o;
-        return runnerId == globalRanking.runnerId && Double.compare(globalRanking.prizeMoney, prizeMoney) == 0 && totalTime == globalRanking.totalTime;
+        return runnerId == globalRanking.runnerId && Double.compare(globalRanking.prizeMoney, prizeMoney) == 0 && averageSpeed == globalRanking.averageSpeed;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(runnerId, prizeMoney, totalTime);
+        return Objects.hash(runnerId, prizeMoney, averageSpeed);
     }
 
     public int getRunnerId() {
@@ -53,11 +53,11 @@ public class GlobalRanking implements Serializable {
         this.prizeMoney = prizeMoney;
     }
 
-    public int getTotalTime() {
-        return totalTime;
+    public double getAverageSpeed() {
+        return averageSpeed;
     }
 
-    public void setTotalTime(int totalTime) {
-        this.totalTime = totalTime;
+    public void setAverageSpeed(double averageSpeed) {
+        this.averageSpeed = averageSpeed;
     }
 }

@@ -71,9 +71,9 @@ CREATE TABLE IF NOT EXISTS "volunteer_race" (
 );
 DROP TABLE IF EXISTS "global_ranking";
 CREATE TABLE IF NOT EXISTS "global_ranking" (
-	"runnerID"		INTEGER NOT NULL UNIQUE,
-	"prizeMoney"	INTEGER NOT NULL,
-	"totalTime"		INTEGER NOT NULL,
+	"runnerID"		    INTEGER NOT NULL UNIQUE,
+	"prizeMoney"	    INTEGER NOT NULL,
+	"averageSpeed"		REAL NOT NULL,
 	PRIMARY KEY("runnerID"),
 	FOREIGN KEY("runnerID") REFERENCES "runner"("id")
 );
@@ -109,7 +109,6 @@ INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (2,1,"richtin
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (3,1,"richtingaangever");
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (4,1,"haas");
 
-
-INSERT INTO "global_ranking" ("runnerID","prizeMoney","totalTime") VALUES (1,10, 60500);
-INSERT INTO "global_ranking" ("runnerID","prizeMoney","totalTime") VALUES (2,20, 70300);
-INSERT INTO "global_ranking" ("runnerID","prizeMoney","totalTime") VALUES (3,5, 40700);
+INSERT INTO "global_ranking" ("runnerID","prizeMoney","averageSpeed") VALUES (1,0,0);
+INSERT INTO "global_ranking" ("runnerID","prizeMoney","averageSpeed") VALUES (2,0,0);
+INSERT INTO "global_ranking" ("runnerID","prizeMoney","averageSpeed") VALUES (3,0,0);
