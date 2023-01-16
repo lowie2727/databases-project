@@ -20,7 +20,7 @@ public class GlobalRanking implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("GlobalRanking{runnerId: %d; prizeMoney: %f, totalTime: %f}", runnerId, prizeMoney, averageSpeed);
+        return String.format("GlobalRanking{runnerId: %d; prizeMoney: %f, averageSpeed: %f}", runnerId, prizeMoney, averageSpeed);
     }
 
     @Override

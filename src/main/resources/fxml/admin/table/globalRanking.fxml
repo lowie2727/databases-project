@@ -13,7 +13,7 @@
             <columns>
                 <TableColumn fx:id="runnerIdTableColumn" prefWidth="75.0" sortable="false" text="runner id" />
                 <TableColumn fx:id="prizeMoneyTableColumn" prefWidth="75.0" sortable="false" text="prize money" />
-                <TableColumn fx:id="totalTimeTableColumn" prefWidth="75.0" sortable="false" text="average speed (km/h)" />
+                <TableColumn fx:id="averageSpeedTableColumn" prefWidth="75.0" sortable="false" text="average speed (km/h)" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

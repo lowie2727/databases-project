@@ -24,4 +24,6 @@ module be.uhasselt.databasesproject {
     exports be.uhasselt.databasesproject.controller.user;
     exports be.uhasselt.databasesproject.controller.admin.edit;
     exports be.uhasselt.databasesproject.controller.admin.table;
+    exports be.uhasselt.databasesproject.controller.ranking;
+    opens be.uhasselt.databasesproject.controller.ranking to javafx.fxml;
 }

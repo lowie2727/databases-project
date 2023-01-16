@@ -86,7 +86,10 @@ public class GlobalRankingJdbi implements JdbiInterface<GlobalRanking> {
             time = 1;
         }
 
-        return (distance / time) * 3.6;
+        double averageSpeed = (distance / time) * 3.6;
+        averageSpeed = Math.round(averageSpeed * 10);
+
+        return averageSpeed / 10;
     }
 
     public void calculatePrizeMoney() {

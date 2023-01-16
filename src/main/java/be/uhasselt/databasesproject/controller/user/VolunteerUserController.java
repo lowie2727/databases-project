@@ -47,9 +47,6 @@ public class VolunteerUserController {
     private Text nameText;
 
     @FXML
-    private TableColumn<Race, Double> priceTableColumn;
-
-    @FXML
     private Button registerForRaceButton;
 
     @FXML

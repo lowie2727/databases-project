@@ -1,5 +1,6 @@
-package be.uhasselt.databasesproject.controller;
+package be.uhasselt.databasesproject.controller.ranking;
 
+import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.GlobalRankingJdbi;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
@@ -28,12 +29,12 @@ public class MainGlobalRankingController {
     private TableView<GlobalRanking> tableView;
 
     @FXML
-    private TableColumn<GlobalRanking, Integer> totalTimeTableColumn;
+    private TableColumn<GlobalRanking, Integer> averageSpeedTableColumn;
 
     @FXML
     void initialize() {
         initTable();
-        closeButton.setOnAction(event -> SwitchAnchorPane.goToMainMenu());
+        closeButton.setOnAction(event -> SwitchAnchorPane.goToRankingMenu());
     }
 
     private void initTable() {
@@ -44,7 +45,7 @@ public class MainGlobalRankingController {
     private void initColumns() {
         runnerIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("runnerId"));
         prizeMoneyTableColumn.setCellValueFactory(new PropertyValueFactory<>("prizeMoney"));
-        totalTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("averageSpeed"));
+        averageSpeedTableColumn.setCellValueFactory(new PropertyValueFactory<>("averageSpeed"));
     }
 
     private void loadGlobalRanking() {

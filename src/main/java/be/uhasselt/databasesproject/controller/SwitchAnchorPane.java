@@ -4,12 +4,14 @@ import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.controller.admin.LoginAdminController;
 import be.uhasselt.databasesproject.controller.admin.edit.EditRunnerController;
 import be.uhasselt.databasesproject.controller.admin.edit.EditVolunteerController;
+import be.uhasselt.databasesproject.controller.ranking.RaceRankingController;
 import be.uhasselt.databasesproject.controller.user.RunnerUserController;
 import be.uhasselt.databasesproject.controller.user.UserLoginController;
 import be.uhasselt.databasesproject.controller.user.VolunteerUserController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
+import be.uhasselt.databasesproject.model.Race;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -143,10 +145,44 @@ public class SwitchAnchorPane {
     }
 
     public static void goToMainGlobalRanking() {
-        String resource = "/fxml/mainGlobalRanking.fxml";
+        String resource = "/fxml/ranking/mainGlobalRanking.fxml";
         goTo(resource);
-        setStageSize(585, 435);
+        setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Global ranking");
+    }
+
+    public static void goToRaceRankingMenu() {
+        String resource = "/fxml/ranking/raceRankingMenu.fxml";
+        goTo(resource);
+        setStageSize(475, 345);
+        Main.getRootStage().setTitle("Ranking menu");
+    }
+
+    public static void goToRankingMenu() {
+        String resource = "/fxml/ranking/rankingMenu.fxml";
+        goTo(resource);
+        setStageSize(265, 205);
+        Main.getRootStage().setTitle("Race ranking menu");
+    }
+
+    public static void goToShowRaceRanking(Race race) {
+        String resource = "/fxml/ranking/raceRanking.fxml";
+        goTo(resource);
+        setStageSize(defaultWidth, defaultHeight);
+        Main.getRootStage().setTitle("Race ranking");
+
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
+            AnchorPane anchorPane = loader.load();
+
+            RaceRankingController raceRankingController = loader.getController();
+            raceRankingController.setRace(race);
+            raceRankingController.load();
+
+            SwitchAnchorPane.anchorPane.getChildren().setAll(anchorPane);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot find " + resource, e);
+        }
     }
 
     public static void goToLogin(boolean isRunner) {

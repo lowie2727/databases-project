@@ -42,7 +42,7 @@ public class GlobalRankingController {
     private TableColumn<GlobalRanking, Integer> prizeMoneyTableColumn;
 
     @FXML
-    private TableColumn<GlobalRanking, Integer> totalTimeTableColumn;
+    private TableColumn<GlobalRanking, Integer> averageSpeedTableColumn;
 
     private boolean confirmationDelete = false;
 
@@ -64,7 +64,7 @@ public class GlobalRankingController {
     private void initColumns() {
         runnerIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("runnerId"));
         prizeMoneyTableColumn.setCellValueFactory(new PropertyValueFactory<>("prizeMoney"));
-        totalTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("averageSpeed"));
+        averageSpeedTableColumn.setCellValueFactory(new PropertyValueFactory<>("averageSpeed"));
     }
 
     private void loadGlobalRankings() {

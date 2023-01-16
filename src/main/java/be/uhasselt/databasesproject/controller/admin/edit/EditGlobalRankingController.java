@@ -32,7 +32,7 @@ public class EditGlobalRankingController {
     private TextField prizeMoneyTextField;
 
     @FXML
-    private TextField totalTimeTextField;
+    private TextField averageSpeedTextField;
 
     @FXML
     private Button saveButton;
@@ -75,9 +75,9 @@ public class EditGlobalRankingController {
         }
 
         if (globalRanking.getAverageSpeed() == -1) {
-            totalTimeTextField.setText("");
+            averageSpeedTextField.setText("");
         } else {
-            totalTimeTextField.setText(Double.toString(globalRanking.getAverageSpeed()));
+            averageSpeedTextField.setText(Double.toString(globalRanking.getAverageSpeed()));
         }
     }
 
@@ -89,7 +89,7 @@ public class EditGlobalRankingController {
         }
 
         try {
-            globalRanking.setAverageSpeed(Integer.parseInt(totalTimeTextField.getText()));
+            globalRanking.setAverageSpeed(Integer.parseInt(averageSpeedTextField.getText()));
         } catch (NumberFormatException e) {
             globalRanking.setAverageSpeed(-1);
         }
@@ -132,9 +132,9 @@ public class EditGlobalRankingController {
         }
 
         try {
-            Integer.parseInt(totalTimeTextField.getText());
+            Integer.parseInt(averageSpeedTextField.getText());
         } catch (NumberFormatException exception) {
-            totalTimeTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            averageSpeedTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
 
@@ -157,7 +157,7 @@ public class EditGlobalRankingController {
 
     private void resetTextFieldBorder() {
         prizeMoneyTextField.setBorder(Border.EMPTY);
-        totalTimeTextField.setBorder(Border.EMPTY);
+        averageSpeedTextField.setBorder(Border.EMPTY);
     }
 
     private void closeOnNoChanges(ActionEvent event) {

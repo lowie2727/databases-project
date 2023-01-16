@@ -50,6 +50,12 @@ public class RaceJdbi implements JdbiInterface<Race> {
                 .list());
     }
 
+    public List<Race> getAllPrevious() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM race WHERE date < date('now', 'localtime')")
+                .mapToBean(Race.class)
+                .list());
+    }
+
     public int getIdLatestAddedRace() {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name='race'")
                 .mapTo(Integer.class)

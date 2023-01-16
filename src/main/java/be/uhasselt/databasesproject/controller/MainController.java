@@ -3,8 +3,6 @@ package be.uhasselt.databasesproject.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-import java.util.Objects;
-
 public class MainController {
 
     @FXML
@@ -14,7 +12,7 @@ public class MainController {
     private Button adminLoginButton;
 
     @FXML
-    private Button globalRankingButton;
+    private Button rankingButton;
 
     @FXML
     private Button runnerLoginButton;
@@ -30,7 +28,7 @@ public class MainController {
 
     @FXML
     void initialize() {
-        globalRankingButton.setOnAction(event -> showPanel("mainGlobalRanking"));
+        rankingButton.setOnAction(event -> showPanel("ranking"));
         runnerRegistrationButton.setOnAction(event -> showPanel("registerRunner"));
         runnerLoginButton.setOnAction(event -> showPanel("loginRunner"));
         volunteerRegistrationButton.setOnAction(event -> showPanel("registerVolunteer"));
@@ -41,7 +39,7 @@ public class MainController {
 
     private void showPanel(String string) {
         switch (string) {
-            case "mainGlobalRanking" -> SwitchAnchorPane.goToMainGlobalRanking();
+            case "ranking" -> SwitchAnchorPane.goToRankingMenu();
             case "admin" -> SwitchAnchorPane.goToAdmin();
             case "loginAdmin" -> SwitchAnchorPane.goToLoginAdmin();
             case "registerRunner" -> SwitchAnchorPane.goToRegisterRunner();
