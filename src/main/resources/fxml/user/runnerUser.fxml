@@ -20,8 +20,8 @@
                 <TableColumn fx:id="nameTableColumn" editable="false" prefWidth="120.0" text="name" />
                 <TableColumn fx:id="distanceTableColumn" editable="false" prefWidth="75.0" text="distance" />
                 <TableColumn fx:id="priceTableColumn" editable="false" prefWidth="75.0" text="price" />
-                </columns>
-      </TableView>
+            </columns>
+        </TableView>
       <ChoiceBox fx:id="choiceBox" layoutX="14.0" layoutY="283.0" prefWidth="230.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="10.0" />
       <Button fx:id="registerForRaceButton" layoutX="176.0" layoutY="283.0" mnemonicParsing="false" text="Register" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="250.0" />
       <Button fx:id="signOutFromRaceButton" layoutX="176.0" layoutY="318.0" mnemonicParsing="false" text="Sign out" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="250.0" />

@@ -56,6 +56,9 @@ public class RunnerController {
     private TableColumn<Runner, String> passwordTableColumn;
 
     @FXML
+    private TableColumn<Runner, String> usernameTableColumn;
+
+    @FXML
     private TableColumn<Runner, String> streetNameTableColumn;
 
     @FXML
@@ -98,6 +101,7 @@ public class RunnerController {
         weightTableColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         lengthTableColumn.setCellValueFactory(new PropertyValueFactory<>("length"));
         passwordTableColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
+        usernameTableColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         streetNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("streetName"));
         houseNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
         boxNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("boxNumber"));
@@ -135,7 +139,7 @@ public class RunnerController {
             runner = getSelectedRunner();
             title = "edit runner";
         } else {
-            runner = new Runner(-1, "", "", -1, -1.0, -1.0, null, "", "", "", "", "", "");
+            runner = new Runner(-1, "", "", -1, -1.0, -1.0, null, "", "", "", "", "", "", "");
             title = "add runner";
         }
 

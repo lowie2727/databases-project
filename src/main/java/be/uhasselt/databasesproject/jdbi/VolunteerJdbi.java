@@ -22,7 +22,7 @@ public class VolunteerJdbi implements JdbiInterface<Volunteer> {
 
     @Override
     public void insert(Volunteer volunteer) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer (firstName, familyName, password) VALUES (:firstName, :familyName, :password)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO volunteer (firstName, familyName, username, password) VALUES (:firstName, :familyName, :username, :password)")
                 .bindBean(volunteer)
                 .execute());
     }
@@ -51,5 +51,18 @@ public class VolunteerJdbi implements JdbiInterface<Volunteer> {
                 .bind("id", id)
                 .mapTo(String.class)
                 .one());
+    }
+
+    public Volunteer getByUsername(String username) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM volunteer WHERE username = :username")
+                .bind("username", username)
+                .mapToBean(Volunteer.class)
+                .one());
+    }
+
+    public List<String> getAllUsernames() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT username FROM volunteer")
+                .mapTo(String.class)
+                .list());
     }
 }

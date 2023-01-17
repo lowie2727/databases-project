@@ -22,14 +22,14 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
 
     @Override
     public void insert(Runner runner) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner (firstName, familyName, age, weight, length, password, streetName, houseNumber, boxNumber, postalCode, city, country) VALUES (:firstName, :familyName, :age, :weight, :length, :password, :streetName, :houseNumber, :boxNumber, :postalCode, :city, :country)")
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner (firstName, familyName, age, weight, length, password, username, streetName, houseNumber, boxNumber, postalCode, city, country) VALUES (:firstName, :familyName, :age, :weight, :length, :password, :username, :streetName, :houseNumber, :boxNumber, :postalCode, :city, :country)")
                 .bindBean(runner)
                 .execute());
     }
 
     @Override
     public void update(Runner runner) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner SET firstName = :firstName, familyName = :familyName, age = :age, weight = :weight, length = :length, password = :password, streetName = :streetName, houseNumber = :houseNumber, boxNumber = :boxNumber, postalCode = :postalCode, city = :city, country = :country WHERE id = :id")
+        jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner SET firstName = :firstName, familyName = :familyName, age = :age, weight = :weight, length = :length, password = :password, username = :username, streetName = :streetName, houseNumber = :houseNumber, boxNumber = :boxNumber, postalCode = :postalCode, city = :city, country = :country WHERE id = :id")
                 .bindBean(runner)
                 .execute());
     }
@@ -50,6 +50,20 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
                 .mapToBean(Runner.class)
                 .one());
     }
+
+    public Runner getByUsername(String username) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM runner WHERE username = :username")
+                .bind("username", username)
+                .mapToBean(Runner.class)
+                .one());
+    }
+
+    public List<String> getAllUsernames() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT username FROM runner")
+                .mapTo(String.class)
+                .list());
+    }
+
 
     public String getHashedPassword(int id) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT password FROM runner WHERE id = :id")

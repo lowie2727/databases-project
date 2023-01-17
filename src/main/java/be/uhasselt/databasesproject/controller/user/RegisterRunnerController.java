@@ -68,6 +68,9 @@ public class RegisterRunnerController {
     @FXML
     private TextField weightTextField;
 
+    @FXML
+    private TextField usernameTextField;
+
     private Runner runner;
     private boolean confirmationNoAccount;
     private boolean confirmationDiscardChanges;
@@ -93,6 +96,7 @@ public class RegisterRunnerController {
         runner.setPostalCode(postalCodeTextField.getText());
         runner.setCity(cityTextField.getText());
         runner.setCountry(countryTextField.getText());
+        runner.setUsername(usernameTextField.getText());
 
         try {
             runner.setAge(Integer.parseInt(ageTextField.getText()));
@@ -133,6 +137,8 @@ public class RegisterRunnerController {
             } else {
                 showAlert("Warning", "Please select a race from the dropdown menu.");
             }
+        } else if (checkUsernameExists(usernameTextField.getText())) {
+            showAlert("Warning", "This username already exists");
         } else {
             showAlert("Warning", "Please fill in the mandatory fields correctly.");
         }
@@ -144,6 +150,15 @@ public class RegisterRunnerController {
         } else {
             showAlertWithConfirmationAccount("Warning", "Are you sure all your details have been entered correctly?");
         }
+    }
+
+    private boolean checkUsernameExists(String username) {
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+        List<String> usernames = runnerJdbi.getAllUsernames();
+
+        boolean exists = usernames.contains(username);
+
+        return exists;
     }
 
     private void insertRunner(Runner runner) {
@@ -207,6 +222,21 @@ public class RegisterRunnerController {
             status = false;
         }
 
+        if (usernameTextField.getText().isBlank() && !passwordField.getText().isBlank()) {
+            usernameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
+        if (passwordField.getText().isBlank() && !usernameTextField.getText().isBlank()) {
+            passwordField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
+        if (checkUsernameExists(usernameTextField.getText())) {
+            usernameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
         try {
             Integer.parseInt(ageTextField.getText());
         } catch (NumberFormatException exception) {
@@ -249,6 +279,8 @@ public class RegisterRunnerController {
         postalCodeTextField.setBorder(Border.EMPTY);
         cityTextField.setBorder(Border.EMPTY);
         countryTextField.setBorder(Border.EMPTY);
+        passwordField.setBorder(Border.EMPTY);
+        usernameTextField.setBorder(Border.EMPTY);
     }
 
     private void cancel() {
@@ -275,6 +307,8 @@ public class RegisterRunnerController {
         } else if (!lengthTextField.getText().isBlank()) {
             status = true;
         } else if (!passwordField.getText().isBlank()) {
+            status = true;
+        } else if (!usernameTextField.getText().isBlank()) {
             status = true;
         } else if (!streetNameTextField.getText().isBlank()) {
             status = true;

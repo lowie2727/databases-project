@@ -18,6 +18,7 @@
                 <TableColumn fx:id="weightTableColumn" prefWidth="75.0" text="weight" />
                 <TableColumn fx:id="lengthTableColumn" prefWidth="75.0" text="length" />
                 <TableColumn fx:id="passwordTableColumn" prefWidth="75.0" text="password" />
+                <TableColumn fx:id="usernameTableColumn" prefWidth="75.0" text="username" />
                 <TableColumn fx:id="streetNameTableColumn" prefWidth="75.0" text="street name" />
                 <TableColumn fx:id="houseNumberTableColumn" prefWidth="99.0" text="house number" />
                 <TableColumn fx:id="boxNumberTableColumn" prefWidth="71.0" text="box number" />

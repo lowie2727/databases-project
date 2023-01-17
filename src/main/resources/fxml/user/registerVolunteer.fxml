@@ -21,10 +21,9 @@
       <TextField fx:id="familyNameTextField" layoutX="98.0" layoutY="156.0" promptText="family name" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="94.0" />
       <Text layoutX="20.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="please select the race you wish to register for" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />
       <ChoiceBox fx:id="raceChoiceBox" layoutX="20.0" layoutY="378.0" prefWidth="300.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" />
-      <Text layoutX="20.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="if you want to create an account, you also need to enter a password" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />
-      <PasswordField fx:id="passwordField" layoutX="30.0" layoutY="366.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" />
-      <Text layoutX="180.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(optional)" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="180.0" />
-      <Button fx:id="cancelButton" layoutX="444.0" layoutY="363.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="75.0" />
+      <Text layoutX="20.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="if you want to create an account, you also need to enter a username and password" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />
+      <TextField fx:id="usernameTextField" layoutX="30.0" layoutY="376.0"  promptText="username" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" />
+      <PasswordField fx:id="passwordField" layoutX="30.0" layoutY="366.0" promptText="password" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="180.0" />      <Button fx:id="cancelButton" layoutX="444.0" layoutY="363.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="75.0" />
       <Button fx:id="registerButton" layoutX="458.0" layoutY="351.0" mnemonicParsing="false" text="Register" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>

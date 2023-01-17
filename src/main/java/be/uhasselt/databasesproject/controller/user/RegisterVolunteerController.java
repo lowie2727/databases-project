@@ -2,10 +2,7 @@ package be.uhasselt.databasesproject.controller.user;
 
 import be.uhasselt.databasesproject.Password;
 import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
-import be.uhasselt.databasesproject.jdbi.ConnectionManager;
-import be.uhasselt.databasesproject.jdbi.RaceJdbi;
-import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
-import be.uhasselt.databasesproject.jdbi.VolunteerRaceJdbi;
+import be.uhasselt.databasesproject.jdbi.*;
 import be.uhasselt.databasesproject.model.Race;
 import be.uhasselt.databasesproject.model.Volunteer;
 import javafx.collections.FXCollections;
@@ -32,6 +29,9 @@ public class RegisterVolunteerController {
     private PasswordField passwordField;
 
     @FXML
+    private TextField usernameTextField;
+
+    @FXML
     private ChoiceBox<Race> raceChoiceBox;
 
     @FXML
@@ -54,6 +54,7 @@ public class RegisterVolunteerController {
     private void volunteerUpdate() {
         volunteer.setFirstName(firstNameTextField.getText());
         volunteer.setFamilyName(familyNameTextField.getText());
+        volunteer.setUsername(usernameTextField.getText());
         volunteer.setPassword(hashPassword());
     }
 
@@ -80,6 +81,8 @@ public class RegisterVolunteerController {
             } else {
                 showAlert("Warning", "Please select a race from the dropdown menu.");
             }
+        } else if (checkUsernameExists(usernameTextField.getText())) {
+            showAlert("Warning", "This username already exists");
         } else {
             showAlert("Warning", "Please fill in the mandatory fields correctly.");
         }
@@ -91,6 +94,13 @@ public class RegisterVolunteerController {
         } else {
             showAlertWithConfirmationAccount("Warning", "Are you sure all your details have been entered correctly?");
         }
+    }
+
+    private boolean checkUsernameExists(String username) {
+        VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
+        List<String> usernames = volunteerJdbi.getAllUsernames();
+
+        return usernames.contains(username);
     }
 
     private void addVolunteerToRace() {
@@ -123,6 +133,22 @@ public class RegisterVolunteerController {
             familyNameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
+
+        if (usernameTextField.getText().isBlank() && !passwordField.getText().isBlank()) {
+            usernameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
+        if (passwordField.getText().isBlank() && !usernameTextField.getText().isBlank()) {
+            passwordField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
+        if (checkUsernameExists(usernameTextField.getText())) {
+            usernameTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            status = false;
+        }
+
         return status;
     }
 
@@ -136,6 +162,8 @@ public class RegisterVolunteerController {
     private void resetTextFieldBorder() {
         firstNameTextField.setBorder(Border.EMPTY);
         familyNameTextField.setBorder(Border.EMPTY);
+        usernameTextField.setBorder(Border.EMPTY);
+        passwordField.setBorder(Border.EMPTY);
     }
 
     private void cancel() {
@@ -154,6 +182,8 @@ public class RegisterVolunteerController {
         if (!firstNameTextField.getText().isBlank()) {
             status = true;
         } else if (!familyNameTextField.getText().isBlank()) {
+            status = true;
+        } else if (!usernameTextField.getText().isBlank()) {
             status = true;
         } else if (!passwordField.getText().isBlank()) {
             status = true;

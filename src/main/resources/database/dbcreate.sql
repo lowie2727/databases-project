@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS "runner" (
 	"weight"		REAL NOT NULL,
 	"length"		REAL NOT NULL,
     "password"	    TEXT,
+    "username"	    TEXT,
 	"streetName"	TEXT NOT NULL,
 	"houseNumber"	TEXT NOT NULL,
 	"boxNumber"		TEXT,
@@ -39,6 +40,8 @@ CREATE TABLE IF NOT EXISTS "volunteer" (
 	"firstName"		TEXT NOT NULL,
 	"familyName"	TEXT NOT NULL,
 	"password"	    TEXT,
+	"username"	    TEXT,
+
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 DROP TABLE IF EXISTS "runner_race";
@@ -83,10 +86,10 @@ INSERT INTO "race" ("id","date","name","distance","price") VALUES (2,'2023-11-14
 INSERT INTO "race" ("id","date","name","distance","price") VALUES (3,'2023-11-14','Dwars door Leuven',5000,4.0);
 INSERT INTO "race" ("id","date","name","distance","price") VALUES (4,'2022-11-14','Dwars door Genk',5000,50);
 
-INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","password","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (1,'Barack','Obama',41,121.0,2.23,NULL,'Wetstraat','16',NULL,'1000','Brussel','Belgie');
-INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","password","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (2,'Linus','Sebastian',43,126.0,1.40,NULL,'Pariser Platz','1',NULL,'10117','Berlijn','Duitsland');
-INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","password","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (3,'Kris','Aerts',50,160.0,1.60,NULL,'Nazim St','29',NULL,'3500','Abbottabad','Pakistan');
-INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","password","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (4,'Joe','Biden',100,60.0,1.60,'252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111','Pennsylvania Avenue NW','1600',null,'DC 20500','Washington','Verenigde Staten');
+INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","password","username","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (1,'Barack','Obama',41,121.0,2.23,NULL,'BarackObama','Wetstraat','16',NULL,'1000','Brussel','Belgie');
+INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","password","username","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (2,'Linus','Sebastian',43,126.0,1.40,NULL,'Linus123','Pariser Platz','1',NULL,'10117','Berlijn','Duitsland');
+INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","password","username","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (3,'Kris','Aerts',50,160.0,1.60,NULL,'KingKris','Nazim St','29',NULL,'3500','Abbottabad','Pakistan');
+INSERT INTO "runner" ("id","firstName","familyName","age","weight","length","password","username","streetName","houseNumber","boxNumber","postalCode","city","country") VALUES (4,'Joe','Biden',100,60.0,1.60,'252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111','Joe1','Pennsylvania Avenue NW','1600',null,'DC 20500','Washington','Verenigde Staten');
 
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (1,1,'bos',2300);
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (2,1,'langs het kanaal',3000);
@@ -95,10 +98,10 @@ INSERT INTO "segment" ("id","raceID","location","distance") VALUES (4,2,'stadspa
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (5,2,'door de heide',3000);
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (6,2,'brug',500);
 
-INSERT INTO "volunteer" ("id","firstName","familyName","password") VALUES (1,'Jef','Bezos',null);
-INSERT INTO "volunteer" ("id","firstName","familyName","password") VALUES (2,'Steve','Jobs',null);
-INSERT INTO "volunteer" ("id","firstName","familyName","password") VALUES (3,'Bill','Gates',null);
-INSERT INTO "volunteer" ("id","firstName","familyName","password") VALUES (4,'Bob','Dylan','252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111');
+INSERT INTO "volunteer" ("id","firstName","familyName","password", "username") VALUES (1,'Jef','Bezos',null,'');
+INSERT INTO "volunteer" ("id","firstName","familyName","password", "username") VALUES (2,'Steve','Jobs',null,'');
+INSERT INTO "volunteer" ("id","firstName","familyName","password", "username") VALUES (3,'Bill','Gates',null,'');
+INSERT INTO "volunteer" ("id","firstName","familyName","password", "username") VALUES (4,'Bob','Dylan','252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111', 'bobby1');
 
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,1,1,0);
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (2,1,2,0);

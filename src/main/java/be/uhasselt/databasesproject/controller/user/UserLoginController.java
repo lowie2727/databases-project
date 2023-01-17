@@ -28,7 +28,7 @@ public class UserLoginController {
     private PasswordField passwordField;
 
     @FXML
-    private TextField runnerIdTextField;
+    private TextField usernameTextField;
 
     private int id;
     private Stage stage;
@@ -36,13 +36,13 @@ public class UserLoginController {
 
     @FXML
     void initialize() {
-        runnerIdTextField.requestFocus();
+        usernameTextField.requestFocus();
         errorText.setText("");
         loginButton.setOnAction(event -> login());
     }
 
     private void login() {
-        runnerIdTextField.setBorder(Border.EMPTY);
+        usernameTextField.setBorder(Border.EMPTY);
         passwordField.setBorder(Border.EMPTY);
 
         if (isValidInput()) {
@@ -61,45 +61,40 @@ public class UserLoginController {
     }
 
     private boolean isValidInput() {
-        //TODO should be username not id
-        try {
-            id = Integer.parseInt(runnerIdTextField.getText());
-        } catch (NumberFormatException exception) {
-            errorText.setText("Please enter a valid id!");
-            runnerIdTextField.setBorder(Border.stroke(Paint.valueOf("red")));
-            return false;
-        }
+        String username = usernameTextField.getText();
 
         if (isRunner) {
             RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
             Runner runner;
             try {
-                runner = runnerJdbi.getById(id);
+                runner = runnerJdbi.getByUsername(username);
+                id = runner.getId();
             } catch (IllegalStateException e) {
                 errorText.setText("A runner with this id does not exist!");
-                runnerIdTextField.setBorder(Border.stroke(Paint.valueOf("red")));
+                usernameTextField.setBorder(Border.stroke(Paint.valueOf("red")));
                 return false;
             }
 
             if (runner.getPassword() == null) {
                 errorText.setText("This runner has no account!");
-                runnerIdTextField.setBorder(Border.stroke(Paint.valueOf("red")));
+                usernameTextField.setBorder(Border.stroke(Paint.valueOf("red")));
                 return false;
             }
         } else {
             VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
             Volunteer volunteer;
             try {
-                volunteer = volunteerJdbi.getById(id);
+                volunteer = volunteerJdbi.getByUsername(username);
+                id = volunteer.getId();
             } catch (IllegalStateException e) {
                 errorText.setText("A volunteer with this id does not exist!");
-                runnerIdTextField.setBorder(Border.stroke(Paint.valueOf("red")));
+                usernameTextField.setBorder(Border.stroke(Paint.valueOf("red")));
                 return false;
             }
 
             if (volunteer.getPassword() == null) {
                 errorText.setText("This volunteer has no account!");
-                runnerIdTextField.setBorder(Border.stroke(Paint.valueOf("red")));
+                usernameTextField.setBorder(Border.stroke(Paint.valueOf("red")));
                 return false;
             }
         }
