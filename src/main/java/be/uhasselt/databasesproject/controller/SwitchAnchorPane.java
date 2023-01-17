@@ -137,16 +137,26 @@ public class SwitchAnchorPane {
         Main.getRootStage().setTitle("Volunteer race");
     }
 
-    public static void goToGlobalRankingAdmin() {
-        String resource = "/fxml/admin/table/globalRanking.fxml";
-        goTo(resource);
-        setStageSize(defaultWidth, defaultHeight);
-        Main.getRootStage().setTitle("Global ranking");
-    }
+    public static void goToRanking(boolean isGlobalRanking, Race race) {
+        String resource = "/fxml/ranking/raceRanking.fxml";
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
+            AnchorPane anchorPane = loader.load();
 
-    public static void goToMainGlobalRanking() {
-        String resource = "/fxml/ranking/mainGlobalRanking.fxml";
-        goTo(resource);
+            RaceRankingController raceRankingController = loader.getController();
+            if (isGlobalRanking) {
+                raceRankingController.setGlobalRanking();
+            } else {
+                raceRankingController.setRaceRanking();
+                raceRankingController.setRace(race);
+            }
+
+            raceRankingController.load();
+            SwitchAnchorPane.anchorPane.getChildren().setAll(anchorPane);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot find " + resource, e);
+        }
+
         setStageSize(defaultWidth, defaultHeight);
         Main.getRootStage().setTitle("Global ranking");
     }
@@ -163,26 +173,6 @@ public class SwitchAnchorPane {
         goTo(resource);
         setStageSize(265, 205);
         Main.getRootStage().setTitle("Race ranking menu");
-    }
-
-    public static void goToShowRaceRanking(Race race) {
-        String resource = "/fxml/ranking/raceRanking.fxml";
-        goTo(resource);
-        setStageSize(defaultWidth, defaultHeight);
-        Main.getRootStage().setTitle("Race ranking");
-
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
-            AnchorPane anchorPane = loader.load();
-
-            RaceRankingController raceRankingController = loader.getController();
-            raceRankingController.setRace(race);
-            raceRankingController.load();
-
-            SwitchAnchorPane.anchorPane.getChildren().setAll(anchorPane);
-        } catch (Exception e) {
-            throw new RuntimeException("Cannot find " + resource, e);
-        }
     }
 
     public static void goToLogin(boolean isRunner) {

@@ -1,12 +1,16 @@
 package be.uhasselt.databasesproject.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class RunnerRanking {
 
+    private int rank;
     private String firstName;
     private String familyName;
+    private double prizeMoney;
     private int time;
+    private String timeString;
     private double averageSpeed;
 
     public RunnerRanking() {
@@ -62,11 +66,38 @@ public class RunnerRanking {
         this.time = time;
     }
 
+    public String getTimeString() {
+        try {
+            return new SimpleDateFormat("HH:mm:ss").format(new SimpleDateFormat("ss").parse("" + time));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public double getAverageSpeed() {
+        averageSpeed = Math.round(averageSpeed * 10);
+        averageSpeed = averageSpeed / 10;
         return averageSpeed;
     }
 
     public void setAverageSpeed(double averageSpeed) {
         this.averageSpeed = averageSpeed;
+    }
+
+    public void setPrizeMoney(double prizeMoney) {
+        this.prizeMoney = prizeMoney;
+    }
+
+    public double getPrizeMoney() {
+        return prizeMoney;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 }

@@ -17,7 +17,7 @@ public class RankingMenuController {
 
     @FXML
     void initialize() {
-        globalRankingButton.setOnAction(event -> SwitchAnchorPane.goToMainGlobalRanking());
+        globalRankingButton.setOnAction(event -> SwitchAnchorPane.goToRanking(true, null));
         raceRankingButton.setOnAction(event -> SwitchAnchorPane.goToRaceRankingMenu());
         closeButton.setOnAction(event -> SwitchAnchorPane.goToMainMenu());
     }

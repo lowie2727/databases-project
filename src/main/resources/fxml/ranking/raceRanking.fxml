@@ -11,14 +11,13 @@
         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Race ranking" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
         <TableView fx:id="tableView" layoutX="15.0" layoutY="30.0" prefHeight="310.0" prefWidth="950.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
             <columns>
-                <TableColumn fx:id="firstNameTableColumn" prefWidth="75.0" sortable="false" text="first name" />
-            <TableColumn fx:id="lastNameTableColumn" prefWidth="75.0" text="last name" />
-                <TableColumn fx:id="timeTableColumn" prefWidth="75.0" sortable="false" text="time" />
-                <TableColumn fx:id="averageSpeedTableColumn" prefWidth="75.0" sortable="false" text="average speed (km/h)" />
+            <TableColumn fx:id="rankTableColumn" prefWidth="50.0" sortable="false" text="rank" />
+                <TableColumn fx:id="firstNameTableColumn" prefWidth="90.0" sortable="false" text="first name" />
+                <TableColumn fx:id="lastNameTableColumn" prefWidth="90.0" text="last name" />
+                <TableColumn fx:id="totalTimeTableColumn" prefWidth="90.0" sortable="false" text="total time" />
+                <TableColumn fx:id="averageSpeedTableColumn" prefWidth="150.0" sortable="false" text="average speed (km/h)" />
+                <TableColumn fx:id="prizeTableColumn" sortable="false" text="prize (€)" />
             </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
         </TableView>
         <Button fx:id="closeButton" layoutX="919.0" layoutY="349.0" mnemonicParsing="false" text="Close" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
     </children>

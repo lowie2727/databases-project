@@ -16,11 +16,11 @@
         <Button fx:id="editPersonalInfoButton" layoutX="186.0" layoutY="15.0" mnemonicParsing="false" text="Edit personal info" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="15.0" />
         <TableView fx:id="tableView" layoutX="22.0" layoutY="80.0" prefHeight="200.0" prefWidth="347.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="65.0">
             <columns>
-            <TableColumn fx:id="dateTableColumn" editable="false" prefWidth="75.0" text="date" />
-            <TableColumn fx:id="nameTableColumn" editable="false" prefWidth="120.0" text="name" />
-            <TableColumn fx:id="distanceTableColumn" editable="false" prefWidth="75.0" text="distance" />
-            <TableColumn fx:id="priceTableColumn" editable="false" prefWidth="75.0" text="price" />
-            </columns>
+                <TableColumn fx:id="dateTableColumn" editable="false" prefWidth="75.0" text="date" />
+                <TableColumn fx:id="nameTableColumn" editable="false" prefWidth="120.0" text="name" />
+                <TableColumn fx:id="distanceTableColumn" editable="false" prefWidth="75.0" text="distance" />
+                <TableColumn fx:id="priceTableColumn" editable="false" prefWidth="75.0" text="price" />
+                </columns>
       </TableView>
       <ChoiceBox fx:id="choiceBox" layoutX="14.0" layoutY="283.0" prefWidth="230.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="10.0" />
       <Button fx:id="registerForRaceButton" layoutX="176.0" layoutY="283.0" mnemonicParsing="false" text="Register" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="250.0" />

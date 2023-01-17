@@ -33,9 +33,6 @@ public class AdminController {
     private Button editVolunteerRaceButton;
 
     @FXML
-    private Button editGlobalRankingButton;
-
-    @FXML
     void initialize() {
         editRunnersButton.setOnAction(event -> showPanel("runner"));
         editVolunteersButton.setOnAction(event -> showPanel("volunteer"));
@@ -44,7 +41,6 @@ public class AdminController {
         editRunnerRaceButton.setOnAction(event -> showPanel("runnerRace"));
         editSegmentTimeButton.setOnAction(event -> showPanel("segmentTime"));
         editVolunteerRaceButton.setOnAction(event -> showPanel("volunteerRace"));
-        editGlobalRankingButton.setOnAction(event -> showPanel("globalRanking"));
         mainMenuButton.setOnAction(event -> SwitchAnchorPane.goToMainMenu());
     }
 
@@ -63,8 +59,6 @@ public class AdminController {
             SwitchAnchorPane.goToSegmentTime();
         } else if (Objects.equals(string, "volunteerRace")) {
             SwitchAnchorPane.goToVolunteerRace();
-        } else if (Objects.equals(string, "globalRanking")) {
-            SwitchAnchorPane.goToGlobalRankingAdmin();
         }
     }
 }

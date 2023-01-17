@@ -107,6 +107,7 @@ INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (4,1
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,4,1,8700);
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (2,4,2,9800);
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (3,4,3,6300);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (4,4,3,2670);
 
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,1,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,2,0);

@@ -154,7 +154,7 @@ public class EditRaceController {
     }
 
     private void deleteSegment() {
-        if(verifyRowSelected()) {
+        if (verifyRowSelected()) {
             SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
             segmentJdbi.delete(getSelectedSegment());
             loadSegments();

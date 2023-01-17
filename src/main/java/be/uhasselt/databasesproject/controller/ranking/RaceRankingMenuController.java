@@ -43,7 +43,7 @@ public class RaceRankingMenuController {
 
     private void show() {
         if (verifyRowSelected()) {
-            SwitchAnchorPane.goToShowRaceRanking(getSelectedRace());
+            SwitchAnchorPane.goToRanking(false, getSelectedRace());
         }
     }
 
@@ -67,7 +67,7 @@ public class RaceRankingMenuController {
     private void initColumns() {
         dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
+        distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distanceInKm"));
     }
 
     private void loadRaces() {
