@@ -64,15 +64,26 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
                 .one());
     }
 
-    private void insertRunnerInGlobalRanking(int runnerId) {
+    private void insertIntoGlobalRanking(int runnerId) {
         jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO global_ranking (runnerID, prizeMoney, averageSpeed) VALUES (:runnerId, 0, 0)")
                 .bind("runnerId", runnerId)
                 .execute());
     }
 
-    public void insertGlobal(Runner runner) {
+    public void insertIntoSegmentTimes(int raceId) {
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (runnerID, segmentID, time) SELECT :runnerId, segment.id, 0 FROM segment WHERE raceID = :raceId")
+                .bind("runnerId", getIdLatestAddedRunner())
+                .bind("raceId", raceId)
+                .execute());
+    }
+
+    public void insertGlobal(Runner runner, int raceId) {
         insert(runner);
         int runnerId = getIdLatestAddedRunner();
-        insertRunnerInGlobalRanking(runnerId);
+        insertIntoGlobalRanking(runnerId);
+
+        if (raceId != -1) {
+            insertIntoSegmentTimes(raceId);
+        }
     }
 }

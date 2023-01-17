@@ -1,6 +1,7 @@
 package be.uhasselt.databasesproject.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class SegmentTimes implements Serializable {
@@ -8,6 +9,7 @@ public class SegmentTimes implements Serializable {
     private int segmentId;
     private int runnerId;
     private int time;
+    private String timeString;
 
     public SegmentTimes() {
     }
@@ -59,5 +61,14 @@ public class SegmentTimes implements Serializable {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public String getTimeString() {
+        try {
+            return new SimpleDateFormat("HH:mm:ss").format(new SimpleDateFormat("ss").parse("" + time));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

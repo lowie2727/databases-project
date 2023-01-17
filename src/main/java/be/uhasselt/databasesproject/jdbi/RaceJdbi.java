@@ -57,8 +57,15 @@ public class RaceJdbi implements JdbiInterface<Race> {
     }
 
     public int getIdLatestAddedRace() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name='race'")
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name = 'race'")
                 .mapTo(Integer.class)
+                .one());
+    }
+
+    public Race getById(int raceId) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM race WHERE id = :raceId")
+                .bind("raceId", raceId)
+                .mapToBean(Race.class)
                 .one());
     }
 }

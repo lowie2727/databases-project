@@ -13,6 +13,8 @@
         <Text layoutX="66.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="id" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
         <Text fx:id="idText" layoutX="133.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="10.0" />
         <Text layoutX="16.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="630.0" AnchorPane.topAnchor="46.0" />
+        <Text fx:id="originalDateDefaultText" layoutX="320.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="original date:" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="46.0" />
+        <Text fx:id="originalDateText" layoutX="377.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="375.0" AnchorPane.topAnchor="46.0" />
         <Text layoutX="38.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="630.0" AnchorPane.topAnchor="76.0" />
         <Text layoutX="18.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="630.0" AnchorPane.topAnchor="106.0" />
         <Text layoutX="11.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="price" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="630.0" AnchorPane.topAnchor="136.0" />
@@ -33,9 +35,8 @@
         </columns>
         </TableView>
         <Text layoutX="335.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="segments" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="10.0" />
-        <Button fx:id="addSegmentButton" layoutX="250.0" layoutY="295.0" mnemonicParsing="false" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="360.0" />
+      <Button fx:id="deleteButton" layoutX="417.0" layoutY="231.0" mnemonicParsing="false" text="Delete" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="360.0" />
         <Button fx:id="editSegmentButton" layoutX="241.0" layoutY="241.0" mnemonicParsing="false" text="Edit" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="360.0" />
-        <Text fx:id="originalDateDefaultText" layoutX="320.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="original date:" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="46.0" />
-        <Text fx:id="originalDateText" layoutX="377.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="375.0" AnchorPane.topAnchor="46.0" />
+        <Button fx:id="addSegmentButton" layoutX="250.0" layoutY="295.0" mnemonicParsing="false" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="360.0" />
     </children>
 </AnchorPane>

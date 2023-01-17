@@ -38,14 +38,20 @@ public class MainController {
     }
 
     private void showPanel(String string) {
-        switch (string) {
-            case "ranking" -> SwitchAnchorPane.goToRankingMenu();
-            case "admin" -> SwitchAnchorPane.goToAdmin();
-            case "loginAdmin" -> SwitchAnchorPane.goToLoginAdmin();
-            case "registerRunner" -> SwitchAnchorPane.goToRegisterRunner();
-            case "loginRunner" -> SwitchAnchorPane.goToLogin(true);
-            case "registerVolunteer" -> SwitchAnchorPane.goToRegisterVolunteer();
-            case "loginVolunteer" -> SwitchAnchorPane.goToLogin(false);
+        if (string.equals("ranking")) {
+            SwitchAnchorPane.goToRankingMenu();
+        } else if (string.equals("admin")) {
+            SwitchAnchorPane.goToAdmin();
+        } else if (string.equals("loginAdmin")) {
+            SwitchAnchorPane.goToLoginAdmin();
+        } else if (string.equals("registerRunner")) {
+            SwitchAnchorPane.goToRegisterRunner();
+        } else if (string.equals("loginRunner")) {
+            SwitchAnchorPane.goToLogin(true);
+        } else if (string.equals("registerVolunteer")) {
+            SwitchAnchorPane.goToRegisterVolunteer();
+        } else if (string.equals("loginVolunteer")) {
+            SwitchAnchorPane.goToLogin(false);
         }
     }
 }

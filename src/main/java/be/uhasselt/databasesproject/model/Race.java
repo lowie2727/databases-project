@@ -9,6 +9,7 @@ public class Race implements Serializable {
     private String date;
     private String name;
     private int distance;
+    private double distanceInKm;
     private double price;
 
     public Race() {
@@ -75,6 +76,10 @@ public class Race implements Serializable {
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public double getDistanceInKm() {
+        return ((double) distance) / 1000;
     }
 
     public double getPrice() {

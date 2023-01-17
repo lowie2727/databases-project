@@ -168,7 +168,7 @@ public class EditRunnerController {
             } else {
                 RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
                 if (runner.getId() == -1) {
-                    runnerJdbi.insertGlobal(runner);
+                    runnerJdbi.insertGlobal(runner, -1);
                 } else {
                     runnerJdbi.update(runner);
                 }

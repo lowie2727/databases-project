@@ -68,7 +68,7 @@ public class SegmentController {
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         raceIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("raceId"));
         locationTableColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
+        distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distanceInKm"));
     }
 
     private void loadSegments() {

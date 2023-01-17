@@ -68,7 +68,7 @@ public class RunnerRaceController {
         runnerIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("runnerId"));
         raceIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("raceId"));
         shirtNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("shirtNumber"));
-        timeTableColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        timeTableColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
     }
 
     private void loadRunnerRaces() {

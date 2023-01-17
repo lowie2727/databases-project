@@ -7,17 +7,37 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.MainController">
     <children>
-        <Text layoutX="224.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu" AnchorPane.topAnchor="50.0">
+        <Text layoutX="199.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="219.7548828125" AnchorPane.topAnchor="21.626953125">
             <font>
                 <Font size="30.0" />
             </font>
         </Text>
-      <Button fx:id="runnerRegistrationButton" layoutX="185.0" layoutY="148.0" mnemonicParsing="false" prefWidth="115.0" text="runner registration" AnchorPane.leftAnchor="185.0" AnchorPane.topAnchor="150.0" />
-      <Button fx:id="runnerLoginButton" layoutX="306.0" layoutY="148.0" mnemonicParsing="false" text="runner login" AnchorPane.leftAnchor="306.0" AnchorPane.topAnchor="150.0" />
-      <Button fx:id="volunteerRegistrationButton" layoutX="224.0" layoutY="188.0" mnemonicParsing="false" prefWidth="130.0" text="volunteer registration" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="180.0" />
-      <Button fx:id="adminButton" layoutX="218.0" layoutY="226.0" mnemonicParsing="false" text="admin" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="210.0" />
-      <Button fx:id="adminLoginButton" layoutX="289.0" layoutY="226.0" mnemonicParsing="false" text="admin login" AnchorPane.leftAnchor="305.0" AnchorPane.topAnchor="210.0" />
-      <Button fx:id="volunteerLoginButton" layoutX="307.0" layoutY="180.0" mnemonicParsing="false" text="volunteer login" AnchorPane.leftAnchor="305.0" AnchorPane.topAnchor="180.0" />
-      <Button fx:id="rankingButton" layoutX="272.0" layoutY="125.0" mnemonicParsing="false" text="ranking" AnchorPane.leftAnchor="275.0" AnchorPane.topAnchor="120.0" />
+      <Button fx:id="runnerRegistrationButton" layoutX="24.0" layoutY="137.0" mnemonicParsing="false" prefWidth="115.0" text="runner registration" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="140.0" />
+      <Button fx:id="runnerLoginButton" layoutX="42.0" layoutY="167.0" mnemonicParsing="false" text="runner login" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="170.0" />
+      <Button fx:id="volunteerRegistrationButton" layoutX="200.0" layoutY="139.0" mnemonicParsing="false" prefWidth="130.0" text="volunteer registration" AnchorPane.leftAnchor="215.0" AnchorPane.topAnchor="139.0" />
+      <Button fx:id="adminButton" layoutX="454.0" layoutY="144.0" mnemonicParsing="false" text="admin" AnchorPane.leftAnchor="455.0" AnchorPane.topAnchor="140.0" />
+      <Button fx:id="adminLoginButton" layoutX="440.0" layoutY="174.0" mnemonicParsing="false" text="admin login" AnchorPane.leftAnchor="440.0" AnchorPane.topAnchor="170.0" />
+      <Button fx:id="volunteerLoginButton" layoutX="208.0" layoutY="170.0" mnemonicParsing="false" text="volunteer login" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="170.0" />
+      <Button fx:id="rankingButton" layoutX="228.0" layoutY="289.0" mnemonicParsing="false" text="ranking" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="285.0" />
+      <Text layoutX="63.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Runner" AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="105.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="224.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volunteer" AnchorPane.leftAnchor="235.0" AnchorPane.topAnchor="105.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="451.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="105.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="227.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ranking" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="250.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

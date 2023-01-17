@@ -1,36 +1,22 @@
 package be.uhasselt.databasesproject.controller.admin.table;
 
-import be.uhasselt.databasesproject.Main;
 import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
-import be.uhasselt.databasesproject.controller.admin.edit.EditGlobalRankingController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.GlobalRankingJdbi;
 import be.uhasselt.databasesproject.model.GlobalRanking;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Objects;
 
 public class GlobalRankingController {
-
-    @FXML
-    private Button addButton;
 
     @FXML
     private Button closeButton;
 
     @FXML
     private Button deleteButton;
-
-    @FXML
-    private Button editButton;
 
     @FXML
     private TableView<GlobalRanking> tableView;
@@ -50,8 +36,6 @@ public class GlobalRankingController {
     void initialize() {
         initTable();
 
-        addButton.setOnAction(event -> editGlobalRanking(false));
-        editButton.setOnAction(event -> editGlobalRanking(true));
         deleteButton.setOnAction(event -> deleteGlobalRanking());
         closeButton.setOnAction(event -> SwitchAnchorPane.goToAdmin());
     }
@@ -83,47 +67,6 @@ public class GlobalRankingController {
 
     private GlobalRanking getSelectedGlobalRanking() {
         return tableView.getSelectionModel().getSelectedItem();
-    }
-
-    private void editGlobalRanking(boolean isEdit) {
-        GlobalRanking globalRanking;
-        String title;
-
-        if (isEdit) {
-            if (!verifyRowSelected()) {
-                return;
-            }
-            globalRanking = getSelectedGlobalRanking();
-            title = "edit GlobalRanking";
-        } else {
-            globalRanking = new GlobalRanking(-1, -1.0, -1);
-            title = "add GlobalRanking";
-        }
-
-        String resourceName = "/fxml/admin/edit/editGlobalRanking.fxml";
-
-        try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resourceName)));
-            AnchorPane anchorPane = loader.load();
-            setGlobalRankingScreen(anchorPane, loader, globalRanking, title);
-        } catch (Exception e) {
-            throw new RuntimeException("Cannot find " + resourceName, e);
-        }
-    }
-
-    private void setGlobalRankingScreen(AnchorPane anchorPane, FXMLLoader loader, GlobalRanking globalRanking, String title) {
-        EditGlobalRankingController editGlobalRankingController = loader.getController();
-        editGlobalRankingController.inflateUI(globalRanking);
-
-        Scene scene = new Scene(anchorPane);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setTitle(title);
-        stage.initOwner(Main.getRootStage());
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
-        stage.setOnCloseRequest(event -> loadGlobalRankings());
     }
 
     private void deleteGlobalRanking() {

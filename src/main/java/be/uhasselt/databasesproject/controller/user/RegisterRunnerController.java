@@ -127,8 +127,7 @@ public class RegisterRunnerController {
                 runnerUpdate();
                 checkEmptyPassword();
                 if (confirmationNoAccount) {
-                    insertIntoDatabase(runner);
-                    addRunnerToRace();
+                    insertRunner(runner);
                     SwitchAnchorPane.goToMainMenu();
                 }
             } else {
@@ -147,15 +146,14 @@ public class RegisterRunnerController {
         }
     }
 
-    private void addRunnerToRace() {
+    private void insertRunner(Runner runner) {
         int raceId = raceChoiceBox.getValue().getId();
-        RunnerRaceJdbi runnerRaceJdbi = new RunnerRaceJdbi(ConnectionManager.CONNECTION_STRING);
-        runnerRaceJdbi.insert(raceId);
-    }
 
-    private void insertIntoDatabase(Runner runner) {
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-        runnerJdbi.insertGlobal(runner);
+        RunnerRaceJdbi runnerRaceJdbi = new RunnerRaceJdbi(ConnectionManager.CONNECTION_STRING);
+
+        runnerJdbi.insertGlobal(runner, raceId);
+        runnerRaceJdbi.insert(raceId);
     }
 
     private boolean isRegisteredForRace() {

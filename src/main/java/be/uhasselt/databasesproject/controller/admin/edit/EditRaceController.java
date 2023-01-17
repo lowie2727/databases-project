@@ -33,6 +33,9 @@ public class EditRaceController {
     private DatePicker datePicker;
 
     @FXML
+    private Button deleteButton;
+
+    @FXML
     private TableColumn<Segment, Integer> distanceTableColumn;
 
     @FXML
@@ -88,6 +91,7 @@ public class EditRaceController {
         datePicker.setEditable(false);
         saveButton.setOnAction(this::databaseUpdate);
         cancelButton.setOnAction(this::cancel);
+        deleteButton.setOnAction(event -> deleteSegment());
         editSegmentButton.setOnAction(event -> editSegment(true));
         addSegmentButton.setOnAction(event -> editSegment(false));
         errorMessageText.setText("");
@@ -147,6 +151,14 @@ public class EditRaceController {
 
     private Segment getSelectedSegment() {
         return tableView.getSelectionModel().getSelectedItem();
+    }
+
+    private void deleteSegment() {
+        if(verifyRowSelected()) {
+            SegmentJdbi segmentJdbi = new SegmentJdbi(ConnectionManager.CONNECTION_STRING);
+            segmentJdbi.delete(getSelectedSegment());
+            loadSegments();
+        }
     }
 
     private boolean verifyRowSelected() {

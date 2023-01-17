@@ -64,7 +64,7 @@ public class SegmentTimeController {
     private void initColumns() {
         segmentIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("segmentId"));
         runnerIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("runnerId"));
-        timeTableColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        timeTableColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
     }
 
     private void loadSegmentTimes() {

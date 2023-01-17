@@ -70,7 +70,7 @@ public class RaceController {
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
+        distanceTableColumn.setCellValueFactory(new PropertyValueFactory<>("distanceInKm"));
         priceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 

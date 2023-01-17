@@ -74,16 +74,12 @@ public class GlobalRankingJdbi implements JdbiInterface<GlobalRanking> {
         double distance;
         double time;
 
-        try {
-            distance = getTotalDistanceRunner(runnerId);
-        } catch (NullPointerException e) {
-            distance = 0;
-        }
+        distance = getTotalDistanceRunner(runnerId);
+        time = getTotalTimeRunner(runnerId);
 
-        try {
-            time = getTotalTimeRunner(runnerId);
-        } catch (NullPointerException e) {
+        if (time == 0) {
             time = 1;
+            distance = 0;
         }
 
         double averageSpeed = (distance / time) * 3.6;

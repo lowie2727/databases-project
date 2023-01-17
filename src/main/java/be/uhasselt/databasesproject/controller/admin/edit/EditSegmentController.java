@@ -1,21 +1,24 @@
 package be.uhasselt.databasesproject.controller.admin.edit;
 
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
+import be.uhasselt.databasesproject.jdbi.RaceJdbi;
 import be.uhasselt.databasesproject.jdbi.SegmentJdbi;
+import be.uhasselt.databasesproject.model.Race;
 import be.uhasselt.databasesproject.model.Segment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.SerializationUtils;
+
+import java.util.List;
 
 public class EditSegmentController {
 
@@ -32,7 +35,7 @@ public class EditSegmentController {
     private TextField locationTextField;
 
     @FXML
-    private TextField raceIdTextField;
+    private ChoiceBox<Race> raceChoiceBox;
 
     @FXML
     private Text raceIdText;
@@ -76,14 +79,20 @@ public class EditSegmentController {
         }
 
         if (isFromRace) {
-            raceIdTextField.setVisible(false);
-            raceIdText.setText("tbd");
+            raceChoiceBox.setVisible(false);
+            raceIdText.setVisible(true);
+            Race race = getRaceById(segment.getRaceId());
+            raceIdText.setText(Integer.toString(race.getId()));
         } else {
-            raceIdText.setVisible(false);
             if (segment.getRaceId() == -1) {
-                raceIdTextField.setText("");
+                raceChoiceBox.setVisible(true);
+                raceIdText.setVisible(false);
+                setRaceChoiceBox();
             } else {
-                raceIdTextField.setText(Integer.toString(segment.getRaceId()));
+                raceChoiceBox.setVisible(false);
+                raceIdText.setVisible(true);
+                Race race = getRaceById(segment.getRaceId());
+                raceIdText.setText(race.toString());
             }
         }
 
@@ -96,12 +105,24 @@ public class EditSegmentController {
         }
     }
 
+    private void setRaceChoiceBox() {
+        RaceJdbi raceJdbi = new RaceJdbi(ConnectionManager.CONNECTION_STRING);
+        List<Race> races = raceJdbi.getAll();
+        ObservableList<Race> observableRaces = FXCollections.observableList(races);
+        raceChoiceBox.setItems(observableRaces);
+    }
+
+    private Race getRaceById(int raceId) {
+        RaceJdbi raceJdbi = new RaceJdbi(ConnectionManager.CONNECTION_STRING);
+        return raceJdbi.getById(raceId);
+    }
+
     private void segmentUpdate() {
         if (!isFromRace) {
-            try {
-                segment.setRaceId(Integer.parseInt(raceIdTextField.getText()));
-            } catch (NumberFormatException e) {
+            if (raceChoiceBox.getValue() == null) {
                 segment.setRaceId(-1);
+            } else {
+                segment.setRaceId(raceChoiceBox.getValue().getId());
             }
         }
 
@@ -145,8 +166,8 @@ public class EditSegmentController {
         resetTextFieldBorder();
 
         if (!isFromRace) {
-            if (raceIdTextField.getText().isBlank()) {
-                raceIdTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+            if (raceChoiceBox.getValue() == null) {
+                raceChoiceBox.setBorder(Border.stroke(Paint.valueOf(color)));
                 status = false;
             }
         }
@@ -193,7 +214,7 @@ public class EditSegmentController {
     }
 
     private void resetTextFieldBorder() {
-        raceIdTextField.setBorder(Border.EMPTY);
+        raceChoiceBox.setBorder(Border.EMPTY);
         locationTextField.setBorder(Border.EMPTY);
         distanceTextField.setBorder(Border.EMPTY);
     }

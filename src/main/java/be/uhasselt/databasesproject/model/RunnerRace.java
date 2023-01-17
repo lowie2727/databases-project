@@ -1,6 +1,7 @@
 package be.uhasselt.databasesproject.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class RunnerRace implements Serializable {
@@ -9,6 +10,7 @@ public class RunnerRace implements Serializable {
     private int raceId;
     private int shirtNumber;
     private int time;
+    private String timeString;
 
     public RunnerRace() {
     }
@@ -69,5 +71,14 @@ public class RunnerRace implements Serializable {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public String getTimeString() {
+        try {
+            return new SimpleDateFormat("HH:mm:ss").format(new SimpleDateFormat("ss").parse("" + time));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

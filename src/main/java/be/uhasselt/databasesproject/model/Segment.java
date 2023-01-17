@@ -9,6 +9,7 @@ public class Segment implements Serializable {
     private int raceId;
     private String location;
     private int distance;
+    private double distanceInKm;
 
     public Segment() {
     }
@@ -69,5 +70,9 @@ public class Segment implements Serializable {
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public double getDistanceInKm() {
+        return ((double) distance) / 1000;
     }
 }
