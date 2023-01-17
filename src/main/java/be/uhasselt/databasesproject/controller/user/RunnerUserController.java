@@ -3,6 +3,7 @@ package be.uhasselt.databasesproject.controller.user;
 import be.uhasselt.databasesproject.controller.SwitchAnchorPane;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
 import be.uhasselt.databasesproject.jdbi.RaceJdbi;
+import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.jdbi.RunnerRaceJdbi;
 import be.uhasselt.databasesproject.model.Race;
 import be.uhasselt.databasesproject.model.Runner;
@@ -111,12 +112,15 @@ public class RunnerUserController {
         errorText.setText("");
 
         RunnerRaceJdbi runnerRaceJdbi = new RunnerRaceJdbi(ConnectionManager.CONNECTION_STRING);
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+
         int raceId = choiceBox.getValue().getId();
         int shirtNumber = runnerRaceJdbi.getNextShirtNumber(raceId);
         RunnerRace runnerRace = new RunnerRace(runner.getId(), raceId, shirtNumber, 0);
 
         try {
             runnerRaceJdbi.insert(runnerRace);
+            runnerJdbi.insertIntoSegmentTimes(raceId, runner.getId());
         } catch (Exception e) {
             choiceBox.setBorder(Border.stroke(Paint.valueOf("red")));
             errorText.setText("Already registered for this race");
@@ -152,8 +156,11 @@ public class RunnerUserController {
         errorText.setText("");
 
         RunnerRaceJdbi runnerRaceJdbi = new RunnerRaceJdbi(ConnectionManager.CONNECTION_STRING);
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+
         int raceId = choiceBox.getValue().getId();
         runnerRaceJdbi.delete(runner.getId(), raceId);
+        runnerJdbi.deleteFromSegment(raceId, runner.getId());
     }
 
     private boolean isChoiceBoxSelected() {

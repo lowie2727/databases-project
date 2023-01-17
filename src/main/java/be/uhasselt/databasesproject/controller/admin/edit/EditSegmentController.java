@@ -79,10 +79,16 @@ public class EditSegmentController {
         }
 
         if (isFromRace) {
-            raceChoiceBox.setVisible(false);
-            raceIdText.setVisible(true);
-            Race race = getRaceById(segment.getRaceId());
-            raceIdText.setText(Integer.toString(race.getId()));
+            if (segment.getRaceId() == -1) {
+                raceChoiceBox.setVisible(false);
+                raceIdText.setVisible(true);
+                raceIdText.setText("tbd");
+            } else {
+                raceChoiceBox.setVisible(false);
+                raceIdText.setVisible(true);
+                Race race = getRaceById(segment.getRaceId());
+                raceIdText.setText(Integer.toString(race.getId()));
+            }
         } else {
             if (segment.getRaceId() == -1) {
                 raceChoiceBox.setVisible(true);

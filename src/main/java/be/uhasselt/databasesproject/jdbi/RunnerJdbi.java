@@ -64,12 +64,6 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
                 .one());
     }
 
-    private void insertIntoGlobalRanking(int runnerId) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO global_ranking (runnerID, prizeMoney, averageSpeed) VALUES (:runnerId, 0, 0)")
-                .bind("runnerId", runnerId)
-                .execute());
-    }
-
     public void insertIntoSegmentTimes(int raceId) {
         jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (runnerID, segmentID, time) SELECT :runnerId, segment.id, 0 FROM segment WHERE raceID = :raceId")
                 .bind("runnerId", getIdLatestAddedRunner())
@@ -77,10 +71,22 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
                 .execute());
     }
 
+    public void insertIntoSegmentTimes(int raceId, int runnerId) {
+        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (runnerID, segmentID, time) SELECT :runnerId, segment.id, 0 FROM segment WHERE raceID = :raceId")
+                .bind("runnerId", runnerId)
+                .bind("raceId", raceId)
+                .execute());
+    }
+
+    public void deleteFromSegment(int raceId, int runnerId) {
+        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM segment_times WHERE segment_times.segmentID IN (SELECT segment.id FROM segment INNER JOIN race ON segment.raceID = race.id INNER JOIN segment_times ON segment.id = segment_times.segmentID WHERE race.id = :raceId AND segment_times.runnerID = :runnerId)")
+                .bind("runnerId", runnerId)
+                .bind("raceId", raceId)
+                .execute());
+    }
+
     public void insertGlobal(Runner runner, int raceId) {
         insert(runner);
-        int runnerId = getIdLatestAddedRunner();
-        insertIntoGlobalRanking(runnerId);
 
         if (raceId != -1) {
             insertIntoSegmentTimes(raceId);

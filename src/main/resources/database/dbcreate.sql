@@ -120,11 +120,9 @@ INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (2,4,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (3,1,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (3,2,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (3,3,0);
-INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (3,4,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (4,1,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (4,2,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (4,3,0);
-INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (4,4,0);
 
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (1,1,"bevoorrading");
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (2,1,"richtingaangever");
