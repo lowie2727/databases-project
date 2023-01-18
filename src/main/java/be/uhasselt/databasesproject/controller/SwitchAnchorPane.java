@@ -5,10 +5,12 @@ import be.uhasselt.databasesproject.controller.admin.LoginAdminController;
 import be.uhasselt.databasesproject.controller.admin.edit.EditRunnerController;
 import be.uhasselt.databasesproject.controller.admin.edit.EditVolunteerController;
 import be.uhasselt.databasesproject.controller.ranking.RaceRankingController;
+import be.uhasselt.databasesproject.controller.user.MoreInfoRaceController;
 import be.uhasselt.databasesproject.controller.user.RunnerUserController;
 import be.uhasselt.databasesproject.controller.user.UserLoginController;
 import be.uhasselt.databasesproject.controller.user.VolunteerUserController;
 import be.uhasselt.databasesproject.jdbi.ConnectionManager;
+import be.uhasselt.databasesproject.jdbi.RaceJdbi;
 import be.uhasselt.databasesproject.jdbi.RunnerJdbi;
 import be.uhasselt.databasesproject.jdbi.VolunteerJdbi;
 import be.uhasselt.databasesproject.model.Race;
@@ -274,7 +276,7 @@ public class SwitchAnchorPane {
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
         runnerUserController.inflateUI(runnerJdbi.getById(id));
 
-        setStageSize(390, defaultHeight);
+        setStageSize(450, defaultHeight);
         Main.getRootStage().setTitle("runner user");
     }
 
@@ -299,6 +301,30 @@ public class SwitchAnchorPane {
 
         setStageSize(335, defaultHeight);
         Main.getRootStage().setTitle("volunteer user");
+    }
+
+    public static void goToMoreInfoRace(int raceId, int runnerId) {
+        String resourceName = "/fxml/user/moreInfoRace.fxml";
+
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(resourceName));
+            AnchorPane anchorPane = loader.load();
+            setMoreInfoRaceScreen(anchorPane, loader, raceId, runnerId);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot find " + resourceName, e);
+        }
+    }
+
+    private static void setMoreInfoRaceScreen(AnchorPane anchorPane, FXMLLoader loader, int raceId, int runnerId) {
+        MoreInfoRaceController moreInfoRaceController = loader.getController();
+        SwitchAnchorPane.anchorPane.getChildren().setAll(anchorPane);
+
+        RaceJdbi raceJdbi = new RaceJdbi(ConnectionManager.CONNECTION_STRING);
+        RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
+        moreInfoRaceController.inflateUI(raceJdbi.getById(raceId), runnerJdbi.getById(runnerId));
+
+        setStageSize(750, defaultHeight);
+        Main.getRootStage().setTitle("More info race");
     }
 
     private static void setStageSize(double width, double height) {

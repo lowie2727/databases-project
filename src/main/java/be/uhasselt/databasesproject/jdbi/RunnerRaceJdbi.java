@@ -92,4 +92,12 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
                 .mapToBean(RunnerRace.class)
                 .one());
     }
+
+    public int getTime(int runnerId, int raceId) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT time FROM runner_race WHERE runnerID= :runnerId AND raceID = :raceId")
+                .bind("runnerId", runnerId)
+                .bind("raceId", raceId)
+                .mapTo(Integer.class)
+                .one());
+    }
 }

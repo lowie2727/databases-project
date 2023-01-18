@@ -11,10 +11,7 @@ import be.uhasselt.databasesproject.model.RunnerRace;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Paint;
@@ -36,6 +33,9 @@ public class RunnerUserController {
 
     @FXML
     private Button editPersonalInfoButton;
+
+    @FXML
+    private Button moreInfoRaceButton;
 
     @FXML
     private Text errorText;
@@ -74,6 +74,7 @@ public class RunnerUserController {
         registerForRaceButton.setOnAction(event -> registerForRace());
         signOutFromRaceButton.setOnAction(event -> signOutFromRace());
         editPersonalInfoButton.setOnAction(event -> showPanel("personalInfo"));
+        moreInfoRaceButton.setOnAction(event -> showPanel("moreInfoRace"));
     }
 
     private void choiceBoxSetup() {
@@ -175,11 +176,32 @@ public class RunnerUserController {
     }
 
     private void showPanel(String string) {
+        Race race;
         id = runner.getId();
 
         if (Objects.equals(string, "personalInfo")) {
             SwitchAnchorPane.goToEditRunner(id);
         }
+        if (Objects.equals(string, "moreInfoRace")) {
+            if (!verifyRowSelected()) {
+                return;
+            } else {
+                race = getSelectedRace();
+                SwitchAnchorPane.goToMoreInfoRace(race.getId(), id);
+            }
+        }
+    }
+
+    private boolean verifyRowSelected() {
+        if (tableView.getSelectionModel().getSelectedCells().size() == 0) {
+            showAlert("Warning", "Please select a row");
+            return false;
+        }
+        return true;
+    }
+
+    private Race getSelectedRace() {
+        return tableView.getSelectionModel().getSelectedItem();
     }
 
     public void inflateUI(Runner runner) {
@@ -190,4 +212,13 @@ public class RunnerUserController {
 
         nameText.setText(runner.getFirstName() + " " + runner.getFamilyName());
     }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 }

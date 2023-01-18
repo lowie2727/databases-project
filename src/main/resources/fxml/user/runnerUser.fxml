@@ -7,13 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.user.RunnerUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.uhasselt.databasesproject.controller.user.RunnerUserController">
     <children>
         <Text layoutX="66.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="welkom" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
         <Text fx:id="nameText" layoutX="100.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" />
         <Text layoutX="58.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="registered races" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0" />
         <Button fx:id="logoutButton" layoutX="200.0" layoutY="132.0" mnemonicParsing="false" text="Logout" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-        <Button fx:id="editPersonalInfoButton" layoutX="186.0" layoutY="15.0" mnemonicParsing="false" text="Edit personal info" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="15.0" />
+        <Button fx:id="editPersonalInfoButton" layoutX="186.0" layoutY="15.0" mnemonicParsing="false" text="Edit personal info" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0" />
+        <Button fx:id="moreInfoRaceButton" layoutX="186.0" layoutY="15.0" mnemonicParsing="false" text="Meer Info" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0" />
         <TableView fx:id="tableView" layoutX="22.0" layoutY="80.0" prefHeight="200.0" prefWidth="347.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="65.0">
             <columns>
                 <TableColumn fx:id="dateTableColumn" editable="false" prefWidth="75.0" text="date" />

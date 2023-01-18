@@ -97,6 +97,9 @@ INSERT INTO "segment" ("id","raceID","location","distance") VALUES (3,1,'laatste
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (4,2,'stadspark',2300);
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (5,2,'door de heide',3000);
 INSERT INTO "segment" ("id","raceID","location","distance") VALUES (6,2,'brug',500);
+INSERT INTO "segment" ("id","raceID","location","distance") VALUES (7,4,'genkcentrum niffo',1000);
+INSERT INTO "segment" ("id","raceID","location","distance") VALUES (8,4,'in de khanaal',2000);
+INSERT INTO "segment" ("id","raceID","location","distance") VALUES (9,4,'genk shtation',500);
 
 INSERT INTO "volunteer" ("id","firstName","familyName","password", "username") VALUES (1,'Jef','Bezos',null,'');
 INSERT INTO "volunteer" ("id","firstName","familyName","password", "username") VALUES (2,'Steve','Jobs',null,'');
@@ -110,7 +113,7 @@ INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (4,1
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (1,4,1,8700);
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (2,4,2,9800);
 INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (3,4,3,6300);
-INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (4,4,3,2670);
+INSERT INTO "runner_race" ("runnerID","raceID","shirtNumber","time") VALUES (4,4,4,2670);
 
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,1,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (1,2,0);
@@ -123,9 +126,15 @@ INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (2,4,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (3,1,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (3,2,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (3,3,0);
+INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (3,4,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (4,1,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (4,2,0);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (4,3,0);
+INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (4,4,0);
+INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (7,4,370);
+INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (8,4,800);
+INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (9,4,50);
+
 
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (1,1,"bevoorrading");
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (2,1,"richtingaangever");
