@@ -188,7 +188,10 @@ public class EditSegmentController {
         }
 
         try {
-            Integer.parseInt(distanceTextField.getText());
+            if(Integer.parseInt(distanceTextField.getText()) <= 0){
+                distanceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
         } catch (NumberFormatException exception) {
             distanceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;

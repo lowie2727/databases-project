@@ -311,14 +311,20 @@ public class EditRaceController {
         }
 
         try {
-            Integer.parseInt(distanceTextField.getText());
+            if (Integer.parseInt(distanceTextField.getText()) <= 0) {
+                distanceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
         } catch (NumberFormatException exception) {
             distanceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
 
         try {
-            Double.parseDouble(priceTextField.getText());
+            if (Double.parseDouble(priceTextField.getText()) <= 0) {
+                priceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
         } catch (NumberFormatException exception) {
             priceTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;

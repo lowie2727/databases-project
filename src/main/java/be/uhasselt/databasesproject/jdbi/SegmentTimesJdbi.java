@@ -44,7 +44,8 @@ public class SegmentTimesJdbi implements JdbiInterface<SegmentTimes> {
 
     @Override
     public void delete(SegmentTimes segmentTimes) {
-        String query = "DELETE FROM segment_times WHERE segmentID = :segmentId AND runnerID = :runnerId";
+        String query = "DELETE FROM segment_times " +
+                "WHERE segmentID = :segmentId AND runnerID = :runnerId";
 
         jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(segmentTimes)

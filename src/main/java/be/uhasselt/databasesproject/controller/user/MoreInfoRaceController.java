@@ -23,9 +23,6 @@ public class MoreInfoRaceController {
     private Text distanceText;
 
     @FXML
-    private Text errorMessageText;
-
-    @FXML
     private Text nameRunnerText;
 
     @FXML
@@ -68,7 +65,6 @@ public class MoreInfoRaceController {
     @FXML
     void initialize() {
         cancelButton.setOnAction(event -> SwitchAnchorPane.goToRunnerUser(runner.getId()));
-        errorMessageText.setText("");
     }
 
     public void inflateUI(Race race, Runner runner) {

@@ -16,6 +16,7 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
     @Override
     public List<Runner> getAll() {
         String query = "SELECT * FROM runner";
+
         return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapToBean(Runner.class)
                 .list());
@@ -70,7 +71,8 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
     }
 
     public Runner getByUsername(String username) {
-        String query = "SELECT * FROM runner WHERE username = :username";
+        String query = "SELECT * FROM runner " +
+                "WHERE username = :username";
 
         return jdbi.withHandle(handle -> handle.createQuery(query)
                 .bind("username", username)
@@ -79,7 +81,8 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
     }
 
     public String getHashedPassword(int id) {
-        String query = "SELECT password FROM runner WHERE id = :id";
+        String query = "SELECT password FROM runner " +
+                "WHERE id = :id";
 
         return jdbi.withHandle(handle -> handle.createQuery(query)
                 .bind("id", id)
@@ -88,7 +91,8 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
     }
 
     private int getIdLatestAddedRunner() {
-        String query = "SELECT seq FROM SQLITE_SEQUENCE WHERE name='runner'";
+        String query = "SELECT seq FROM SQLITE_SEQUENCE " +
+                "WHERE name='runner'";
 
         return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapTo(Integer.class)
@@ -96,7 +100,8 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
     }
 
     public void insertIntoSegmentTimes(int raceId) {
-        String query = "INSERT INTO segment_times (runnerID, segmentID, time) SELECT :runnerId, segment.id, 0 FROM segment WHERE raceID = :raceId";
+        String query = "INSERT INTO segment_times (runnerID, segmentID, time) " +
+                "SELECT :runnerId, segment.id, 0 FROM segment WHERE raceID = :raceId";
 
         jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bind("runnerId", getIdLatestAddedRunner())
@@ -105,7 +110,8 @@ public class RunnerJdbi implements JdbiInterface<Runner> {
     }
 
     public void insertIntoSegmentTimes(int raceId, int runnerId) {
-        String query = "INSERT INTO segment_times (runnerID, segmentID, time) SELECT :runnerId, segment.id, 0 FROM segment WHERE raceID = :raceId";
+        String query = "INSERT INTO segment_times (runnerID, segmentID, time) " +
+                "SELECT :runnerId, segment.id, 0 FROM segment WHERE raceID = :raceId";
 
         jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bind("runnerId", runnerId)

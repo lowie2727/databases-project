@@ -4,6 +4,18 @@
 
 running race
 
+default login admin
+- username: admin
+- password: admin
+
+default login user
+- username: Joe1
+- password: f
+
+default login volunteer
+- username: bobby1
+- password: f
+
 ## run program
 
 JDK 11 or higher required
@@ -17,11 +29,6 @@ to run the program, execute the following command
 ```bash
 ./gradlew run --build-cache --parallel --no-watch-fs
 ```
-
-## TODO
-
-- [ ] use SQLite CHECK constraints on columns (e.g. check names for special characters)
-- [ ] update diagram to latest version
 
 ## diagram
 

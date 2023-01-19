@@ -186,7 +186,10 @@ public class EditRunnerRaceController {
         resetTextFieldBorder();
 
         try {
-            Integer.parseInt(timeTextField.getText());
+            if(Integer.parseInt(timeTextField.getText()) < 0){
+                timeTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
         } catch (NumberFormatException exception) {
             timeTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;

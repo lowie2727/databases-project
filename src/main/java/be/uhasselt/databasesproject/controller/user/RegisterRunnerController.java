@@ -234,21 +234,30 @@ public class RegisterRunnerController {
         }
 
         try {
-            Integer.parseInt(ageTextField.getText());
+            if(Integer.parseInt(ageTextField.getText()) < 12){
+                ageTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
         } catch (NumberFormatException exception) {
             ageTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
 
         try {
-            Double.parseDouble(weightTextField.getText());
+            if(Double.parseDouble(weightTextField.getText()) <= 0){
+                weightTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
         } catch (NumberFormatException exception) {
             weightTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
         }
 
         try {
-            Double.parseDouble(lengthTextField.getText());
+            if(Double.parseDouble(lengthTextField.getText()) <= 0){
+                lengthTextField.setBorder(Border.stroke(Paint.valueOf(color)));
+                status = false;
+            }
         } catch (NumberFormatException exception) {
             lengthTextField.setBorder(Border.stroke(Paint.valueOf(color)));
             status = false;
