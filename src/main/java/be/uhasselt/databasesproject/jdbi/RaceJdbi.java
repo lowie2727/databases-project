@@ -15,21 +15,29 @@ public class RaceJdbi implements JdbiInterface<Race> {
 
     @Override
     public List<Race> getAll() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM race")
+        String query = "SELECT * FROM race";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapToBean(Race.class)
                 .list());
     }
 
     @Override
     public void insert(Race race) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO race (date, name, distance, price) VALUES (:date, :name, :distance, :price)")
+        String query = "INSERT INTO race (date, name, distance, price) " +
+                "VALUES (:date, :name, :distance, :price)";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(race)
                 .execute());
     }
 
     @Override
     public void update(Race race) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE race SET date = :date, name = :name, distance = :distance, price = :price WHERE id = :id")
+        String query = "UPDATE race SET date = :date, name = :name, distance = :distance, price = :price " +
+                "WHERE id = :id";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(race)
                 .execute());
     }
@@ -37,33 +45,49 @@ public class RaceJdbi implements JdbiInterface<Race> {
     @Override
     public void delete(Race race) {
         jdbi.withHandle(handle -> {
-            handle.createUpdate("DELETE FROM race WHERE id = :id").bindBean(race).execute();
             handle.createUpdate("DELETE FROM volunteer_race WHERE raceID = :id").bindBean(race).execute();
             handle.createUpdate("DELETE FROM runner_race WHERE raceID = :id").bindBean(race).execute();
-            return handle.createUpdate("DELETE FROM segment WHERE raceID = :id").bindBean(race).execute();
+            handle.createUpdate("DELETE FROM segment_times WHERE " +
+                            "segment_times.segmentID IN (SELECT segment.id FROM segment " +
+                            "WHERE segment.raceID = :id)")
+                    .bindBean(race).execute();
+            handle.createUpdate("DELETE FROM segment WHERE raceID = :id").bindBean(race).execute();
+            return handle.createUpdate("DELETE FROM race WHERE id = :id").bindBean(race).execute();
         });
     }
 
     public List<Race> getAllUpcoming() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM race WHERE date > date('now', 'localtime')")
+        String query = "SELECT * FROM race " +
+                "WHERE date > date('now', 'localtime')";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapToBean(Race.class)
                 .list());
     }
 
     public List<Race> getAllPrevious() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM race WHERE date < date('now', 'localtime')")
+        String query = "SELECT * FROM race " +
+                "WHERE date < date('now', 'localtime')";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapToBean(Race.class)
                 .list());
     }
 
     public int getIdLatestAddedRace() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name = 'race'")
+        String query = "SELECT seq FROM SQLITE_SEQUENCE " +
+                "WHERE name = 'race'";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapTo(Integer.class)
                 .one());
     }
 
     public Race getById(int raceId) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM race WHERE id = :raceId")
+        String query = "SELECT * FROM race " +
+                "WHERE id = :raceId";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .bind("raceId", raceId)
                 .mapToBean(Race.class)
                 .one());

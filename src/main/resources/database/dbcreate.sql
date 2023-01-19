@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS "runner" (
 	"age"			INTEGER NOT NULL,
 	"weight"		REAL NOT NULL,
 	"length"		REAL NOT NULL,
+	"username"	    TEXT,
     "password"	    TEXT,
-    "username"	    TEXT,
 	"streetName"	TEXT NOT NULL,
 	"houseNumber"	TEXT NOT NULL,
 	"boxNumber"		TEXT,
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS "volunteer" (
 	"id"			INTEGER NOT NULL UNIQUE,
 	"firstName"		TEXT NOT NULL,
 	"familyName"	TEXT NOT NULL,
-	"password"	    TEXT,
 	"username"	    TEXT,
+	"password"	    TEXT,
 
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
@@ -71,14 +71,6 @@ CREATE TABLE IF NOT EXISTS "volunteer_race" (
 	PRIMARY KEY("volunteerID","raceID"),
 	FOREIGN KEY("raceID") REFERENCES "race"("id"),
 	FOREIGN KEY("volunteerID") REFERENCES "volunteer"("id")
-);
-DROP TABLE IF EXISTS "global_ranking";
-CREATE TABLE IF NOT EXISTS "global_ranking" (
-	"runnerID"		    INTEGER NOT NULL UNIQUE,
-	"prizeMoney"	    INTEGER NOT NULL,
-	"averageSpeed"		REAL NOT NULL,
-	PRIMARY KEY("runnerID"),
-	FOREIGN KEY("runnerID") REFERENCES "runner"("id")
 );
 
 INSERT INTO "race" ("id","date","name","distance","price") VALUES (1,'2023-11-14','Dwars door Gent',10000,5.0);
@@ -135,12 +127,6 @@ INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (7,4,370);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (8,4,800);
 INSERT INTO "segment_times" ("segmentID","runnerID","time") VALUES (9,4,50);
 
-
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (1,1,"bevoorrading");
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (2,1,"richtingaangever");
 INSERT INTO "volunteer_race" ("volunteerID","raceID","job") VALUES (3,1,"richtingaangever");
-
-INSERT INTO "global_ranking" ("runnerID","prizeMoney","averageSpeed") VALUES (1,0,0);
-INSERT INTO "global_ranking" ("runnerID","prizeMoney","averageSpeed") VALUES (2,0,0);
-INSERT INTO "global_ranking" ("runnerID","prizeMoney","averageSpeed") VALUES (3,0,0);
-INSERT INTO "global_ranking" ("runnerID","prizeMoney","averageSpeed") VALUES (4,0,0);

@@ -154,11 +154,7 @@ public class RegisterRunnerController {
 
     private boolean checkUsernameExists(String username) {
         RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
-        List<String> usernames = runnerJdbi.getAllUsernames();
-
-        boolean exists = usernames.contains(username);
-
-        return exists;
+        return runnerJdbi.doesUsernameExists(username);
     }
 
     private void insertRunner(Runner runner) {

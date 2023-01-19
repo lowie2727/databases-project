@@ -15,13 +15,18 @@ public class SegmentJdbi implements JdbiInterface<Segment> {
 
     @Override
     public List<Segment> getAll() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM segment")
+        String query = "SELECT * FROM segment";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapToBean(Segment.class)
                 .list());
     }
 
     public List<Segment> getAllByRaceId(int raceId) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM segment WHERE raceID = :raceId")
+        String query = "SELECT * FROM segment " +
+                "WHERE raceID = :raceId";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .bind("raceId", raceId)
                 .mapToBean(Segment.class)
                 .list());
@@ -29,20 +34,29 @@ public class SegmentJdbi implements JdbiInterface<Segment> {
 
     @Override
     public void insert(Segment segment) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment (raceID, location, distance) VALUES (:raceId, :location, :distance)")
+        String query = "INSERT INTO segment (raceID, location, distance) " +
+                "VALUES (:raceId, :location, :distance)";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(segment)
                 .execute());
     }
 
     @Override
     public void update(Segment segment) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment SET raceID = :raceId, location = :location, distance = :distance WHERE id = :id")
+        String query = "UPDATE segment SET raceID = :raceId, location = :location, distance = :distance " +
+                "WHERE id = :id";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(segment)
                 .execute());
     }
 
     public void updateRaceId(Segment segment, int raceId) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment SET raceID = :raceId WHERE id = :id")
+        String query = "UPDATE segment SET raceID = :raceId " +
+                "WHERE id = :id";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(segment)
                 .bind("raceId", raceId)
                 .execute());
@@ -57,7 +71,10 @@ public class SegmentJdbi implements JdbiInterface<Segment> {
     }
 
     public void deleteByRaceId(int raceId) {
-        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM segment WHERE raceID = :raceId")
+        String query = "DELETE FROM segment " +
+                "WHERE raceID = :raceId";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bind("raceId", raceId)
                 .execute());
     }

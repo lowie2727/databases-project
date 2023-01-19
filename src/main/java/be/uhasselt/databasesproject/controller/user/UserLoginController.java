@@ -66,11 +66,12 @@ public class UserLoginController {
         if (isRunner) {
             RunnerJdbi runnerJdbi = new RunnerJdbi(ConnectionManager.CONNECTION_STRING);
             Runner runner;
-            try {
+
+            if (runnerJdbi.doesUsernameExists(username)) {
                 runner = runnerJdbi.getByUsername(username);
                 id = runner.getId();
-            } catch (IllegalStateException e) {
-                errorText.setText("A runner with this id does not exist!");
+            } else {
+                errorText.setText("A runner with this user name does not exist!");
                 usernameTextField.setBorder(Border.stroke(Paint.valueOf("red")));
                 return false;
             }
@@ -83,11 +84,12 @@ public class UserLoginController {
         } else {
             VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
             Volunteer volunteer;
-            try {
+
+            if (volunteerJdbi.doesUsernameExists(username)) {
                 volunteer = volunteerJdbi.getByUsername(username);
                 id = volunteer.getId();
-            } catch (IllegalStateException e) {
-                errorText.setText("A volunteer with this id does not exist!");
+            } else {
+                errorText.setText("A volunteer with this username does not exist!");
                 usernameTextField.setBorder(Border.stroke(Paint.valueOf("red")));
                 return false;
             }

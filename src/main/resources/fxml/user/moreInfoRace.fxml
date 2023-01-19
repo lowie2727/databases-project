@@ -24,7 +24,6 @@
         <Text fx:id="priceText" layoutX="133.0" layoutY="152.0"  AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="130.0" />
         <Text fx:id="timeText" layoutX="133.0" layoutY="152.0"  AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="160.0" />
         <Text fx:id="averageSpeedText" layoutX="133.0" layoutY="152.0"  AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="190.0" />
-
         <Text fx:id="errorMessageText" layoutX="178.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="178.0" />
         <Button fx:id="cancelButton" layoutX="63.0" layoutY="265.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
         <TableView fx:id="tableView" layoutX="330.0" layoutY="16.0" prefHeight="285.0" prefWidth="340.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="35.0">

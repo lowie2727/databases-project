@@ -98,9 +98,7 @@ public class RegisterVolunteerController {
 
     private boolean checkUsernameExists(String username) {
         VolunteerJdbi volunteerJdbi = new VolunteerJdbi(ConnectionManager.CONNECTION_STRING);
-        List<String> usernames = volunteerJdbi.getAllUsernames();
-
-        return usernames.contains(username);
+        return volunteerJdbi.doesUsernameExists(username);
     }
 
     private void addVolunteerToRace() {

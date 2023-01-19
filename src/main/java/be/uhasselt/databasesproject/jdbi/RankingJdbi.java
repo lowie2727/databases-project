@@ -16,7 +16,7 @@ public class RankingJdbi {
     }
 
     public List<RunnerRanking> getGlobalRanking() {
-        String query = "SELECT runner.firstName, runner.familyName, SUM(runner_race.time) AS totalTime, (CAST(SUM(race.distance) AS REAL)/SUM(runner_race.time)) AS averageSpeed FROM runner " +
+        String query = "SELECT runner.firstName, runner.familyName, SUM(runner_race.time) AS totalTime, (CAST(SUM(race.distance) AS REAL)/SUM(runner_race.time)) * 3.6 AS averageSpeed FROM runner " +
                 "INNER JOIN runner_race ON runner.id = runner_race.runnerID " +
                 "INNER JOIN race ON runner_race.raceID = race.id " +
                 "WHERE runner_race.time > 0 " +
@@ -29,7 +29,7 @@ public class RankingJdbi {
     }
 
     public List<RunnerRanking> getRaceRanking(int raceId) {
-        String query = "SELECT runner.firstName, runner.familyName, SUM(runner_race.time) AS totalTime, (CAST(SUM(race.distance) AS REAL)/SUM(runner_race.time)) AS averageSpeed FROM runner " +
+        String query = "SELECT runner.firstName, runner.familyName, SUM(runner_race.time) AS totalTime, (CAST(SUM(race.distance) AS REAL)/SUM(runner_race.time)) * 3.6 AS averageSpeed FROM runner " +
                 "INNER JOIN runner_race ON runner.id = runner_race.runnerID " +
                 "INNER JOIN race ON runner_race.raceID = race.id " +
                 "WHERE runner_race.time > 0 AND race.id = :raceId " +

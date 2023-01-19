@@ -15,28 +15,38 @@ public class SegmentTimesJdbi implements JdbiInterface<SegmentTimes> {
 
     @Override
     public List<SegmentTimes> getAll() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM segment_times")
+        String query = "SELECT * FROM segment_times";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapToBean(SegmentTimes.class)
                 .list());
     }
 
     @Override
     public void insert(SegmentTimes segmentTimes) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO segment_times (runnerID, segmentID, time) VALUES (:runnerId, :segmentId, :time)")
+        String query = "INSERT INTO segment_times (runnerID, segmentID, time) " +
+                "VALUES (:runnerId, :segmentId, :time)";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(segmentTimes)
                 .execute());
     }
 
     @Override
     public void update(SegmentTimes segmentTimes) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE segment_times SET time = :time WHERE runnerID = :runnerId AND segmentID = :segmentId ")
+        String query = "UPDATE segment_times SET time = :time " +
+                "WHERE runnerID = :runnerId AND segmentID = :segmentId";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(segmentTimes)
                 .execute());
     }
 
     @Override
     public void delete(SegmentTimes segmentTimes) {
-        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM segment_times WHERE segmentID = :segmentId AND runnerID = :runnerId")
+        String query = "DELETE FROM segment_times WHERE segmentID = :segmentId AND runnerID = :runnerId";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(segmentTimes)
                 .execute());
     }

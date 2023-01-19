@@ -16,33 +16,47 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
 
     @Override
     public List<RunnerRace> getAll() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM runner_race")
+        String query = "SELECT * FROM runner_race";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapToBean(RunnerRace.class)
                 .list());
     }
 
     public void insert(RunnerRace runnerRace) {
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner_race (runnerID, raceID, shirtNumber, time) VALUES (:runnerId, :raceId, :shirtNumber, :time)")
+        String query = "INSERT INTO runner_race (runnerID, raceID, shirtNumber, time) " +
+                "VALUES (:runnerId, :raceId, :shirtNumber, :time)";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(runnerRace)
                 .execute());
     }
 
     @Override
     public void update(RunnerRace runnerRace) {
-        jdbi.withHandle(handle -> handle.createUpdate("UPDATE runner_race SET shirtNumber = :shirtNumber, time = :time WHERE runnerID = :runnerId AND raceID = :raceId")
+        String query = "UPDATE runner_race SET shirtNumber = :shirtNumber, time = :time " +
+                "WHERE runnerID = :runnerId AND raceID = :raceId";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(runnerRace)
                 .execute());
     }
 
     @Override
     public void delete(RunnerRace runnerRace) {
-        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM runner_race WHERE runnerID = :runnerId AND raceID = :raceId")
+        String query = "DELETE FROM runner_race " +
+                "WHERE runnerID = :runnerId AND raceID = :raceId";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bindBean(runnerRace)
                 .execute());
     }
 
     public void delete(int runnerId, int raceId) {
-        jdbi.withHandle(handle -> handle.createUpdate("DELETE FROM runner_race WHERE runnerID = :runnerId AND raceID = :raceId")
+        String query = "DELETE FROM runner_race " +
+                "WHERE runnerID = :runnerId AND raceID = :raceId";
+
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bind("runnerId", runnerId)
                 .bind("raceId", raceId)
                 .execute());
@@ -50,8 +64,10 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
 
     public void insert(int raceId) {
         int nextShirtNumber = getNextShirtNumber(raceId);
+        String query = "INSERT INTO runner_race (runnerID, raceID, shirtNumber, time) " +
+                "VALUES (:runnerID, :raceID, :shirtNumber, :time)";
 
-        jdbi.withHandle(handle -> handle.createUpdate("INSERT INTO runner_race (runnerID, raceID, shirtNumber, time) VALUES (:runnerID, :raceID, :shirtNumber, :time)")
+        jdbi.withHandle(handle -> handle.createUpdate(query)
                 .bind("runnerID", getIdLatestAddedRunner())
                 .bind("raceID", raceId)
                 .bind("shirtNumber", nextShirtNumber)
@@ -60,13 +76,19 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
     }
 
     public int getIdLatestAddedRunner() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT seq FROM SQLITE_SEQUENCE WHERE name='runner'")
+        String query = "SELECT seq FROM SQLITE_SEQUENCE " +
+                "WHERE name='runner'";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .mapTo(Integer.class)
                 .one());
     }
 
     public int getNextShirtNumber(int raceId) {
-        Integer shirtNumber = jdbi.withHandle(handle -> handle.createQuery("SELECT MAX(shirtNumber) FROM runner_race WHERE raceID = :raceID")
+        String query = "SELECT MAX(shirtNumber) FROM runner_race " +
+                "WHERE raceID = :raceID";
+
+        Integer shirtNumber = jdbi.withHandle(handle -> handle.createQuery(query)
                 .bind("raceID", raceId)
                 .mapTo(Integer.class).one());
 
@@ -79,25 +101,24 @@ public class RunnerRaceJdbi implements JdbiInterface<RunnerRace> {
     }
 
     public List<Race> getRegisteredRaces(int runnerId) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT race.id, race.date, race.name, race.distance, race.price FROM runner_race INNER JOIN race ON runner_race.raceID = race.id WHERE runner_race.runnerID = :runnerId")
+        String query = "SELECT race.id, race.date, race.name, race.distance, race.price FROM runner_race " +
+                "INNER JOIN race ON runner_race.raceID = race.id " +
+                "WHERE runner_race.runnerID = :runnerId";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .bind("runnerId", runnerId)
                 .mapToBean(Race.class)
                 .list());
     }
 
     public RunnerRace getRunnerRaceById(int runnerId, int raceId) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM runner_race WHERE runnerID = :runnerId AND raceID = :raceId")
+        String query = "SELECT * FROM runner_race " +
+                "WHERE runnerID = :runnerId AND raceID = :raceId";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
                 .bind("runnerId", runnerId)
                 .bind("raceId", raceId)
                 .mapToBean(RunnerRace.class)
-                .one());
-    }
-
-    public int getTime(int runnerId, int raceId) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT time FROM runner_race WHERE runnerID= :runnerId AND raceID = :raceId")
-                .bind("runnerId", runnerId)
-                .bind("raceId", raceId)
-                .mapTo(Integer.class)
                 .one());
     }
 }
